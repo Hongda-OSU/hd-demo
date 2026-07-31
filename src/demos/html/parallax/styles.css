@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  height: 220vh;
+  background: #0d0d17;
+  color: #eee;
+  font-family: system-ui, sans-serif;
+}
+
+.layer {
+  position: fixed;
+  inset: 0;
+}
+
+.bg {
+  background: radial-gradient(circle at 30% 30%, #23234a, transparent 60%);
+}
+
+.mid {
+  background: radial-gradient(circle at 70% 60%, #4a2350, transparent 55%);
+}
+
+.content {
+  position: relative;
+  padding-top: 40vh;
+  text-align: center;
+}

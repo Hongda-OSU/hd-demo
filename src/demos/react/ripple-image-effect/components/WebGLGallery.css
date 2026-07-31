@@ -1,0 +1,42 @@
+.webgl-gallery-container {
+  background: black;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.webgl-gallery-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.webgl-gallery-hover-image {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.webgl-gallery-list {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 45rem;
+  max-width: 90vw;
+}
+
+.webgl-gallery-item {
+  padding: 2.5rem 0;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  border-bottom: 2px solid white;
+}
+
+.webgl-gallery-item:first-child {
+  border-top: 2px solid white;
+}
