@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Sandpack } from '@codesandbox/sandpack-react'
-import { sandpackDark } from '@codesandbox/sandpack-themes'
+import { atomDark, sandpackDark } from '@codesandbox/sandpack-themes'
 import './sandpack-fill.css'
 import { availableVersions, type Project, type Version } from '../lib/loadDemos'
 import { sandpackSetup, templateFor } from '../lib/sandpack'
@@ -37,8 +37,16 @@ interface DemoViewProps {
 
 export default function DemoView({ project, version, onVersionChange }: DemoViewProps) {
   const { ref: boxRef, height } = useMeasuredHeight()
+
+  // sandpackDark has the neutral greys we want, but its syntax palette is all
+  // one hue — keyword, string and property are each a shade of lime, so nothing
+  // reads apart. Surfaces from sandpackDark, syntax from atomDark's One Dark.
   const theme = useMemo(
-    () => ({ ...sandpackDark, layout: { height: `${height}px`, headerHeight: '40px' } }),
+    () => ({
+      ...sandpackDark,
+      syntax: atomDark.syntax,
+      layout: { height: `${height}px`, headerHeight: '40px' },
+    }),
     [height],
   )
 
