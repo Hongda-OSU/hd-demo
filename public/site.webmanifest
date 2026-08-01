@@ -1,0 +1,20 @@
+{
+  "name": "hd-demo",
+  "short_name": "hd-demo",
+  "description": "A showcase of front-end demos — source and live result side by side.",
+  "start_url": "/hd-demo/",
+  "scope": "/hd-demo/",
+  "display": "standalone",
+  "background_color": "#151515",
+  "theme_color": "#151515",
+  "icons": [
+    { "src": "/hd-demo/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/hd-demo/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    {
+      "src": "/hd-demo/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
