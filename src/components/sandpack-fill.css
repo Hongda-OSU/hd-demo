@@ -1,0 +1,33 @@
+/*
+ * Sandpack layout overrides.
+ *
+ * Pane height is driven from DemoView, which measures its container and passes
+ * real pixels — percentages don't survive Sandpack's internals. Left here is
+ * pinning CodeMirror, which otherwise sizes to its document, and making the
+ * drag handle visible.
+ *
+ * Nothing here may set `flex` on .sp-stack: the preset drives the drag by
+ * writing flexGrow/flexShrink inline, and a competing rule makes the split
+ * jump on the first drag.
+ */
+
+.sp-code-editor,
+.sp-cm,
+.sp-cm .cm-editor,
+.sp-cm .cm-scroller {
+  height: 100%;
+  max-height: none;
+  min-height: 0;
+}
+
+/* The divider IS the drag handle; Sandpack ships it transparent, which hides
+   both the split and the fact that it can be dragged. */
+.sp-resize-handler {
+  background: #3a3a55;
+  transition: background 0.15s ease;
+}
+
+.sp-resize-handler:hover,
+.sp-resize-handler:active {
+  background: #6a6a95;
+}

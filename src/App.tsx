@@ -67,14 +67,27 @@ export default function App() {
         </nav>
       </aside>
 
-      <main style={{ flex: 1, minWidth: 0, overflow: 'auto', padding: 16 }}>
+      {/* overflow:hidden, not auto — main is the height constraint the Sandpack
+          panels resolve against, so it must not grow with its content. */}
+      <main
+        style={{
+          flex: 1,
+          minWidth: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+          padding: 12,
+        }}
+      >
         <button
           onClick={() => setCollapsed((c) => !c)}
           aria-expanded={!collapsed}
           aria-label={collapsed ? 'Show demo list' : 'Hide demo list'}
           title={collapsed ? 'Show demo list' : 'Hide demo list'}
           style={{
-            marginBottom: 12,
+            flexShrink: 0,
+            alignSelf: 'flex-start',
+            marginBottom: 10,
             padding: '6px 10px',
             borderRadius: 6,
             border: '1px solid #2a2a3e',
@@ -87,15 +100,17 @@ export default function App() {
           {collapsed ? '»' : '«'}
         </button>
 
-        {project ? (
-          <DemoView
-            project={project}
-            version={version}
-            onVersionChange={(v) => navigate(project.id, { v })}
-          />
-        ) : (
-          <p>{slug ? `No demo called "${slug}".` : 'No demos yet.'}</p>
-        )}
+        <div style={{ flex: 1, minHeight: 0 }}>
+          {project ? (
+            <DemoView
+              project={project}
+              version={version}
+              onVersionChange={(v) => navigate(project.id, { v })}
+            />
+          ) : (
+            <p>{slug ? `No demo called "${slug}".` : 'No demos yet.'}</p>
+          )}
+        </div>
       </main>
     </div>
   )
