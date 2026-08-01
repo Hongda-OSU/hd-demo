@@ -22,9 +22,15 @@ excluded, since demo code is shown verbatim and keeps its author's style.
 
 ## Things that bite
 
-Sandpack fails silently in these four ways — each one looks like your own bug
-and costs an afternoon. Everything else about the project is in
+Sandpack fails silently in these ways — each one looks like your own bug and
+costs an afternoon. Everything else about the project is in
 [README.md](README.md) or commented where it happens.
+
+- **`DemoView` and `EmbedView` must stay on the same `<Sandpack>` preset.**
+  EmbedView once composed the parts by hand, and that second path quietly lost
+  whatever the preset supplies — theme, pane heights — every time DemoView
+  changed. It rendered light, then zero-height, while the sandbox ran and
+  logged normally behind it. Broken for several commits before anyone looked.
 
 - **React entry**: Sandpack's react template ships its own `/App.js`. An
   extensionless `import App from "./App"` resolves to it instead of the demo's

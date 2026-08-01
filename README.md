@@ -84,6 +84,7 @@ Icon buttons, top right. Hover any of them for a label.
 | HTML5 shield      | Switches to the HTML version — the pair shows only when both exist   |
 | React atom        | Switches to the React version                                        |
 | Crate, with count | Lists npm dependencies and external resources; disabled at 0         |
+| Arrow leaving box | Opens the bare preview in a new tab                                  |
 | `< >`             | Copies the `<iframe>` snippet for the current view; ticks on success |
 
 `«` collapses the sidebar; the choice is remembered.
