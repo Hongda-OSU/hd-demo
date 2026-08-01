@@ -51,12 +51,31 @@ interface DemoViewProps {
 export default function DemoView({ project, version, onVersionChange }: DemoViewProps) {
   const { ref: boxRef, height } = useMeasuredHeight()
   const [copied, setCopied] = useState(false)
+  const [showDeps, setShowDeps] = useState(false)
 
   useEffect(() => {
     if (!copied) return
     const timer = setTimeout(() => setCopied(false), 2000)
     return () => clearTimeout(timer)
   }, [copied])
+
+  // Close the dependency panel on Escape or a click anywhere outside it.
+  useEffect(() => {
+    if (!showDeps) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setShowDeps(false)
+    const onClick = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest('[data-deps]')) setShowDeps(false)
+    }
+    document.addEventListener('keydown', onKey)
+    document.addEventListener('click', onClick)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.removeEventListener('click', onClick)
+    }
+  }, [showDeps])
+
+  // Switching demo or version should not leave a stale panel open.
+  useEffect(() => setShowDeps(false), [project.id, version])
 
   // sandpackDark has the neutral greys we want, but its syntax palette is all
   // one hue — keyword, string and property are each a shade of lime, so nothing
@@ -77,9 +96,19 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
   if (!variant) return <p>This demo has no versions.</p>
 
   const setup = sandpackSetup(variant, active)
+  const dependencies = Object.entries(variant.config.dependencies || {})
+  const externals = variant.config.externalResources || []
+  const depCount = dependencies.length + externals.length
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+    <div
+      style={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: 0,
+      }}
+    >
       <header
         style={{
           flexShrink: 0,
@@ -114,7 +143,13 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
             does. The version tabs switch what you are looking at; Embed is an
             action, so it sits apart rather than reading as a third version. */}
         <div
-          style={{ display: 'flex', gap: 6, marginLeft: 'auto', flexShrink: 0, paddingLeft: 12 }}
+          style={{
+            display: 'flex',
+            gap: 6,
+            marginLeft: 'auto',
+            flexShrink: 0,
+            paddingLeft: 12,
+          }}
         >
           {available.length > 1 && (
             <>
@@ -138,9 +173,103 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
                   </button>
                 ))}
               </div>
-              <span aria-hidden style={{ width: 1, background: 'var(--border)', margin: '0 4px' }} />
+              <span
+                aria-hidden
+                style={{
+                  width: 1,
+                  background: 'var(--border)',
+                  margin: '0 4px',
+                }}
+              />
             </>
           )}
+
+          {/* Always rendered, even at zero: "depends on nothing" is worth saying
+              about a plain three-file demo, and a button that came and went with
+              the version would shift the tabs out from under the cursor. */}
+          <div data-deps style={{ position: 'relative' }}>
+            <button
+              onClick={() => setShowDeps((s) => !s)}
+              disabled={depCount === 0}
+              aria-expanded={showDeps}
+              title={
+                depCount === 0 ? 'No libraries — plain HTML, CSS and JS' : 'What this demo pulls in'
+              }
+              style={{
+                padding: '4px 12px',
+                borderRadius: 6,
+                border: '1px solid var(--border)',
+                background: showDeps ? 'var(--bg-active)' : 'transparent',
+                color: showDeps ? 'var(--text)' : 'var(--text-muted)',
+                fontSize: 12,
+                cursor: depCount === 0 ? 'default' : 'pointer',
+                opacity: depCount === 0 ? 0.5 : 1,
+              }}
+            >
+              Libraries ({depCount})
+            </button>
+
+            {showDeps && (
+              // Overlaid rather than inline: an inline panel would shrink the
+              // measured box and resize the editor every time it opens.
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 6px)',
+                  right: 0,
+                  zIndex: 10,
+                  minWidth: 260,
+                  maxWidth: 420,
+                  padding: 12,
+                  borderRadius: 8,
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg-raised)',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.45)',
+                  fontSize: 12,
+                  textAlign: 'left',
+                }}
+              >
+                {dependencies.length > 0 && (
+                  <>
+                    <div style={{ color: 'var(--text-muted)', marginBottom: 6 }}>
+                      npm dependencies
+                    </div>
+                    <ul style={{ margin: '0 0 10px', paddingLeft: 16 }}>
+                      {dependencies.map(([name, range]) => (
+                        <li key={name} style={{ marginBottom: 2 }}>
+                          <code>
+                            {name}@{range}
+                          </code>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+
+                {externals.length > 0 && (
+                  <>
+                    <div style={{ color: 'var(--text-muted)', marginBottom: 6 }}>
+                      External resources
+                    </div>
+                    <ul style={{ margin: 0, paddingLeft: 16 }}>
+                      {externals.map((url) => (
+                        <li key={url} style={{ marginBottom: 2, wordBreak: 'break-all' }}>
+                          <a
+                            href={url}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{ color: 'var(--text)' }}
+                          >
+                            {url}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
 
           <button
             onClick={async () => {
