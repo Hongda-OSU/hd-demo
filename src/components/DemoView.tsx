@@ -4,6 +4,19 @@ import { atomDark, sandpackDark } from '@codesandbox/sandpack-themes'
 import './sandpack-fill.css'
 import { availableVersions, type Project, type Version } from '../lib/loadDemos'
 import { sandpackSetup, templateFor } from '../lib/sandpack'
+import { CheckIcon, EmbedIcon, HtmlIcon, PackageIcon, ReactIcon } from './icons'
+
+// Square, so an icon sits centred with no label to balance against.
+const iconButton = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 28,
+  height: 28,
+  padding: 0,
+  borderRadius: 6,
+  border: '1px solid var(--border)',
+} as const
 
 /**
  * Measures its own box so Sandpack can be given an explicit pixel height.
@@ -159,17 +172,16 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
                     key={v}
                     onClick={() => onVersionChange(v)}
                     aria-pressed={v === active}
+                    aria-label={v === 'html' ? 'HTML version' : 'React version'}
+                    title={v === 'html' ? 'HTML version' : 'React version'}
                     style={{
-                      padding: '4px 12px',
-                      borderRadius: 6,
-                      border: '1px solid var(--border)',
+                      ...iconButton,
                       background: v === active ? 'var(--bg-active)' : 'transparent',
-                      color: 'var(--text)',
-                      fontSize: 12,
+                      color: v === active ? 'var(--text)' : 'var(--text-muted)',
                       cursor: v === active ? 'default' : 'pointer',
                     }}
                   >
-                    {v.toUpperCase()}
+                    {v === 'html' ? <HtmlIcon /> : <ReactIcon />}
                   </button>
                 ))}
               </div>
@@ -192,21 +204,25 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
               onClick={() => setShowDeps((s) => !s)}
               disabled={depCount === 0}
               aria-expanded={showDeps}
+              aria-label={`Libraries (${depCount})`}
               title={
                 depCount === 0 ? 'No libraries — plain HTML, CSS and JS' : 'What this demo pulls in'
               }
               style={{
-                padding: '4px 12px',
-                borderRadius: 6,
-                border: '1px solid var(--border)',
+                ...iconButton,
+                // The count stays: it is the one thing the icon cannot say, and
+                // it is what tells you whether opening the panel is worthwhile.
+                width: 'auto',
+                gap: 5,
+                padding: '0 9px',
                 background: showDeps ? 'var(--bg-active)' : 'transparent',
                 color: showDeps ? 'var(--text)' : 'var(--text-muted)',
-                fontSize: 12,
                 cursor: depCount === 0 ? 'default' : 'pointer',
                 opacity: depCount === 0 ? 0.5 : 1,
               }}
             >
-              Libraries ({depCount})
+              <PackageIcon />
+              <span style={{ fontSize: 12 }}>{depCount}</span>
             </button>
 
             {showDeps && (
@@ -283,18 +299,16 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
                 window.prompt('Copy the embed snippet:', snippet)
               }
             }}
-            title="Copy an <iframe> snippet for this demo"
+            aria-label="Copy embed snippet"
+            title={copied ? 'Copied' : 'Copy an <iframe> snippet for this demo'}
             style={{
-              padding: '4px 12px',
-              borderRadius: 6,
-              border: '1px solid var(--border)',
+              ...iconButton,
               background: 'transparent',
-              color: 'var(--text-muted)',
-              fontSize: 12,
+              color: copied ? '#62aeef' : 'var(--text-muted)',
               cursor: 'pointer',
             }}
           >
-            {copied ? 'Copied' : 'Embed'}
+            {copied ? <CheckIcon /> : <EmbedIcon />}
           </button>
         </div>
       </header>
