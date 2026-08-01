@@ -1,4 +1,15 @@
+import { atomDark, sandpackDark } from '@codesandbox/sandpack-themes'
 import type { DemoVariant, Version } from './loadDemos'
+
+/**
+ * sandpackDark has the neutral greys we want, but its syntax palette is all one
+ * hue — keyword, string and property are each a shade of lime, so nothing reads
+ * apart. Surfaces and accent from sandpackDark, syntax from atomDark's One Dark.
+ *
+ * Shared so the embed preview matches the site; without it Sandpack falls back
+ * to its light theme and the bare preview comes out white.
+ */
+export const sandpackTheme = { ...sandpackDark, syntax: atomDark.syntax }
 
 export function templateFor(version: Version) {
   return version === 'react' ? 'react' : 'static'

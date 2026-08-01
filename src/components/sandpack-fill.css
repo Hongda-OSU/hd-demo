@@ -20,6 +20,28 @@
   min-height: 0;
 }
 
+.sp-preview-container,
+.sp-preview-iframe {
+  height: 100%;
+  min-height: 0;
+}
+
+/*
+ * Embed page: the editor column is squeezed to zero width rather than removed,
+ * so the view stays on the same code path as the main one. Strip the frame that
+ * makes sense inside a page but not as the whole window.
+ */
+.embed-only .sp-wrapper,
+.embed-only .sp-layout {
+  height: 100vh;
+  border: none;
+  border-radius: 0;
+}
+
+.embed-only .sp-tabs {
+  display: none;
+}
+
 /*
  * Each file tab reserves 20px on the right for a close button. We don't enable
  * closableTabs, so it never appears — but the gap stays, leaving the label

@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Sandpack } from '@codesandbox/sandpack-react'
-import { atomDark, sandpackDark } from '@codesandbox/sandpack-themes'
 import './sandpack-fill.css'
 import { availableVersions, type Project, type Version } from '../lib/loadDemos'
-import { sandpackSetup, templateFor } from '../lib/sandpack'
-import { CheckIcon, EmbedIcon, HtmlIcon, PackageIcon, ReactIcon } from './icons'
+import { sandpackSetup, sandpackTheme, templateFor } from '../lib/sandpack'
+import { CheckIcon, EmbedIcon, ExternalIcon, HtmlIcon, PackageIcon, ReactIcon } from './icons'
 
 // Square, so an icon sits centred with no label to balance against.
 const iconButton = {
@@ -43,15 +42,19 @@ function useMeasuredHeight() {
 }
 
 /**
- * The <iframe> snippet another site would paste to embed this demo.
+ * The bare-preview URL for this demo.
  *
- * Absolute, because the point is to run it off-site — BASE_URL alone is a path.
- * The version is pinned only when the demo has more than one, so single-version
- * demos get a clean URL and stay correct if the other version is added later.
+ * Absolute, because it also goes into a snippet that runs off-site — BASE_URL
+ * alone is a path. The version is pinned only when the demo has more than one,
+ * so single-version demos get a clean URL and stay correct if the other version
+ * is added later.
  */
-function embedSnippet(projectId: string, version: Version, pinVersion: boolean) {
+function embedUrl(projectId: string, version: Version, pinVersion: boolean) {
   const base = `${window.location.origin}${import.meta.env.BASE_URL}embed/${projectId}`
-  const url = pinVersion ? `${base}?v=${version}` : base
+  return pinVersion ? `${base}?v=${version}` : base
+}
+
+function embedSnippet(url: string) {
   return `<iframe src="${url}"\n        style="width:100%;height:520px;border:0"></iframe>`
 }
 
@@ -90,15 +93,8 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
   // Switching demo or version should not leave a stale panel open.
   useEffect(() => setShowDeps(false), [project.id, version])
 
-  // sandpackDark has the neutral greys we want, but its syntax palette is all
-  // one hue — keyword, string and property are each a shade of lime, so nothing
-  // reads apart. Surfaces and accent from sandpackDark, syntax from atomDark.
   const theme = useMemo(
-    () => ({
-      ...sandpackDark,
-      syntax: atomDark.syntax,
-      layout: { height: `${height}px`, headerHeight: '40px' },
-    }),
+    () => ({ ...sandpackTheme, layout: { height: `${height}px`, headerHeight: '40px' } }),
     [height],
   )
 
@@ -112,6 +108,7 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
   const dependencies = Object.entries(variant.config.dependencies || {})
   const externals = variant.config.externalResources || []
   const depCount = dependencies.length + externals.length
+  const previewUrl = embedUrl(project.id, active, available.length > 1)
 
   return (
     <div
@@ -287,9 +284,22 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
             )}
           </div>
 
+          {/* An <a>, not window.open — cmd-click, middle-click and "open in new
+              window" all keep working, and no popup blocker gets involved. */}
+          <a
+            href={previewUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Open preview in a new tab"
+            title="Open preview in a new tab"
+            style={{ ...iconButton, color: 'var(--text-muted)' }}
+          >
+            <ExternalIcon />
+          </a>
+
           <button
             onClick={async () => {
-              const snippet = embedSnippet(project.id, active, available.length > 1)
+              const snippet = embedSnippet(previewUrl)
               try {
                 await navigator.clipboard.writeText(snippet)
                 setCopied(true)

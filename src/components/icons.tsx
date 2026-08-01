@@ -57,6 +57,16 @@ export function EmbedIcon() {
   )
 }
 
+// Arrow leaving a box — opens the preview on its own.
+export function ExternalIcon() {
+  return (
+    <svg {...base}>
+      <path d="M13 9v3.5a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 2 12.5v-8A1.5 1.5 0 0 1 3.5 3H7" />
+      <path d="M10 2h4v4M14 2 7.5 8.5" />
+    </svg>
+  )
+}
+
 export function CheckIcon() {
   return (
     <svg {...base}>
