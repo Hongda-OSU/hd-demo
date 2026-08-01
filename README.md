@@ -69,12 +69,11 @@ whatever you are looking at, so there is no need to write one by hand:
 ></iframe>
 ```
 
-The version is pinned with `?v=` only when a demo has both, so an iframe
-published today doesn't get stuck on the old version if a second one is added
-later.
+`?v=` is added only when a demo has both versions, so a published iframe doesn't
+get stuck on the old one when a second version appears.
 
-GitHub Pages sends no `X-Frame-Options`, so this works without configuration.
-Don't add a restrictive `frame-ancestors` policy or embedding will break.
+GitHub Pages sends no `X-Frame-Options`, so this works out of the box. Don't add
+a restrictive `frame-ancestors` policy or embedding breaks.
 
 ## The header controls
 
@@ -100,33 +99,24 @@ The cost is that dependencies install and bundle **in the browser, at view
 time**. A demo with `three` may take several seconds on first load. That is
 inherent to the approach, not a bug.
 
-Three constraints worth knowing before you write a demo:
+Three constraints when writing a demo — [CLAUDE.md](CLAUDE.md) has the why:
 
-- **Shaders inline as JS template strings.** Sandpack can't resolve `.glsl`
-  imports — there's no `vite-plugin-glsl` inside the sandbox.
-- **React demos don't include their own `main.jsx`.** The mount file is
-  generated from `config.entry`. See [CLAUDE.md](CLAUDE.md) for why.
-- **Read-only means no line numbers.** `readOnly` makes Sandpack render static
-  markup rather than CodeMirror, and line numbers come from CodeMirror.
-
-## Working on the site
-
-```sh
-npm run lint       # oxlint
-npx tsc --noEmit
-npm run build
-npm run format     # prettier; src/demos is excluded on purpose
-```
-
-CI runs the first three, so a failure there blocks the deploy. Demo sources are
-left out of Prettier deliberately — they're shown verbatim in the editor pane,
-so they keep whatever style their author wrote.
+- Shaders inline as JS template strings; `.glsl` imports don't resolve.
+- React demos have no `main.jsx`; it's generated from `config.entry`.
+- Read-only means no line numbers.
 
 ## Deploying
 
-Push to `main`; [the workflow](.github/workflows/deploy.yml) lints, typechecks,
-builds, and publishes to Pages. Already set up — a fresh fork would need
-**Settings → Pages → Source → "GitHub Actions"** turned on once.
+```sh
+npm run lint       # these three also run in CI and gate the deploy
+npx tsc --noEmit
+npm run build
+npm run format     # prettier; src/demos excluded, demo code keeps its own style
+```
+
+Push to `main` and [the workflow](.github/workflows/deploy.yml) publishes to
+Pages. Already set up — a fork would need **Settings → Pages → Source → "GitHub
+Actions"** turned on once.
 
 Pages has no rewrite rules, so `vite.config.js` copies `index.html` to
 `404.html` — that's what lets `/embed/<id>` resolve on a deep link.

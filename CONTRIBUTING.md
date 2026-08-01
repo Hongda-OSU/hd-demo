@@ -42,10 +42,8 @@ chore(deps): pin three to 0.185.1
 ### Body
 
 Optional, but include one whenever the change isn't self-evident. Explain _why_,
-not _what_ — the diff already says what. Wrap at 72 characters.
-
-The Sandpack bugs in this repo are a good example of changes that need a body:
-the fix is one line, but the reason is not guessable from reading it.
+not _what_ — the diff already says what. Wrap at 72 characters. A one-line fix
+whose reason is unguessable is exactly the case for a body:
 
 ```
 fix(sandpack): import entry with extension so App.jsx wins over template
@@ -58,14 +56,13 @@ demo's App.jsx, so every React demo silently rendered "Hello world".
 ## Before committing
 
 ```sh
-npm run lint       # oxlint — react/rules-of-hooks is an error and fails CI
-npx tsc --noEmit   # must pass — CI runs this and will fail the deploy
-npm run build      # must pass
+npm run lint       # all three run in CI and block the deploy
+npx tsc --noEmit
+npm run build
 ```
 
-Then check the demo actually renders in the browser. Sandpack failures are
-runtime-only: a demo can typecheck, build, and still render nothing, because
-the bundling happens in the browser at view time.
+Then load the demo in a browser. Sandpack bundles at view time, so a demo can
+pass all three and still render nothing.
 
 ## Scope of a commit
 
