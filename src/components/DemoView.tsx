@@ -92,7 +92,7 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
 
   // sandpackDark has the neutral greys we want, but its syntax palette is all
   // one hue — keyword, string and property are each a shade of lime, so nothing
-  // reads apart. Surfaces from sandpackDark, syntax from atomDark's One Dark.
+  // reads apart. Surfaces and accent from sandpackDark, syntax from atomDark.
   const theme = useMemo(
     () => ({
       ...sandpackDark,

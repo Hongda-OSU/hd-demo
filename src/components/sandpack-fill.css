@@ -20,6 +20,18 @@
   min-height: 0;
 }
 
+/*
+ * Each file tab reserves 20px on the right for a close button. We don't enable
+ * closableTabs, so it never appears — but the gap stays, leaving the label
+ * visibly left of centre inside the tab and its focus ring.
+ *
+ * Doubled selector: Stitches injects at runtime and would otherwise win the tie
+ * on equal specificity.
+ */
+.sp-tab-container.sp-tab-container {
+  padding-right: 0;
+}
+
 /* The divider IS the drag handle; Sandpack ships it transparent, which hides
    both the split and the fact that it can be dragged. */
 .sp-resize-handler {
