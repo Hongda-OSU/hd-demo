@@ -79,11 +79,14 @@ Don't add a restrictive `frame-ancestors` policy or embedding will break.
 
 ## The header controls
 
-| Control          | Does                                                         |
-| ---------------- | ------------------------------------------------------------ |
-| `HTML` / `REACT` | Switches version — shown only when a demo has both           |
-| `Libraries (n)`  | Lists npm dependencies and external resources, disabled at 0 |
-| `Embed`          | Copies the `<iframe>` snippet for the current view           |
+Icon buttons, top right. Hover any of them for a label.
+
+| Icon              | Does                                                                 |
+| ----------------- | -------------------------------------------------------------------- |
+| HTML5 shield      | Switches to the HTML version — the pair shows only when both exist   |
+| React atom        | Switches to the React version                                        |
+| Crate, with count | Lists npm dependencies and external resources; disabled at 0         |
+| `< >`             | Copies the `<iframe>` snippet for the current view; ticks on success |
 
 `«` collapses the sidebar; the choice is remembered.
 
@@ -135,8 +138,9 @@ Pages has no rewrite rules, so `vite.config.js` copies `index.html` to
 src/
 ├── App.tsx                     # sidebar + routing
 ├── components/
-│   ├── DemoView.tsx            # version tabs + Sandpack
-│   └── EmbedView.tsx           # bare preview for iframes
+│   ├── DemoView.tsx            # header controls + Sandpack
+│   ├── EmbedView.tsx           # bare preview for iframes
+│   └── icons.tsx               # the four header glyphs
 ├── lib/
 │   ├── loadDemos.ts            # glob → project data
 │   ├── sandpack.ts             # template + file setup
