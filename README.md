@@ -4,7 +4,7 @@ A showcase site for front-end demos. Pick one from the sidebar, see its source
 and the running result side by side. Demos can have an HTML version, a React
 version, or both.
 
-Live at `https://hongda-osu.github.io/hd-demo/` once Pages is enabled.
+Live at <https://hongda-osu.github.io/hd-demo/>.
 
 ## Running locally
 
@@ -45,8 +45,7 @@ src/demos/
 }
 ```
 
-A demo needs only one version — the HTML/REACT tabs hide themselves when the
-other doesn't exist.
+A demo needs only one version — the version icons appear only when both exist.
 
 Working with Claude Code, `/add-demo` walks through it one prompt at a time.
 `/html <id>` and `/react <id>` skip straight to a version.
@@ -60,8 +59,8 @@ Working with Claude Code, `/add-demo` walks through it one prompt at a time.
 | `/hd-demo/<id>?v=react` | Same, forcing a version                |
 | `/hd-demo/embed/<id>`   | The result alone — no sidebar, no code |
 
-`/embed/` is meant for other sites. The **Embed** button copies a ready snippet
-for whatever you are looking at, so there is no need to write one by hand:
+`/embed/` is meant for other sites. The `< >` button copies a ready snippet for
+whatever you are looking at, so there is no need to write one by hand:
 
 ```html
 <iframe
@@ -126,8 +125,8 @@ so they keep whatever style their author wrote.
 ## Deploying
 
 Push to `main`; [the workflow](.github/workflows/deploy.yml) lints, typechecks,
-builds, and publishes to Pages. Enable it once at **Settings → Pages → Source
-→ "GitHub Actions"**.
+builds, and publishes to Pages. Already set up — a fresh fork would need
+**Settings → Pages → Source → "GitHub Actions"** turned on once.
 
 Pages has no rewrite rules, so `vite.config.js` copies `index.html` to
 `404.html` — that's what lets `/embed/<id>` resolve on a deep link.

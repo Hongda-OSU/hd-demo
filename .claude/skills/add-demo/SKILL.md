@@ -47,7 +47,7 @@ Don't derive the id from a component name. `WebGLGallery.jsx` became
 
 If the folder already exists, stop and ask rather than overwriting. If the
 _other_ version of the same id exists, this is a second version — reuse its
-`title`, and the HTML/REACT tabs appear automatically.
+`title`, and the version icons appear automatically.
 
 ## Keep the user's code verbatim
 

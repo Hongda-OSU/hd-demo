@@ -9,8 +9,8 @@ Deployed to GitHub Pages via Actions; `base` is `/hd-demo/`.
 Drop a folder into `src/demos/html/<id>/` or `src/demos/react/<id>/` with a
 `config.json` (`title`, `description`, `entry`, optional `dependencies` and
 `externalResources`). `src/lib/loadDemos.ts` picks it up via `import.meta.glob`
-— no registry to edit. A demo may have one or both versions; the HTML/REACT
-tabs hide themselves when only one exists.
+— no registry to edit. A demo may have one or both versions; the version icons
+appear only when both exist.
 
 Skills: `/html <id>` and `/react <id>` scaffold one version of a demo;
 `/add-demo` holds the shared rules both defer to.
