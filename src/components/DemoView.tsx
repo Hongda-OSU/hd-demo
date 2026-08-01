@@ -29,6 +29,19 @@ function useMeasuredHeight() {
   return { ref, height }
 }
 
+/**
+ * The <iframe> snippet another site would paste to embed this demo.
+ *
+ * Absolute, because the point is to run it off-site — BASE_URL alone is a path.
+ * The version is pinned only when the demo has more than one, so single-version
+ * demos get a clean URL and stay correct if the other version is added later.
+ */
+function embedSnippet(projectId: string, version: Version, pinVersion: boolean) {
+  const base = `${window.location.origin}${import.meta.env.BASE_URL}embed/${projectId}`
+  const url = pinVersion ? `${base}?v=${version}` : base
+  return `<iframe src="${url}"\n        style="width:100%;height:520px;border:0"></iframe>`
+}
+
 interface DemoViewProps {
   project: Project
   version: Version | null
@@ -37,6 +50,13 @@ interface DemoViewProps {
 
 export default function DemoView({ project, version, onVersionChange }: DemoViewProps) {
   const { ref: boxRef, height } = useMeasuredHeight()
+  const [copied, setCopied] = useState(false)
+
+  useEffect(() => {
+    if (!copied) return
+    const timer = setTimeout(() => setCopied(false), 2000)
+    return () => clearTimeout(timer)
+  }, [copied])
 
   // sandpackDark has the neutral greys we want, but its syntax palette is all
   // one hue — keyword, string and property are each a shade of lime, so nothing
@@ -69,32 +89,85 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
           marginBottom: 12,
         }}
       >
-        <h1 style={{ margin: 0, fontSize: 16 }}>{variant.config.title || project.id}</h1>
+        <h1 style={{ margin: 0, fontSize: 16, flexShrink: 0 }}>
+          {variant.config.title || project.id}
+        </h1>
         {variant.config.description && (
-          <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>{variant.config.description}</p>
+          // Truncates instead of pushing the controls off the row.
+          <p
+            style={{
+              margin: 0,
+              fontSize: 13,
+              color: 'var(--text-muted)',
+              minWidth: 0,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+            title={variant.config.description}
+          >
+            {variant.config.description}
+          </p>
         )}
 
-        {available.length > 1 && (
-          <div style={{ display: 'flex', gap: 6, marginLeft: 'auto' }}>
-            {available.map((v) => (
-              <button
-                key={v}
-                onClick={() => onVersionChange(v)}
-                style={{
-                  padding: '4px 12px',
-                  borderRadius: 6,
-                  border: '1px solid var(--border)',
-                  background: v === active ? 'var(--bg-active)' : 'transparent',
-                  color: 'var(--text)',
-                  fontSize: 12,
-                  cursor: v === active ? 'default' : 'pointer',
-                }}
-              >
-                {v.toUpperCase()}
-              </button>
-            ))}
-          </div>
-        )}
+        {/* flexShrink:0 so the controls keep their size whatever the description
+            does. The version tabs switch what you are looking at; Embed is an
+            action, so it sits apart rather than reading as a third version. */}
+        <div
+          style={{ display: 'flex', gap: 6, marginLeft: 'auto', flexShrink: 0, paddingLeft: 12 }}
+        >
+          {available.length > 1 && (
+            <>
+              <div role="group" aria-label="Version" style={{ display: 'flex', gap: 6 }}>
+                {available.map((v) => (
+                  <button
+                    key={v}
+                    onClick={() => onVersionChange(v)}
+                    aria-pressed={v === active}
+                    style={{
+                      padding: '4px 12px',
+                      borderRadius: 6,
+                      border: '1px solid var(--border)',
+                      background: v === active ? 'var(--bg-active)' : 'transparent',
+                      color: 'var(--text)',
+                      fontSize: 12,
+                      cursor: v === active ? 'default' : 'pointer',
+                    }}
+                  >
+                    {v.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+              <span aria-hidden style={{ width: 1, background: 'var(--border)', margin: '0 4px' }} />
+            </>
+          )}
+
+          <button
+            onClick={async () => {
+              const snippet = embedSnippet(project.id, active, available.length > 1)
+              try {
+                await navigator.clipboard.writeText(snippet)
+                setCopied(true)
+              } catch {
+                // Clipboard needs a secure context and permission; fall back to
+                // a prompt so the snippet is still reachable either way.
+                window.prompt('Copy the embed snippet:', snippet)
+              }
+            }}
+            title="Copy an <iframe> snippet for this demo"
+            style={{
+              padding: '4px 12px',
+              borderRadius: 6,
+              border: '1px solid var(--border)',
+              background: 'transparent',
+              color: 'var(--text-muted)',
+              fontSize: 12,
+              cursor: 'pointer',
+            }}
+          >
+            {copied ? 'Copied' : 'Embed'}
+          </button>
+        </div>
       </header>
 
       {/* This div is the measured box. Sandpack renders only once it has a real
