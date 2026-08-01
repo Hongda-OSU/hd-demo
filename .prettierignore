@@ -1,0 +1,7 @@
+dist
+node_modules
+package-lock.json
+
+# Demo sources are shown verbatim in the editor pane — they are the artefact,
+# not project code, and each one keeps whatever style its author wrote it in.
+src/demos
