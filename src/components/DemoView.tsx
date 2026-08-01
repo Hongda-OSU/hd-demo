@@ -313,10 +313,12 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
             customSetup={setup.customSetup}
             options={{
               ...setup.options,
+              // No showLineNumbers: readOnly makes Sandpack skip CodeMirror and
+              // render static highlighted markup, and line numbers are a
+              // CodeMirror extension. Setting it here would only mislead.
               readOnly: true,
               showReadOnly: false,
               showTabs: true,
-              showLineNumbers: true,
               resizablePanels: true,
               editorHeight: height,
             }}
