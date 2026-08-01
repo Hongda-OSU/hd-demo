@@ -1,6 +1,6 @@
 import { SandpackProvider, SandpackPreview } from '@codesandbox/sandpack-react'
-import { sandpackSetup, templateFor } from './DemoView'
 import { availableVersions, type Project, type Version } from '../lib/loadDemos'
+import { sandpackSetup, templateFor } from '../lib/sandpack'
 
 interface EmbedViewProps {
   project?: Project

@@ -58,6 +58,7 @@ demo's App.jsx, so every React demo silently rendered "Hello world".
 ## Before committing
 
 ```sh
+npm run lint       # oxlint — react/rules-of-hooks is an error and fails CI
 npx tsc --noEmit   # must pass — CI runs this and will fail the deploy
 npm run build      # must pass
 ```
