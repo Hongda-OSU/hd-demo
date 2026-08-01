@@ -1,0 +1,6 @@
+{
+  "title": "Typing Text Effect",
+  "description": "打字机文字循环效果,带闪烁光标",
+  "entry": "App.jsx",
+  "externalResources": ["https://fonts.googleapis.com/css2?family=VT323&display=swap"]
+}

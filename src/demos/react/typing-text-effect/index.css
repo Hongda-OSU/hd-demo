@@ -1,0 +1,60 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #000;
+  font-family: VT323, monospace;
+}
+
+#root {
+  width: 100%;
+}
+
+.typing-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  color: whitesmoke;
+  font-size: 2rem;
+}
+
+.typing-text {
+  color: white;
+}
+
+.typing-text::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-text::after {
+    animation: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .typing-container {
+    font-size: 1.5rem;
+  }
+}
