@@ -23,11 +23,11 @@
 /* The divider IS the drag handle; Sandpack ships it transparent, which hides
    both the split and the fact that it can be dragged. */
 .sp-resize-handler {
-  background: #3a3a55;
+  background: var(--handle);
   transition: background 0.15s ease;
 }
 
 .sp-resize-handler:hover,
 .sp-resize-handler:active {
-  background: #6a6a95;
+  background: var(--handle-hover);
 }

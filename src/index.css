@@ -1,3 +1,19 @@
+/*
+ * Neutral greys, no hue shift — the JSFiddle / StackBlitz look. Values line up
+ * with Sandpack's own `sandpackDark` theme (#151515 / #252525 / #2F2F2F) so the
+ * shell and the editor read as one surface.
+ */
+:root {
+  --bg: #151515;
+  --bg-raised: #1c1c1c;
+  --bg-active: #252525;
+  --border: #2f2f2f;
+  --text: #e6e6e6;
+  --text-muted: #8c8c8c;
+  --handle: #3a3a3a;
+  --handle-hover: #5a5a5a;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -7,7 +23,7 @@ body,
 #root {
   margin: 0;
   height: 100%;
-  background: #0d0d17;
+  background: var(--bg);
 }
 
 body {

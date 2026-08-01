@@ -33,12 +33,13 @@ export default function App() {
   if (isEmbed) return <EmbedView project={project} version={version} />
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: '#0d0d17', color: '#eee' }}>
+    <div style={{ display: 'flex', height: '100vh', background: 'var(--bg)', color: 'var(--text)' }}>
       <aside
         style={{
           width: collapsed ? 0 : SIDEBAR_WIDTH,
           flexShrink: 0,
-          borderRight: collapsed ? 'none' : '1px solid #222',
+          background: 'var(--bg-raised)',
+          borderRight: collapsed ? 'none' : '1px solid var(--border)',
           overflowX: 'hidden',
           overflowY: 'auto',
           transition: 'width 0.2s ease',
@@ -56,8 +57,8 @@ export default function App() {
               style={{
                 display: 'block',
                 padding: '12px 16px',
-                background: p.id === slug ? '#1a1a2e' : 'transparent',
-                color: '#eee',
+                background: p.id === slug ? 'var(--bg-active)' : 'transparent',
+                color: 'var(--text)',
                 textDecoration: 'none',
               }}
             >
@@ -90,9 +91,9 @@ export default function App() {
             marginBottom: 10,
             padding: '6px 10px',
             borderRadius: 6,
-            border: '1px solid #2a2a3e',
+            border: '1px solid var(--border)',
             background: 'transparent',
-            color: '#8b8b9e',
+            color: 'var(--text-muted)',
             cursor: 'pointer',
             lineHeight: 1,
           }}

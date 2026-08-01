@@ -13,7 +13,7 @@ export default function EmbedView({ project, version }: EmbedViewProps) {
   const active = version && available.includes(version) ? version : available[0]
 
   if (!project || !active) {
-    return <p style={{ color: '#eee', padding: 16 }}>Demo not found.</p>
+    return <p style={{ color: 'var(--text)', padding: 16 }}>Demo not found.</p>
   }
 
   const setup = sandpackSetup(project[active]!, active)

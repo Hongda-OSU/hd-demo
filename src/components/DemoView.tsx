@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Sandpack } from '@codesandbox/sandpack-react'
-import { atomDark } from '@codesandbox/sandpack-themes'
+import { sandpackDark } from '@codesandbox/sandpack-themes'
 import './sandpack-fill.css'
 import { availableVersions, type Project, type Version } from '../lib/loadDemos'
 import { sandpackSetup, templateFor } from '../lib/sandpack'
@@ -38,7 +38,7 @@ interface DemoViewProps {
 export default function DemoView({ project, version, onVersionChange }: DemoViewProps) {
   const { ref: boxRef, height } = useMeasuredHeight()
   const theme = useMemo(
-    () => ({ ...atomDark, layout: { height: `${height}px`, headerHeight: '40px' } }),
+    () => ({ ...sandpackDark, layout: { height: `${height}px`, headerHeight: '40px' } }),
     [height],
   )
 
@@ -63,7 +63,7 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
       >
         <h1 style={{ margin: 0, fontSize: 16 }}>{variant.config.title || project.id}</h1>
         {variant.config.description && (
-          <p style={{ margin: 0, fontSize: 13, color: '#8b8b9e' }}>{variant.config.description}</p>
+          <p style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>{variant.config.description}</p>
         )}
 
         {available.length > 1 && (
@@ -75,9 +75,9 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
                 style={{
                   padding: '4px 12px',
                   borderRadius: 6,
-                  border: '1px solid #2a2a3e',
-                  background: v === active ? '#2a2a3e' : 'transparent',
-                  color: '#eee',
+                  border: '1px solid var(--border)',
+                  background: v === active ? 'var(--bg-active)' : 'transparent',
+                  color: 'var(--text)',
                   fontSize: 12,
                   cursor: v === active ? 'default' : 'pointer',
                 }}
