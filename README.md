@@ -53,22 +53,39 @@ Working with Claude Code, `/add-demo` walks through it one prompt at a time.
 
 ## URLs
 
-| Path | Shows |
-| --- | --- |
-| `/hd-demo/` | Redirects to the first demo |
-| `/hd-demo/<id>` | Sidebar + code + result |
-| `/hd-demo/<id>?v=react` | Same, forcing a version |
-| `/hd-demo/embed/<id>` | The result alone — no sidebar, no code |
+| Path                    | Shows                                  |
+| ----------------------- | -------------------------------------- |
+| `/hd-demo/`             | Redirects to the first demo            |
+| `/hd-demo/<id>`         | Sidebar + code + result                |
+| `/hd-demo/<id>?v=react` | Same, forcing a version                |
+| `/hd-demo/embed/<id>`   | The result alone — no sidebar, no code |
 
-`/embed/` is meant for other sites:
+`/embed/` is meant for other sites. The **Embed** button copies a ready snippet
+for whatever you are looking at, so there is no need to write one by hand:
 
 ```html
-<iframe src="https://hongda-osu.github.io/hd-demo/embed/ripple-image-effect"
-        style="width:100%;height:520px;border:0"></iframe>
+<iframe
+  src="https://hongda-osu.github.io/hd-demo/embed/ripple-image-effect"
+  style="width:100%;height:520px;border:0"
+></iframe>
 ```
+
+The version is pinned with `?v=` only when a demo has both, so an iframe
+published today doesn't get stuck on the old version if a second one is added
+later.
 
 GitHub Pages sends no `X-Frame-Options`, so this works without configuration.
 Don't add a restrictive `frame-ancestors` policy or embedding will break.
+
+## The header controls
+
+| Control          | Does                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| `HTML` / `REACT` | Switches version — shown only when a demo has both           |
+| `Libraries (n)`  | Lists npm dependencies and external resources, disabled at 0 |
+| `Embed`          | Copies the `<iframe>` snippet for the current view           |
+
+`«` collapses the sidebar; the choice is remembered.
 
 ## How it works
 
@@ -81,16 +98,31 @@ The cost is that dependencies install and bundle **in the browser, at view
 time**. A demo with `three` may take several seconds on first load. That is
 inherent to the approach, not a bug.
 
-Two constraints worth knowing before you write a demo:
+Three constraints worth knowing before you write a demo:
 
 - **Shaders inline as JS template strings.** Sandpack can't resolve `.glsl`
   imports — there's no `vite-plugin-glsl` inside the sandbox.
 - **React demos don't include their own `main.jsx`.** The mount file is
   generated from `config.entry`. See [CLAUDE.md](CLAUDE.md) for why.
+- **Read-only means no line numbers.** `readOnly` makes Sandpack render static
+  markup rather than CodeMirror, and line numbers come from CodeMirror.
+
+## Working on the site
+
+```sh
+npm run lint       # oxlint
+npx tsc --noEmit
+npm run build
+npm run format     # prettier; src/demos is excluded on purpose
+```
+
+CI runs the first three, so a failure there blocks the deploy. Demo sources are
+left out of Prettier deliberately — they're shown verbatim in the editor pane,
+so they keep whatever style their author wrote.
 
 ## Deploying
 
-Push to `main`; [the workflow](.github/workflows/deploy.yml) typechecks,
+Push to `main`; [the workflow](.github/workflows/deploy.yml) lints, typechecks,
 builds, and publishes to Pages. Enable it once at **Settings → Pages → Source
 → "GitHub Actions"**.
 
@@ -107,6 +139,7 @@ src/
 │   └── EmbedView.tsx           # bare preview for iframes
 ├── lib/
 │   ├── loadDemos.ts            # glob → project data
+│   ├── sandpack.ts             # template + file setup
 │   └── router.ts               # history-based routing
 └── demos/                      # the demos themselves
 ```

@@ -10,9 +10,7 @@ const COLLAPSED_KEY = 'hd-demo:sidebar-collapsed'
 export default function App() {
   const projects = useMemo(() => loadDemos(), [])
   const { route, navigate, replace } = useRoute()
-  const [collapsed, setCollapsed] = useState(
-    () => localStorage.getItem(COLLAPSED_KEY) === 'true',
-  )
+  const [collapsed, setCollapsed] = useState(() => localStorage.getItem(COLLAPSED_KEY) === 'true')
 
   const isEmbed = route.segments[0] === 'embed'
   const slug = isEmbed ? route.segments[1] : route.segments[0]
@@ -33,7 +31,9 @@ export default function App() {
   if (isEmbed) return <EmbedView project={project} version={version} />
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: 'var(--bg)', color: 'var(--text)' }}>
+    <div
+      style={{ display: 'flex', height: '100vh', background: 'var(--bg)', color: 'var(--text)' }}
+    >
       <aside
         style={{
           width: collapsed ? 0 : SIDEBAR_WIDTH,

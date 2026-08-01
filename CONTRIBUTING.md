@@ -12,14 +12,14 @@
 
 ### Types
 
-| Type | Use for |
-| --- | --- |
-| `feat` | A new demo, or a new capability in the showcase itself |
-| `fix` | Something was broken and now isn't |
-| `docs` | README, CLAUDE.md, this file |
-| `refactor` | Restructuring with no behaviour change |
-| `chore` | Deps, config, CI, tooling |
-| `style` | Formatting only — no logic touched |
+| Type       | Use for                                                |
+| ---------- | ------------------------------------------------------ |
+| `feat`     | A new demo, or a new capability in the showcase itself |
+| `fix`      | Something was broken and now isn't                     |
+| `docs`     | README, CLAUDE.md, this file                           |
+| `refactor` | Restructuring with no behaviour change                 |
+| `chore`    | Deps, config, CI, tooling                              |
+| `style`    | Formatting only — no logic touched                     |
 
 ### Scopes
 
@@ -41,8 +41,8 @@ chore(deps): pin three to 0.185.1
 
 ### Body
 
-Optional, but include one whenever the change isn't self-evident. Explain *why*,
-not *what* — the diff already says what. Wrap at 72 characters.
+Optional, but include one whenever the change isn't self-evident. Explain _why_,
+not _what_ — the diff already says what. Wrap at 72 characters.
 
 The Sandpack bugs in this repo are a good example of changes that need a body:
 the fix is one line, but the reason is not guessable from reading it.
