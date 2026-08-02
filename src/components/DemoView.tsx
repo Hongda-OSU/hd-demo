@@ -3,7 +3,15 @@ import { Sandpack } from '@codesandbox/sandpack-react'
 import './sandpack-fill.css'
 import { availableVersions, type Project, type Version } from '../lib/loadDemos'
 import { sandpackSetup, sandpackTheme, templateFor } from '../lib/sandpack'
-import { CheckIcon, EmbedIcon, ExternalIcon, HtmlIcon, PackageIcon, ReactIcon } from './icons'
+import {
+  CheckIcon,
+  EmbedIcon,
+  ExternalIcon,
+  HtmlIcon,
+  MenuIcon,
+  PackageIcon,
+  ReactIcon,
+} from './icons'
 
 // Square, so an icon sits centred with no label to balance against.
 const iconButton = {
@@ -62,9 +70,19 @@ interface DemoViewProps {
   project: Project
   version: Version | null
   onVersionChange: (version: Version) => void
+  narrow: boolean
+  sidebarCollapsed: boolean
+  onToggleSidebar: () => void
 }
 
-export default function DemoView({ project, version, onVersionChange }: DemoViewProps) {
+export default function DemoView({
+  project,
+  version,
+  onVersionChange,
+  narrow,
+  sidebarCollapsed,
+  onToggleSidebar,
+}: DemoViewProps) {
   const { ref: boxRef, height } = useMeasuredHeight()
   const [copied, setCopied] = useState(false)
   const [showDeps, setShowDeps] = useState(false)
@@ -93,9 +111,18 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
   // Switching demo or version should not leave a stale panel open.
   useEffect(() => setShowDeps(false), [project.id, version])
 
+  /*
+   * Below 768px Sandpack stacks the panes (minWidth: 100% forces the wrap) and
+   * halves their height — but the halving rule excludes .sp-editor and
+   * .sp-preset-column, which is exactly what the preset renders. Both panes take
+   * the full height, the column runs to twice the box, and the preview ends up
+   * below a container that doesn't scroll. So halve it here instead.
+   */
+  const paneHeight = narrow ? Math.floor(height / 2) : height
+
   const theme = useMemo(
-    () => ({ ...sandpackTheme, layout: { height: `${height}px`, headerHeight: '40px' } }),
-    [height],
+    () => ({ ...sandpackTheme, layout: { height: `${paneHeight}px`, headerHeight: '40px' } }),
+    [paneHeight],
   )
 
   const available = availableVersions(project)
@@ -119,19 +146,39 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
         minHeight: 0,
       }}
     >
+      {/* Narrow: this row is the whole toolbar — burger on the left, controls on
+          the right. The title and description drop out; the drawer names the
+          demo, and the row has to fit five controls on a 390px screen. */}
       <header
         style={{
           flexShrink: 0,
           display: 'flex',
-          alignItems: 'baseline',
-          gap: 12,
-          marginBottom: 12,
+          alignItems: narrow ? 'center' : 'baseline',
+          gap: narrow ? 8 : 12,
+          padding: narrow ? '8px 10px' : 0,
+          marginBottom: narrow ? 0 : 12,
+          borderBottom: narrow ? '1px solid var(--border)' : 'none',
+          background: narrow ? 'var(--bg-raised)' : 'transparent',
         }}
       >
-        <h1 style={{ margin: 0, fontSize: 16, flexShrink: 0 }}>
-          {variant.config.title || project.id}
-        </h1>
-        {variant.config.description && (
+        {/* The only sidebar toggle, on both layouts — on narrow it opens the
+            drawer, on desktop it collapses the column. */}
+        <button
+          onClick={onToggleSidebar}
+          aria-expanded={!sidebarCollapsed}
+          aria-label={sidebarCollapsed ? 'Show demo list' : 'Hide demo list'}
+          title={sidebarCollapsed ? 'Show demo list' : 'Hide demo list'}
+          style={{ ...iconButton, background: 'transparent', color: 'var(--text-muted)' }}
+        >
+          <MenuIcon />
+        </button>
+
+        {!narrow && (
+          <h1 style={{ margin: 0, fontSize: 16, flexShrink: 0 }}>
+            {variant.config.title || project.id}
+          </h1>
+        )}
+        {!narrow && variant.config.description && (
           // Truncates instead of pushing the controls off the row.
           <p
             style={{
@@ -344,7 +391,9 @@ export default function DemoView({ project, version, onVersionChange }: DemoView
               showReadOnly: false,
               showTabs: true,
               resizablePanels: true,
-              editorHeight: height,
+              // Written inline onto both columns by the preset, so it outranks
+              // the theme token and has to carry the same halving.
+              editorHeight: paneHeight,
             }}
           />
         )}

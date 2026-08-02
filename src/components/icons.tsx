@@ -57,6 +57,14 @@ export function EmbedIcon() {
   )
 }
 
+export function MenuIcon() {
+  return (
+    <svg {...base}>
+      <path d="M2.5 4h11M2.5 8h11M2.5 12h11" />
+    </svg>
+  )
+}
+
 // Arrow leaving a box — opens the preview on its own.
 export function ExternalIcon() {
   return (

@@ -1,16 +1,36 @@
 import { useEffect, useMemo, useState } from 'react'
 import { loadDemos, projectTitle, VERSIONS, type Version } from './lib/loadDemos'
 import { useRoute } from './lib/router'
+import { isNarrow, useNarrow } from './lib/narrow'
 import DemoView from './components/DemoView'
 import EmbedView from './components/EmbedView'
 
 const SIDEBAR_WIDTH = 240
 const COLLAPSED_KEY = 'hd-demo:sidebar-collapsed'
 
+/**
+ * Sidebar state, remembered — but collapsed by default on a phone, where 240px
+ * of list on a 390px screen leaves nothing for the demo the visitor came for.
+ * An explicit choice still wins, and still persists.
+ */
+function useSidebarCollapsed() {
+  const [collapsed, setCollapsed] = useState(() => {
+    const stored = localStorage.getItem(COLLAPSED_KEY)
+    return stored === null ? isNarrow() : stored === 'true'
+  })
+
+  useEffect(() => {
+    localStorage.setItem(COLLAPSED_KEY, String(collapsed))
+  }, [collapsed])
+
+  return [collapsed, setCollapsed] as const
+}
+
 export default function App() {
   const projects = useMemo(() => loadDemos(), [])
   const { route, navigate, replace } = useRoute()
-  const [collapsed, setCollapsed] = useState(() => localStorage.getItem(COLLAPSED_KEY) === 'true')
+  const [collapsed, setCollapsed] = useSidebarCollapsed()
+  const narrow = useNarrow()
 
   const isEmbed = route.segments[0] === 'embed'
   const slug = isEmbed ? route.segments[1] : route.segments[0]
@@ -24,16 +44,16 @@ export default function App() {
     if (!isEmbed && !slug && projects[0]) replace(projects[0].id)
   }, [isEmbed, slug, projects, replace])
 
-  useEffect(() => {
-    localStorage.setItem(COLLAPSED_KEY, String(collapsed))
-  }, [collapsed])
-
   if (isEmbed) return <EmbedView project={project} version={version} />
+
+  const drawerOpen = narrow && !collapsed
 
   return (
     <div
-      style={{ display: 'flex', height: '100vh', background: 'var(--bg)', color: 'var(--text)' }}
+      style={{ display: 'flex', height: '100dvh', background: 'var(--bg)', color: 'var(--text)' }}
     >
+      {/* Narrow: the sidebar floats over the content as a drawer rather than
+          taking 240 of 390px from the demo itself. */}
       <aside
         style={{
           width: collapsed ? 0 : SIDEBAR_WIDTH,
@@ -43,6 +63,15 @@ export default function App() {
           overflowX: 'hidden',
           overflowY: 'auto',
           transition: 'width 0.2s ease',
+          ...(drawerOpen
+            ? ({
+                position: 'fixed',
+                insetBlock: 0,
+                left: 0,
+                zIndex: 30,
+                boxShadow: '0 0 32px rgba(0, 0, 0, 0.6)',
+              } as const)
+            : null),
         }}
       >
         <nav style={{ width: SIDEBAR_WIDTH }}>
@@ -53,6 +82,7 @@ export default function App() {
               onClick={(e) => {
                 e.preventDefault()
                 navigate(p.id)
+                if (narrow) setCollapsed(true)
               }}
               style={{
                 display: 'block',
@@ -68,6 +98,19 @@ export default function App() {
         </nav>
       </aside>
 
+      {drawerOpen && (
+        <div
+          onClick={() => setCollapsed(true)}
+          aria-hidden
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 20,
+            background: 'rgba(0, 0, 0, 0.55)',
+          }}
+        />
+      )}
+
       {/* overflow:hidden, not auto — main is the height constraint the Sandpack
           panels resolve against, so it must not grow with its content. */}
       <main
@@ -77,41 +120,21 @@ export default function App() {
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
-          padding: 12,
+          padding: narrow ? 0 : 12,
         }}
       >
-        <button
-          onClick={() => setCollapsed((c) => !c)}
-          aria-expanded={!collapsed}
-          aria-label={collapsed ? 'Show demo list' : 'Hide demo list'}
-          title={collapsed ? 'Show demo list' : 'Hide demo list'}
-          style={{
-            flexShrink: 0,
-            alignSelf: 'flex-start',
-            marginBottom: 10,
-            padding: '6px 10px',
-            borderRadius: 6,
-            border: '1px solid var(--border)',
-            background: 'transparent',
-            color: 'var(--text-muted)',
-            cursor: 'pointer',
-            lineHeight: 1,
-          }}
-        >
-          {collapsed ? '»' : '«'}
-        </button>
-
-        <div style={{ flex: 1, minHeight: 0 }}>
-          {project ? (
-            <DemoView
-              project={project}
-              version={version}
-              onVersionChange={(v) => navigate(project.id, { v })}
-            />
-          ) : (
-            <p>{slug ? `No demo called "${slug}".` : 'No demos yet.'}</p>
-          )}
-        </div>
+        {project ? (
+          <DemoView
+            project={project}
+            version={version}
+            onVersionChange={(v) => navigate(project.id, { v })}
+            narrow={narrow}
+            sidebarCollapsed={collapsed}
+            onToggleSidebar={() => setCollapsed((c) => !c)}
+          />
+        ) : (
+          <p style={{ padding: 12 }}>{slug ? `No demo called "${slug}".` : 'No demos yet.'}</p>
+        )}
       </main>
     </div>
   )

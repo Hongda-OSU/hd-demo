@@ -65,3 +65,45 @@
 .sp-resize-handler:active {
   background: var(--handle-hover);
 }
+
+/*
+ * Narrow screens. Sandpack already wraps its panes into a column below 768px
+ * and halves their height, so the stacking is its own doing — what's left is
+ * the framing, which is drawn for a panel sitting inside a page rather than for
+ * one that is the page.
+ */
+@media (max-width: 768px) {
+  .sp-layout {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+
+  /* The drag handle is positioned for a vertical split that isn't there. */
+  .sp-resize-handler {
+    display: none;
+  }
+
+  /*
+   * "Result" over the preview, as a label rather than a component: the pane is
+   * Sandpack's, and a real element would have to be threaded through the preset.
+   */
+  .sp-preview-container::before {
+    content: 'Result';
+    display: block;
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-raised);
+    color: var(--text-muted);
+    font:
+      600 12px system-ui,
+      sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  .sp-preview-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
