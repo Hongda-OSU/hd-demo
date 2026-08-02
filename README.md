@@ -4,7 +4,7 @@ A showcase site for front-end demos. Pick one from the sidebar, see its source
 and the running result side by side. Demos can have an HTML version, a React
 version, or both.
 
-Live at <https://hongda-osu.github.io/hd-demo/>.
+Live at <https://hongdalin.blog/hd-demo/>.
 
 ## Running locally
 
@@ -64,7 +64,7 @@ whatever you are looking at, so there is no need to write one by hand:
 
 ```html
 <iframe
-  src="https://hongda-osu.github.io/hd-demo/embed/ripple-image-effect"
+  src="https://hongdalin.blog/hd-demo/embed/ripple-image-effect"
   style="width:100%;height:520px;border:0"
 ></iframe>
 ```
