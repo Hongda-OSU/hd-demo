@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import type { DemoConfig, Version } from '../lib/loadDemos'
 import { embedSnippet } from '../lib/embed'
 import {
@@ -11,17 +11,85 @@ import {
   ReactIcon,
 } from './icons'
 
-// Square, so an icon sits centred with no label to balance against.
-const iconButton = {
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: 28,
-  height: 28,
-  padding: 0,
-  borderRadius: 6,
-  border: '1px solid var(--border)',
-} as const
+interface IconButtonProps {
+  /** Accessible name, and the tooltip unless `title` overrides it. */
+  label: string
+  title?: string
+  children: ReactNode
+  /** Filled in — the version in view, or the open panel. */
+  active?: boolean
+  disabled?: boolean
+  /** Renders an <a>, so cmd-click and middle-click still work. */
+  href?: string
+  /** aria-pressed for a choice, aria-expanded for a disclosure. */
+  aria?: 'pressed' | 'expanded'
+  onClick?: () => void
+  style?: CSSProperties
+}
+
+/**
+ * Square, so an icon sits centred with no label to balance against.
+ *
+ * Shared because the five controls kept drifting: one set `cursor: pointer`
+ * and the others didn't, one declared a transparent background and the rest
+ * relied on the default.
+ */
+function IconButton({
+  label,
+  title,
+  children,
+  active = false,
+  disabled = false,
+  href,
+  aria,
+  onClick,
+  style,
+}: IconButtonProps) {
+  const base: CSSProperties = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 28,
+    height: 28,
+    padding: 0,
+    borderRadius: 6,
+    border: '1px solid var(--border)',
+    background: active ? 'var(--bg-active)' : 'transparent',
+    color: active ? 'var(--text)' : 'var(--text-muted)',
+    cursor: disabled ? 'default' : 'pointer',
+    opacity: disabled ? 0.5 : 1,
+    ...style,
+  }
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={label}
+        title={title ?? label}
+        style={base}
+      >
+        {children}
+      </a>
+    )
+  }
+
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={label}
+      aria-pressed={aria === 'pressed' ? active : undefined}
+      aria-expanded={aria === 'expanded' ? active : undefined}
+      title={title ?? label}
+      style={base}
+    >
+      {children}
+    </button>
+  )
+}
 
 interface DemoToolbarProps {
   config: DemoConfig
@@ -107,15 +175,15 @@ export default function DemoToolbar({
     >
       {/* The only sidebar toggle, on both layouts — on narrow it opens the
           drawer, on desktop it collapses the column. */}
-      <button
+      <IconButton
+        label={sidebarCollapsed ? 'Show demo list' : 'Hide demo list'}
         onClick={onToggleSidebar}
-        aria-expanded={!sidebarCollapsed}
-        aria-label={sidebarCollapsed ? 'Show demo list' : 'Hide demo list'}
-        title={sidebarCollapsed ? 'Show demo list' : 'Hide demo list'}
-        style={{ ...iconButton, background: 'transparent', color: 'var(--text-muted)' }}
+        aria="expanded"
+        active={!sidebarCollapsed}
+        style={{ background: 'transparent' }}
       >
         <MenuIcon />
-      </button>
+      </IconButton>
 
       {!narrow && (
         <h1 style={{ margin: 0, fontSize: 16, flexShrink: 0 }}>{config.title || fallbackTitle}</h1>
@@ -145,26 +213,18 @@ export default function DemoToolbar({
         {versions.length > 1 && (
           <>
             <div role="group" aria-label="Version" style={{ display: 'flex', gap: 6 }}>
-              {versions.map((v) => {
-                const label = v === 'html' ? 'HTML version' : 'React version'
-                return (
-                  <button
-                    key={v}
-                    onClick={() => onVersionChange(v)}
-                    aria-pressed={v === active}
-                    aria-label={label}
-                    title={label}
-                    style={{
-                      ...iconButton,
-                      background: v === active ? 'var(--bg-active)' : 'transparent',
-                      color: v === active ? 'var(--text)' : 'var(--text-muted)',
-                      cursor: v === active ? 'default' : 'pointer',
-                    }}
-                  >
-                    {v === 'html' ? <HtmlIcon /> : <ReactIcon />}
-                  </button>
-                )
-              })}
+              {versions.map((v) => (
+                <IconButton
+                  key={v}
+                  label={v === 'html' ? 'HTML version' : 'React version'}
+                  onClick={() => onVersionChange(v)}
+                  aria="pressed"
+                  active={v === active}
+                  style={{ cursor: v === active ? 'default' : 'pointer' }}
+                >
+                  {v === 'html' ? <HtmlIcon /> : <ReactIcon />}
+                </IconButton>
+              ))}
             </div>
             <span aria-hidden style={{ width: 1, background: 'var(--border)', margin: '0 4px' }} />
           </>
@@ -174,60 +234,40 @@ export default function DemoToolbar({
             about a plain three-file demo, and a button that came and went with
             the version would shift the others out from under the cursor. */}
         <div data-deps style={{ position: 'relative' }}>
-          <button
-            onClick={() => setShowDeps((s) => !s)}
-            disabled={depCount === 0}
-            aria-expanded={showDeps}
-            aria-label={`Libraries (${depCount})`}
+          <IconButton
+            label={`Libraries (${depCount})`}
             title={
               depCount === 0 ? 'No libraries — plain HTML, CSS and JS' : 'What this demo pulls in'
             }
-            style={{
-              ...iconButton,
-              // The count stays: it is the one thing the icon cannot say, and it
-              // is what tells you whether opening the panel is worthwhile.
-              width: 'auto',
-              gap: 5,
-              padding: '0 9px',
-              background: showDeps ? 'var(--bg-active)' : 'transparent',
-              color: showDeps ? 'var(--text)' : 'var(--text-muted)',
-              cursor: depCount === 0 ? 'default' : 'pointer',
-              opacity: depCount === 0 ? 0.5 : 1,
-            }}
+            onClick={() => setShowDeps((s) => !s)}
+            aria="expanded"
+            active={showDeps}
+            disabled={depCount === 0}
+            // The count stays: it is the one thing the icon cannot say, and it
+            // is what tells you whether opening the panel is worthwhile.
+            style={{ width: 'auto', gap: 5, padding: '0 9px' }}
           >
             <PackageIcon />
             <span style={{ fontSize: 12 }}>{depCount}</span>
-          </button>
+          </IconButton>
 
           {showDeps && <DependencyPanel dependencies={dependencies} externals={externals} />}
         </div>
 
-        {/* An <a>, not window.open — cmd-click, middle-click and "open in new
+        {/* href makes this an <a> — cmd-click, middle-click and "open in new
             window" all keep working, and no popup blocker gets involved. */}
-        <a
-          href={previewUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Open preview in a new tab"
-          title="Open preview in a new tab"
-          style={{ ...iconButton, color: 'var(--text-muted)' }}
-        >
+        <IconButton label="Open preview in a new tab" href={previewUrl}>
           <ExternalIcon />
-        </a>
+        </IconButton>
 
-        <button
-          onClick={copySnippet}
-          aria-label="Copy embed snippet"
+        <IconButton
+          label="Copy embed snippet"
           title={copied ? 'Copied' : 'Copy an <iframe> snippet for this demo'}
-          style={{
-            ...iconButton,
-            background: 'transparent',
-            color: copied ? '#62aeef' : 'var(--text-muted)',
-            cursor: 'pointer',
-          }}
+          onClick={copySnippet}
+          style={copied ? { color: '#62aeef' } : undefined}
         >
           {copied ? <CheckIcon /> : <EmbedIcon />}
-        </button>
+        </IconButton>
       </div>
     </header>
   )
