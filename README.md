@@ -81,13 +81,15 @@ Icon buttons, top right. Hover any of them for a label.
 
 | Icon              | Does                                                                 |
 | ----------------- | -------------------------------------------------------------------- |
+| Burger            | Collapses the demo list; on a phone opens it as a drawer             |
 | HTML5 shield      | Switches to the HTML version — the pair shows only when both exist   |
 | React atom        | Switches to the React version                                        |
 | Crate, with count | Lists npm dependencies and external resources; disabled at 0         |
 | Arrow leaving box | Opens the bare preview in a new tab                                  |
 | `< >`             | Copies the `<iframe>` snippet for the current view; ticks on success |
 
-`«` collapses the sidebar; the choice is remembered.
+Below 768px the toolbar is the whole header — title and description drop out —
+and Sandpack stacks the code over the preview.
 
 ## How it works
 
@@ -126,15 +128,18 @@ Pages has no rewrite rules, so `vite.config.js` copies `index.html` to
 
 ```
 src/
-├── App.tsx                     # sidebar + routing
+├── App.tsx                     # sidebar, drawer, routing
 ├── components/
-│   ├── DemoView.tsx            # header controls + Sandpack
+│   ├── DemoView.tsx            # measures the box, renders Sandpack
+│   ├── DemoToolbar.tsx         # the header controls
 │   ├── EmbedView.tsx           # bare preview for iframes
-│   └── icons.tsx               # the four header glyphs
-├── lib/
+│   └── icons.tsx
+├── lib/                        # no DOM, no React
 │   ├── loadDemos.ts            # glob → project data
-│   ├── sandpack.ts             # template + file setup
-│   └── router.ts               # history-based routing
+│   ├── sandpack.ts             # template, files, theme
+│   ├── embed.ts                # /embed/ URL and snippet
+│   ├── router.ts               # history-based routing
+│   └── narrow.ts               # the 768px breakpoint
 └── demos/                      # the demos themselves
 ```
 
