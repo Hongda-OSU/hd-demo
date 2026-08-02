@@ -43,6 +43,21 @@
 }
 
 /*
+ * Hide the editor outright rather than relying on editorWidthPercentage: 0.
+ * That only zeroes flex-grow, and below 768px Sandpack sets minWidth: 100% on
+ * every pane to force the stack — which puts the editor back at full width,
+ * above the preview, on exactly the screens where an embed is bare.
+ */
+.embed-only .sp-editor {
+  display: none;
+}
+
+/* An embed is someone else's page. Our label doesn't belong in it. */
+.embed-only .sp-preview-container::before {
+  content: none;
+}
+
+/*
  * Each file tab reserves 20px on the right for a close button. We don't enable
  * closableTabs, so it never appears — but the gap stays, leaving the label
  * visibly left of centre inside the tab and its focus ring.
