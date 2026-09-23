@@ -69,9 +69,25 @@ pass all three and still render nothing.
 One logical change per commit. A new demo and a fix to the loader are two
 commits, even when you wrote them in the same sitting.
 
+## Enforcement
+
+The rules above that a machine can check are checked. After cloning:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+`pre-push` then rejects a push whose commits break the subject format or the
+72-character wrap, and runs `npm run check:docs`. CI runs the doc check too,
+so `--no-verify` only delays that one — it does not check commit messages.
+
 ## CLAUDE.md
 
-Under 150 words. It loads into every session, so it carries only what would
-send you down the wrong path — the silent Sandpack failures. Anything that is
-reference rather than a trap goes in [README.md](README.md) or a comment beside
-the code it explains.
+Under 200 lines, and 80–120 lines at 300–600 words reads best. It loads into
+every session, so it carries what changes how you approach the work — the
+silent Sandpack failures, and enough of the why that a fix isn't guessed at
+twice. Reference that you would look up rather than be caught by belongs in
+[README.md](README.md) or a comment beside the code it explains.
+
+`npm run check:docs` fails past the ceiling and notes when you fall outside
+the ranges.

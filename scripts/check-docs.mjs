@@ -1,27 +1,35 @@
 #!/usr/bin/env node
 /**
- * Enforces the doc rules that CONTRIBUTING.md states, so they don't rely on
+ * Enforces the doc rules CONTRIBUTING.md states, so they don't depend on
  * anyone remembering to read it.
+ *
+ * The line ceiling is a hard failure; the ranges are advice, because a file
+ * padded to hit a word count is worse than a short one.
  */
 import { readFileSync } from 'node:fs'
 
-const CLAUDE_MD_WORD_LIMIT = 150
+const LINE_CEILING = 200
+const LINE_RANGE = [80, 120]
+const WORD_RANGE = [300, 600]
 
-const failures = []
+const text = readFileSync('CLAUDE.md', 'utf8')
+const lines = text.trimEnd().split('\n').length
+const words = text.split(/\s+/).filter(Boolean).length
 
-// CLAUDE.md loads into every session, so its size is a real cost.
-const claude = readFileSync('CLAUDE.md', 'utf8')
-const words = claude.split(/\s+/).filter(Boolean).length
-if (words > CLAUDE_MD_WORD_LIMIT) {
-  failures.push(
-    `CLAUDE.md is ${words} words, limit is ${CLAUDE_MD_WORD_LIMIT}. ` +
-      `Reference belongs in README.md or a comment beside the code.`,
-  )
-} else {
-  console.log(`CLAUDE.md: ${words}/${CLAUDE_MD_WORD_LIMIT} words`)
+console.log(`CLAUDE.md: ${lines} lines, ${words} words`)
+
+const warn = (m) => console.warn(`  note: ${m}`)
+if (lines < LINE_RANGE[0] || lines > LINE_RANGE[1]) {
+  warn(`${LINE_RANGE[0]}–${LINE_RANGE[1]} lines reads best`)
+}
+if (words < WORD_RANGE[0] || words > WORD_RANGE[1]) {
+  warn(`${WORD_RANGE[0]}–${WORD_RANGE[1]} words keeps it scannable`)
 }
 
-if (failures.length) {
-  console.error('\n' + failures.map((f) => `✗ ${f}`).join('\n') + '\n')
+if (lines > LINE_CEILING) {
+  console.error(
+    `\n✗ CLAUDE.md is ${lines} lines, ceiling is ${LINE_CEILING}.` +
+      ` Reference belongs in README.md or a comment beside the code.\n`,
+  )
   process.exit(1)
 }
