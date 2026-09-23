@@ -1,0 +1,36 @@
+#!/bin/sh
+# Blocks the push when a doc rule or a commit message breaks the rules in
+# CONTRIBUTING.md. CI checks the same things, but after the push is public.
+set -e
+
+node scripts/check-docs.mjs
+
+remote_head=$(git rev-parse --verify --quiet "@{upstream}" || echo "")
+range=${remote_head:+$remote_head..HEAD}
+[ -n "$range" ] || range="HEAD~1..HEAD"
+
+fail=0
+for sha in $(git rev-list "$range" 2>/dev/null); do
+  subject=$(git log -1 --format=%s "$sha")
+
+  if ! printf '%s' "$subject" |
+    grep -Eq '^(feat|fix|docs|refactor|chore|style)(\([a-z0-9._-]+\))?: .+'; then
+    echo "✗ $sha subject is not Conventional Commits: $subject" >&2
+    fail=1
+  fi
+
+  # Trailers are generated and often exceed 72; the prose body must not.
+  long=$(git log -1 --format=%b "$sha" |
+    grep -v '^Co-Authored-By:' |
+    awk 'length($0) > 72 { c++ } END { print c + 0 }')
+  if [ "$long" -gt 0 ]; then
+    echo "✗ $sha has $long body line(s) over 72 characters" >&2
+    fail=1
+  fi
+done
+
+[ "$fail" -eq 0 ] || {
+  echo "" >&2
+  echo "See CONTRIBUTING.md. Amend with: git commit --amend" >&2
+  exit 1
+}
