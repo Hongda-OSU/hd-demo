@@ -71,7 +71,7 @@ Check the result, not just the absence of errors. A React demo showing
 
 ## Commit
 
-One demo per commit, per [CONTRIBUTING.md](../../../CONTRIBUTING.md):
+One demo per commit, per [CLAUDE.md](../../../CLAUDE.md):
 
 ```
 feat(<id>): add <short description> demo

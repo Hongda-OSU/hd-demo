@@ -41,8 +41,31 @@ Run `npm run lint`, `npx tsc --noEmit`, `npm run build` and
 `npm run check:docs`. CI runs all four. Prettier skips `src/demos`, since demo
 code is shown verbatim and keeps its author's style.
 
-Commits follow Conventional Commits, body wrapped at 72. A `pre-push` hook
-enforces both — see [CONTRIBUTING.md](CONTRIBUTING.md).
+After cloning, point git at the hooks once:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+`pre-push` then rejects a push whose commits break the rules below, and runs
+`check:docs`. CI runs the doc check too, so `--no-verify` only delays it.
+
+## Committing
+
+`type(scope): subject`, where type is one of `feat`, `fix`, `docs`,
+`refactor`, `chore`, `style`. Scope is optional — a demo id, or the area
+touched. Subject in the imperative, lowercase, no full stop, under 70
+characters, describing the change rather than the file it lives in.
+
+Write a body only when the diff cannot show why, wrapped at 72. A one-line
+fix whose reason is unguessable is exactly the case for one; a rename is not.
+Explain why, not what.
+
+One logical change per commit. A new demo and a fix to the loader are two,
+even when written in the same sitting.
+
+CLAUDE.md itself stays under 200 lines; 80-120 lines at 300-600 words reads
+best. `npm run check:docs` fails past the ceiling and notes the ranges.
 
 ## Things that bite
 

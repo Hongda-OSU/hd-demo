@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Enforces the doc rules CONTRIBUTING.md states, so they don't depend on
+ * Enforces the doc rules CLAUDE.md states, so they don't depend on
  * anyone remembering to read it.
  *
  * The line ceiling is a hard failure; the ranges are advice, because a file
@@ -10,7 +10,8 @@ import { readFileSync } from 'node:fs'
 
 const LINE_CEILING = 200
 const LINE_RANGE = [80, 120]
-const WORD_RANGE = [300, 600]
+// 800, not the usual 600: this file absorbed the contributing rules.
+const WORD_RANGE = [300, 800]
 
 const text = readFileSync('CLAUDE.md', 'utf8')
 const lines = text.trimEnd().split('\n').length

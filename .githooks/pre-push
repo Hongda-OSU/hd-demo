@@ -1,6 +1,6 @@
 #!/bin/sh
 # Blocks the push when a doc rule or a commit message breaks the rules in
-# CONTRIBUTING.md. CI checks the same things, but after the push is public.
+# CLAUDE.md. CI checks the docs too, but only after the push is public.
 set -e
 
 node scripts/check-docs.mjs
@@ -31,6 +31,6 @@ done
 
 [ "$fail" -eq 0 ] || {
   echo "" >&2
-  echo "See CONTRIBUTING.md. Amend with: git commit --amend" >&2
+  echo "See CLAUDE.md. Amend with: git commit --amend" >&2
   exit 1
 }

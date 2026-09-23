@@ -79,5 +79,5 @@ Icon buttons, top right. Hover any of them for a label.
 Below 768px the toolbar is the whole header — title and description drop out —
 and Sandpack stacks the code over the preview.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for commit conventions and
-[CLAUDE.md](CLAUDE.md) for the Sandpack gotchas.
+See [CLAUDE.md](CLAUDE.md) for the Sandpack gotchas and how this repo is
+worked on.
