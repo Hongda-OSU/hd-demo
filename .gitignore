@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Secrets — nothing here has ever held one, and this keeps it that way
+.env
+.env.*
+*.pem
+*.key
+
+# Claude Code writes machine-local settings here
+.claude/settings.local.json
