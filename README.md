@@ -6,16 +6,6 @@ version, or both.
 
 Live at <https://hongdalin.blog/hd-demo/>.
 
-## Running locally
-
-```sh
-npm install
-npm run dev
-```
-
-Opens at `http://localhost:5173/hd-demo/` — note the `/hd-demo/` path, which
-matches the GitHub Pages base.
-
 ## Adding a demo
 
 Drop a folder into `src/demos/html/<id>/` or `src/demos/react/<id>/` with a
@@ -45,8 +35,6 @@ src/demos/
 }
 ```
 
-A demo needs only one version — the version icons appear only when both exist.
-
 Working with Claude Code, `/add-demo` walks through it one prompt at a time.
 `/html <id>` and `/react <id>` skip straight to a version.
 
@@ -75,7 +63,7 @@ get stuck on the old one when a second version appears.
 GitHub Pages sends no `X-Frame-Options`, so this works out of the box. Don't add
 a restrictive `frame-ancestors` policy or embedding breaks.
 
-## The header controls
+## Controls
 
 Icon buttons, top right. Hover any of them for a label.
 
@@ -90,61 +78,6 @@ Icon buttons, top right. Hover any of them for a label.
 
 Below 768px the toolbar is the whole header — title and description drop out —
 and Sandpack stacks the code over the preview.
-
-## How it works
-
-Previews run on [Sandpack](https://sandpack.codesandbox.io/) in `readOnly`
-mode — a real bundler in the browser, so React demos can use `import`, split
-across files, and pull npm packages. HTML demos use its `static` template,
-React demos its `react` template.
-
-The cost is that dependencies install and bundle **in the browser, at view
-time**. A demo with `three` may take several seconds on first load. That is
-inherent to the approach, not a bug.
-
-Three constraints when writing a demo — [CLAUDE.md](CLAUDE.md) has the why:
-
-- Shaders inline as JS template strings; `.glsl` imports don't resolve.
-- React demos have no `main.jsx`; it's generated from `config.entry`.
-- Read-only means no line numbers.
-
-## Deploying
-
-```sh
-npm run lint       # these three also run in CI and gate the deploy
-npx tsc --noEmit
-npm run build
-npm run format     # prettier; src/demos excluded, demo code keeps its own style
-```
-
-Push to `main` and [the workflow](.github/workflows/deploy.yml) publishes to
-Pages. Already set up — a fork would need **Settings → Pages → Source → "GitHub
-Actions"** turned on once.
-
-Pages has no rewrite rules, so `vite.config.js` copies `index.html` to
-`404.html` — that's what lets `/embed/<id>` resolve on a deep link.
-
-## Layout
-
-```
-src/
-├── App.tsx                     # sidebar, drawer, routing
-├── components/
-│   ├── DemoView.tsx            # measures the box, renders Sandpack
-│   ├── DemoToolbar.tsx         # the header controls
-│   ├── EmbedView.tsx           # bare preview for iframes
-│   └── icons.tsx
-├── lib/                        # no DOM, no React
-│   ├── loadDemos.ts            # glob → project data
-│   ├── sandpack.ts             # template, files, theme
-│   ├── embed.ts                # /embed/ URL and snippet
-│   ├── router.ts               # history-based routing
-│   └── narrow.ts               # the 768px breakpoint
-└── demos/                      # the demos themselves
-```
-
-App shell is TypeScript; demo files stay `.jsx`, since Sandpack's react
-template is JS-based.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for commit conventions and
 [CLAUDE.md](CLAUDE.md) for the Sandpack gotchas.

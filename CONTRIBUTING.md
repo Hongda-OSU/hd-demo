@@ -68,3 +68,10 @@ pass all three and still render nothing.
 
 One logical change per commit. A new demo and a fix to the loader are two
 commits, even when you wrote them in the same sitting.
+
+## CLAUDE.md
+
+Under 150 words. It loads into every session, so it carries only what would
+send you down the wrong path — the silent Sandpack failures. Anything that is
+reference rather than a trap goes in [README.md](README.md) or a comment beside
+the code it explains.
