@@ -1,0 +1,5 @@
+#!/bin/sh
+# This repo sets core.hooksPath locally, which shadows the global one, so the
+# global Conventional Commits check would never fire here. Delegate to it.
+[ -x "$HOME/.githooks/commit-msg" ] && exec "$HOME/.githooks/commit-msg" "$@"
+exit 0

@@ -1,36 +1,51 @@
 #!/usr/bin/env node
 /**
- * Enforces the doc rules CLAUDE.md states, so they don't depend on
- * anyone remembering to read it.
+ * Enforces the CLAUDE.md size limits, so they don't depend on anyone
+ * remembering them. Both are hard ceilings, not advice.
  *
- * The line ceiling is a hard failure; the ranges are advice, because a file
- * padded to hit a word count is worse than a short one.
+ * Counted after expanding @import, since that is what actually reaches the
+ * model — a file that imports its way past the limit has still spent it.
  */
 import { readFileSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
 
-const LINE_CEILING = 200
-const LINE_RANGE = [80, 120]
-// 800, not the usual 600: this file absorbed the contributing rules.
-const WORD_RANGE = [300, 800]
+const MAX_LINES = 120
+const MAX_WORDS = 600
 
-const text = readFileSync('CLAUDE.md', 'utf8')
+function expand(file, seen = new Set()) {
+  const path = resolve(file)
+  if (seen.has(path)) return '' // a cycle contributes nothing twice
+  seen.add(path)
+
+  return readFileSync(path, 'utf8')
+    .split('\n')
+    .map((line) => {
+      const match = line.match(/^\s*@import\s+(\S+)\s*$/)
+      if (!match) return line
+      try {
+        return expand(resolve(dirname(path), match[1]), seen)
+      } catch {
+        return line // a broken import is the linter's problem, not ours
+      }
+    })
+    .join('\n')
+}
+
+const text = expand('CLAUDE.md')
 const lines = text.trimEnd().split('\n').length
 const words = text.split(/\s+/).filter(Boolean).length
 
-console.log(`CLAUDE.md: ${lines} lines, ${words} words`)
+console.log(`CLAUDE.md: ${lines}/${MAX_LINES} lines, ${words}/${MAX_WORDS} words`)
 
-const warn = (m) => console.warn(`  note: ${m}`)
-if (lines < LINE_RANGE[0] || lines > LINE_RANGE[1]) {
-  warn(`${LINE_RANGE[0]}–${LINE_RANGE[1]} lines reads best`)
-}
-if (words < WORD_RANGE[0] || words > WORD_RANGE[1]) {
-  warn(`${WORD_RANGE[0]}–${WORD_RANGE[1]} words keeps it scannable`)
-}
+const over = []
+if (lines > MAX_LINES) over.push(`${lines} lines, max ${MAX_LINES}`)
+if (words > MAX_WORDS) over.push(`${words} words, max ${MAX_WORDS}`)
 
-if (lines > LINE_CEILING) {
+if (over.length) {
   console.error(
-    `\n✗ CLAUDE.md is ${lines} lines, ceiling is ${LINE_CEILING}.` +
-      ` Reference belongs in README.md or a comment beside the code.\n`,
+    `\n✗ CLAUDE.md is over budget: ${over.join('; ')}.` +
+      ` It loads every session. Reference belongs in README.md or a comment` +
+      ` beside the code it explains.\n`,
   )
   process.exit(1)
 }
