@@ -4,9 +4,10 @@ A showcase site for front-end demos. Each demo is a small, self-contained piece
 of interactive work — an animation, a WebGL effect, a CSS experiment — shown
 with its source beside the result that source produces, both on the same page.
 
-It exists because demos scattered across CodePen links, gists and dead branches
-stop being findable. Collecting them costs nothing to host, and adding one costs
-a folder.
+It exists because StackBlitz stopped working as an iframe embed. JSFiddle still
+does, and this copies its shape — source beside result, embeddable in someone
+else's page. Hosting it myself means the embed keeps working whatever a
+third-party service decides next, and the showcase is mine to shape.
 
 Live at <https://hongdalin.blog/hd-demo/>.
 
