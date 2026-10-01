@@ -38,9 +38,9 @@ Run `npm run lint`, `npx tsc --noEmit`, `npm run build` and
 code is shown verbatim and keeps its author's style.
 
 Commits are Conventional, atomic, subject and body lines all within 72
-characters, and say what changed and why rather than how. A global
-`commit-msg` hook rejects the mechanical breaches as you commit. After
-cloning, `git config core.hooksPath .githooks`.
+characters. Write a body only for the why a diff cannot show, never for
+what it already says. A global `commit-msg` hook rejects the mechanical
+breaches. After cloning, `git config core.hooksPath .githooks`.
 
 This file stays within 120 lines and 600 words, counted after `@import`.
 
