@@ -9,7 +9,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "check:docs": "node scripts/check-docs.mjs"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.20.0",
