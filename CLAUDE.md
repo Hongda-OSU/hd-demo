@@ -5,9 +5,8 @@ pane renders one with Sandpack, read-only, source beside live result.
 Below 768px the sidebar becomes a drawer and the panes stack. Deployed to
 GitHub Pages; `base` is `/hd-demo/`.
 
-Served at `hongdalin.blog/hd-demo/`. The user site carries a custom domain and
-GitHub redirects every project page under the account to it, so the
-`hongda-osu.github.io` address is gone for good.
+Served at `hongdalin.blog/hd-demo/`; the `hongda-osu.github.io` address now
+redirects there for good.
 
 ## Layout
 
@@ -29,7 +28,8 @@ Pin dependency versions exactly. Sandpack resolves them from a CDN at view
 time, so a range lets a working demo break later with nothing in the diff to
 show why.
 
-The `/add-demo`, `/html` and `/react` skills walk through it.
+The `/add-demo`, `/html` and `/react` skills walk through it, ending with a
+react-review pass, since visitors read this code.
 
 ## Working here
 
