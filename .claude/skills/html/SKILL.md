@@ -74,7 +74,7 @@ Fonts import in `typing-text-effect` shows. Only link the files that exist.
 third-party code arrives via `<script>` tags. Use `externalResources` only to
 inject into a page you don't control.
 
-## Step 6 — verify and commit
+## Step 6 — verify, review and commit
 
 Per add-demo: typecheck, build, load `/hd-demo/<id>` in a browser, confirm the
-effect actually runs. Then `feat(<id>): add <description> demo`.
+effect actually runs, then review. Then `feat(<id>): add <description> demo`.

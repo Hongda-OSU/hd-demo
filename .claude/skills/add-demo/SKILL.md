@@ -69,6 +69,16 @@ start the dev server and ask the user to confirm.
 Check the result, not just the absence of errors. A React demo showing
 **"Hello world"** means Sandpack fell back to its own template files.
 
+## Review
+
+Visitors read this code, so review it once it runs: use the react-review skill
+on `src/demos/<html|react>/<id>/`.
+
+Show the report, then ask which 必改 and 应改 findings to fix. The code stays
+the user's, as above: change nothing they have not agreed to, and leave
+personal-layer 建议 as a list. If they reject a finding for good, offer to log
+it in react-review's `prefs.md`.
+
 ## Commit
 
 One demo per commit, per [CLAUDE.md](../../../CLAUDE.md):
