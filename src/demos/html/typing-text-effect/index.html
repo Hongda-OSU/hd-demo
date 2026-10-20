@@ -14,9 +14,16 @@
   </head>
   <body>
     <section class="typing-container">
+      <!-- Screen readers get the sentence once. The animation is hidden from
+           them: as a live region it would be read out on every keystroke. -->
       <p>
-        I LOVE
-        <span class="typing-text" aria-live="polite"></span>
+        <span class="visually-hidden">
+          I love basketball, tennis and volleyball.
+        </span>
+        <span aria-hidden="true">
+          I LOVE
+          <span class="typing-text"></span>
+        </span>
       </p>
     </section>
     <script src="script.js" defer></script>
