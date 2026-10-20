@@ -96,30 +96,39 @@ void main() {
 }
 `;
 
+const DEFAULT_HOVER_IMAGE_SIZE = { width: 330, height: 405 };
+
 // ============== Component ==============
-export function WebGLGallery({
+export const WebGLGallery = ({
   items,
-  hoverImageSize = { width: 330, height: 405 },
+  hoverImageSize = DEFAULT_HOVER_IMAGE_SIZE,
   offsetAmount = 1,
-}) {
+}) => {
   const canvasRef = useRef(null);
-  const hoverImgRef = useRef(null);
   const galleryRef = useRef(null);
   const itemRefs = useRef(new Map());
-  const sketchRef = useRef(null);
   const containerIdRef = useRef(
     `webgl-gallery-${Math.random().toString(36).slice(2, 11)}`
   );
+  // Depend on the numbers, not the object: an inline size from the parent
+  // would otherwise rebuild the whole scene on every render.
+  const { width, height } = hoverImageSize;
 
   useEffect(() => {
-    if (!canvasRef.current || !hoverImgRef.current || !galleryRef.current)
-      return;
+    if (!canvasRef.current || !galleryRef.current) return;
 
-    const hoverImg = hoverImgRef.current;
     const galleryEl = galleryRef.current;
     const canvasEl = canvasRef.current;
 
     canvasEl.id = containerIdRef.current;
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    // Textures load asynchronously. If the effect is cleaned up first, the
+    // ready callback must not build a scene or attach listeners.
+    let cancelled = false;
+    let teardown = () => {};
 
     class Sketch extends kokomi.Base {
       async create() {
@@ -132,6 +141,8 @@ export function WebGLGallery({
         const am = new kokomi.AssetManager(this, resourceList);
 
         am.on('ready', () => {
+          if (cancelled) return;
+
           const screenCamera = new kokomi.ScreenCamera(this);
           screenCamera.addExisting();
 
@@ -143,17 +154,13 @@ export function WebGLGallery({
             uniforms: {
               ...uj.shadertoyUniforms,
               iChannel0: { value: null },
-              uMeshSize: {
-                value: new THREE.Vector2(
-                  hoverImageSize.width,
-                  hoverImageSize.height
-                ),
-              },
+              uMeshSize: { value: new THREE.Vector2(width, height) },
               uMediaSize: { value: new THREE.Vector2(0, 0) },
               uOffset: { value: new THREE.Vector2(0, 0) },
               uOpacity: { value: 0 },
-              uMouseEnter: { value: 0 },
-              uMouseEnterMask: { value: 0 },
+              // With reduced motion the ripple starts finished and stays so.
+              uMouseEnter: { value: reduceMotion ? 1 : 0 },
+              uMouseEnterMask: { value: reduceMotion ? 1 : 0 },
             },
           });
 
@@ -161,7 +168,7 @@ export function WebGLGallery({
             new THREE.PlaneGeometry(1, 1, 64, 64),
             material
           );
-          mesh.scale.set(hoverImageSize.width, hoverImageSize.height, 1);
+          mesh.scale.set(width, height, 1);
           this.scene.add(mesh);
 
           if (this.renderer?.domElement) {
@@ -174,6 +181,12 @@ export function WebGLGallery({
             canvas.style.zIndex = '10';
             canvas.style.pointerEvents = 'none';
           }
+
+          // One reusable tween per axis; gsap.to here would start a new
+          // tween every frame.
+          const moveX = gsap.quickTo(mesh.position, 'x', { duration: 0.5 });
+          const moveY = gsap.quickTo(mesh.position, 'y', { duration: 0.5 });
+          const bend = reduceMotion ? 0 : offsetAmount;
 
           let offsetX = 0,
             offsetY = 0;
@@ -188,19 +201,12 @@ export function WebGLGallery({
             offsetY = THREE.MathUtils.lerp(offsetY, targetY, 0.1);
 
             material.uniforms.uOffset.value.set(
-              (targetX - offsetX) * offsetAmount,
-              (targetY - offsetY) * offsetAmount
+              (targetX - offsetX) * bend,
+              (targetY - offsetY) * bend
             );
 
-            gsap.to(mesh.position, {
-              x: (targetX * window.innerWidth) / 2,
-              y: (targetY * window.innerHeight) / 2,
-            });
-
-            gsap.to(hoverImg, {
-              x: this.iMouse.mouseDOM.x - hoverImageSize.width / 2,
-              y: this.iMouse.mouseDOM.y - hoverImageSize.height / 2,
-            });
+            moveX((targetX * window.innerWidth) / 2);
+            moveY((targetY * window.innerHeight) / 2);
           });
 
           const doTransition = (item) => {
@@ -212,6 +218,7 @@ export function WebGLGallery({
                 tex.image.height
               );
               gsap.to(material.uniforms.uOpacity, { value: 1, duration: 0.3 });
+              if (reduceMotion) return;
               gsap.fromTo(
                 material.uniforms.uMouseEnter,
                 { value: 0 },
@@ -232,20 +239,33 @@ export function WebGLGallery({
             const el = itemRefs.current.get(item.id);
             if (el) {
               const handler = () => doTransition(item);
-              itemHandlers.set(item.id, handler);
+              itemHandlers.set(el, handler);
               el.addEventListener('mouseenter', handler);
+              el.addEventListener('focus', handler);
             }
           });
 
           const galleryLeaveHandler = () => doTransition(null);
+          // Keyboard users leave by tabbing out, not by moving the mouse.
+          const galleryFocusOutHandler = (event) => {
+            if (!galleryEl.contains(event.relatedTarget)) doTransition(null);
+          };
           galleryEl.addEventListener('mouseleave', galleryLeaveHandler);
+          galleryEl.addEventListener('focusout', galleryFocusOutHandler);
 
-          sketch._cleanup = () => {
-            itemHandlers.forEach((handler, itemId) => {
-              const el = itemRefs.current.get(itemId);
-              el?.removeEventListener('mouseenter', handler);
+          teardown = () => {
+            itemHandlers.forEach((handler, el) => {
+              el.removeEventListener('mouseenter', handler);
+              el.removeEventListener('focus', handler);
             });
             galleryEl.removeEventListener('mouseleave', galleryLeaveHandler);
+            galleryEl.removeEventListener('focusout', galleryFocusOutHandler);
+            gsap.killTweensOf([
+              mesh.position,
+              material.uniforms.uOpacity,
+              material.uniforms.uMouseEnter,
+              material.uniforms.uMouseEnterMask,
+            ]);
           };
         });
       }
@@ -253,44 +273,33 @@ export function WebGLGallery({
 
     const sketch = new Sketch(`#${containerIdRef.current}`);
     sketch.create();
-    sketchRef.current = sketch;
 
     return () => {
-      if (sketchRef.current) {
-        sketchRef.current._cleanup?.();
-        sketchRef.current.destroy?.();
-        sketchRef.current = null;
-      }
+      cancelled = true;
+      teardown();
+      sketch.destroy?.();
     };
-  }, [items, hoverImageSize, offsetAmount]);
+  }, [items, width, height, offsetAmount]);
 
   return (
     <div className="webgl-gallery-container">
       <div ref={canvasRef} className="webgl-gallery-canvas" />
 
-      <img
-        ref={hoverImgRef}
-        alt=""
-        className="webgl-gallery-hover-image"
-        style={{
-          width: hoverImageSize.width,
-          height: hoverImageSize.height,
-        }}
-      />
-
-      <div ref={galleryRef} className="webgl-gallery-list">
+      <ul ref={galleryRef} className="webgl-gallery-list">
+        {/* Focusable, so keyboard users can preview each image too. */}
         {items.map((item) => (
-          <div
+          <li
             key={item.id}
             ref={(el) => {
               if (el) itemRefs.current.set(item.id, el);
             }}
+            tabIndex={0}
             className="webgl-gallery-item"
           >
             {item.label}
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
-}
+};

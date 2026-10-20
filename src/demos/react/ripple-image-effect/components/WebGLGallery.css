@@ -1,6 +1,8 @@
 .webgl-gallery-container {
+  box-sizing: border-box;
   background: black;
   min-height: 100vh;
+  padding: 2rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,12 +16,6 @@
   pointer-events: none;
 }
 
-.webgl-gallery-hover-image {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
 .webgl-gallery-list {
   position: relative;
   z-index: 1;
@@ -27,6 +23,9 @@
   flex-direction: column;
   width: 45rem;
   max-width: 90vw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .webgl-gallery-item {
@@ -39,4 +38,9 @@
 
 .webgl-gallery-item:first-child {
   border-top: 2px solid white;
+}
+
+.webgl-gallery-item:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
 }
