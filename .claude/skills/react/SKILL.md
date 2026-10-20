@@ -83,5 +83,5 @@ Three fixes to apply, all forced by Sandpack. Tell the user you made them:
 Per add-demo: typecheck, build, load `/hd-demo/<id>` in a browser. A demo
 showing **"Hello world"** means Sandpack fell back to its own template — check
 the entry resolved. Heavy deps (three, r3f) take seconds to bundle on first
-view; blank after ~30s is a real failure. Then review, and commit as
-`feat(<id>): add <description> demo`.
+view; blank after ~30s is a real failure. Then run the react-review skill on
+the new folder, and commit as `feat(<id>): add <description> demo`.

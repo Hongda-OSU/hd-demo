@@ -29,7 +29,8 @@ time, so a range lets a working demo break later with nothing in the diff to
 show why.
 
 The `/add-demo`, `/html` and `/react` skills walk through it, ending with a
-react-review pass, since visitors read this code.
+react-review pass over `src/demos/**` — visitors read that code. The shell is
+not reviewed.
 
 ## Working here
 

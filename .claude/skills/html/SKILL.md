@@ -77,4 +77,5 @@ inject into a page you don't control.
 ## Step 6 — verify, review and commit
 
 Per add-demo: typecheck, build, load `/hd-demo/<id>` in a browser, confirm the
-effect actually runs, then review. Then `feat(<id>): add <description> demo`.
+effect actually runs, then run the react-review skill on the new folder. Then
+`feat(<id>): add <description> demo`.

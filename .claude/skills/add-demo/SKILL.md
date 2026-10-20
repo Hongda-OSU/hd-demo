@@ -74,6 +74,9 @@ Check the result, not just the absence of errors. A React demo showing
 Visitors read this code, so review it once it runs: use the react-review skill
 on `src/demos/<html|react>/<id>/`.
 
+Scope it to that folder. The app shell — `App.tsx`, `components/`, `lib/` — is
+not reviewed; react-review is for the sandbox code visitors see.
+
 Show the report, then ask which 必改 and 应改 findings to fix. The code stays
 the user's, as above: change nothing they have not agreed to, and leave
 personal-layer 建议 as a list. If they reject a finding for good, offer to log
