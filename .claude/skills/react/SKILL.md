@@ -9,7 +9,7 @@ Creates `src/demos/react/<id>/`. Shared rules live in
 [add-demo](../add-demo/SKILL.md) — read it first.
 
 **One prompt per turn. Stop and wait for each reply.** Write nothing to disk
-until step 6.
+until step 5.
 
 ## Step 1 — id
 
@@ -78,7 +78,7 @@ Three fixes to apply, all forced by Sandpack. Tell the user you made them:
 }
 ```
 
-## Step 7 — verify, review and commit
+## Step 6 — verify, review and commit
 
 Per add-demo: typecheck, build, load `/hd-demo/<id>` in a browser. A demo
 showing **"Hello world"** means Sandpack fell back to its own template — check
