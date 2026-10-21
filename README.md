@@ -1,9 +1,11 @@
+<img src="assets/icon.png" width="128" height="128" alt="hd-demo icon: a smiling pixel-art monitor showing code beside a picture">
+
 # hd-demo
 
 A showcase site for front-end demos — each one shown with its source beside
 the live result, and embeddable in someone else's page as an iframe.
 
-**Live demo:** <https://hongdalin.blog/hd-demo/>
+**Demo:** <https://hongdalin.blog/hd-demo/>
 
 It exists because StackBlitz stopped working as an iframe embed. JSFiddle
 still does, and this copies its shape. Hosting it myself means the embed
