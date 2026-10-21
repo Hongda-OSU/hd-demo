@@ -2,14 +2,11 @@
 
 # hd-demo
 
-A showcase site for front-end demos — each one shown with its source beside
-the live result, and embeddable in someone else's page as an iframe.
+My own JSFiddle: front-end demos with the source beside the live result, each
+embeddable in another page as an iframe. I built it when StackBlitz embeds
+stopped working.
 
 **Demo:** <https://hongdalin.blog/hd-demo/>
-
-It exists because StackBlitz stopped working as an iframe embed. JSFiddle
-still does, and this copies its shape. Hosting it myself means the embed
-keeps working whatever a third-party service decides next.
 
 ## Features
 
@@ -17,7 +14,7 @@ keeps working whatever a third-party service decides next.
 - Every demo embeddable at `/embed/<id>`, with a button that copies the iframe
 - The same demo in both HTML and React, switchable from the header
 - Adding a demo is adding a folder — there is no registry to update
-- Works down to phone width: the list becomes a drawer, the panes stack
+- Works on a phone as well as a desktop
 
 ## Tech Stack
 
