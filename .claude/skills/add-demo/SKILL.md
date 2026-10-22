@@ -55,6 +55,13 @@ Paste it in as written. Preserve their structure; subfolders work
 (`components/Foo.jsx` → `/components/Foo.jsx` in Sandpack). Fix only what
 Sandpack forces, and say what you changed and why.
 
+## Images
+
+If the demo needs pictures and the user gave none, use the sample images
+listed in [docs/writing-a-demo.md](../../../docs/writing-a-demo.md#sample-images),
+by full URL. Don't hotlink stock photos or anime and game art: the repo is
+public, and that art belongs to someone else.
+
 ## Verify
 
 ```sh

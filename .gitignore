@@ -31,3 +31,4 @@ dist-ssr
 
 # Claude Code writes machine-local settings here
 .claude/settings.local.json
+__pycache__/

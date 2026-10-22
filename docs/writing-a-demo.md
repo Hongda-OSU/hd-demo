@@ -54,5 +54,31 @@ Three consequences worth knowing before writing one:
   highlighted markup instead of mounting CodeMirror, and line numbers are a
   CodeMirror extension.
 
+## Sample images
+
+Nine pixel-art scenes ship with the site for demos that need a picture and
+have none of their own. Use the full URL: the sandbox runs on another origin,
+so a relative path won't resolve. Pages serves them with
+`Access-Control-Allow-Origin: *`, so they load as WebGL textures too.
+
+```
+https://hongdalin.blog/hd-demo/samples/<name>.png
+```
+
+| Name          | Size      | Scene                                           |
+| ------------- | --------- | ----------------------------------------------- |
+| `landscape-1` | 1600×1000 | Synthwave sunset over a city, mirrored in water |
+| `landscape-2` | 1600×1000 | Aurora over snowy peaks, a lit cabin            |
+| `landscape-3` | 1600×1000 | Ruins on the dunes under two moons              |
+| `portrait-1`  | 1000×1500 | Rainy neon street, signs reflected in puddles   |
+| `portrait-2`  | 1000×1500 | Lantern-lit alley with a vending machine        |
+| `portrait-3`  | 1000×1500 | Moonlit forest full of fireflies                |
+| `square-1`    | 1200×1200 | Ringed planet in a nebula                       |
+| `square-2`    | 1200×1200 | Lighthouse on a cliff, beam over the sea        |
+| `square-3`    | 1200×1200 | Jellyfish drifting through light rays           |
+
+They are drawn in code, so there is no licence to track. To change one, edit
+the scene in `design/samples/` and run `python3 design/samples/build.py`.
+
 The `/add-demo`, `/html` and `/react` Claude Code skills walk through the
 whole thing one prompt at a time.
