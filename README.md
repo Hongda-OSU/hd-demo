@@ -3,8 +3,7 @@
 # hd-demo
 
 My own JSFiddle: front-end demos with the source beside the live result, each
-embeddable in another page as an iframe. I built it when StackBlitz embeds
-stopped working.
+embeddable in another page as an iframe.
 
 **Demo:** <https://hongdalin.blog/hd-demo/>
 
