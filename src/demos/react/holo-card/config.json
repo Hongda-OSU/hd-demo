@@ -1,5 +1,6 @@
 {
-  "title": "Holo Card",
+  "title": "Classic Holo Card",
   "description": "跟随鼠标倾斜的闪卡,悬停时出现镭射光泽和闪粉",
-  "entry": "App.jsx"
+  "entry": "App.jsx",
+  "group": "Holo Card"
 }

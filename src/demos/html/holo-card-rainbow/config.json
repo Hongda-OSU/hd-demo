@@ -1,0 +1,6 @@
+{
+  "title": "Rainbow Holo Card",
+  "description": "跟随鼠标倾斜的闪卡,悬停时彩虹光泽随光标扫过",
+  "entry": "index.html",
+  "group": "Holo Card"
+}
