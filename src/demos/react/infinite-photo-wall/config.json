@@ -1,0 +1,6 @@
+{
+  "title": "Infinite Photo Wall",
+  "description": "拖动照片墙平移,拖出边界的照片从另一侧循环回来",
+  "entry": "App.jsx",
+  "dependencies": { "gsap": "3.15.0" }
+}
