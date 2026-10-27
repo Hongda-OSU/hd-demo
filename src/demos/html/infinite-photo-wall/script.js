@@ -120,8 +120,6 @@ const shuffle = (arr) => {
   return newarray;
 };
 
-const IMAGE_BASE = "https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/";
-
 const createPhotoGallery = () => {
   const lines = 4;
   const photoGallery = document.createElement("div");
@@ -131,13 +129,34 @@ const createPhotoGallery = () => {
   photoGallery.setAttribute("aria-label", "Photo wall. Drag, or use the arrow keys, to pan.");
 
   const images = [
-    { src: IMAGE_BASE + "fuji.png", alt: "Mount Fuji at sunrise behind a pagoda and cherry blossom" },
-    { src: IMAGE_BASE + "beach.png", alt: "Sunset over the sea beside a palm tree" },
-    { src: IMAGE_BASE + "alps.png", alt: "Snowy peaks mirrored in a still lake" },
-    { src: IMAGE_BASE + "desert.png", alt: "A camel caravan crossing the dunes at sundown" },
-    { src: IMAGE_BASE + "terraces.png", alt: "Rice terraces stepping down a misty valley" },
-    { src: IMAGE_BASE + "santorini.png", alt: "White houses and blue domes above the sea" },
-    { src: IMAGE_BASE + "balloons.png", alt: "Hot-air balloons over a valley of rock chimneys" },
+    {
+      src: "https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/fuji.png",
+      alt: "Mount Fuji at sunrise behind a pagoda and cherry blossom",
+    },
+    {
+      src: "https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/beach.png",
+      alt: "Sunset over the sea beside a palm tree",
+    },
+    {
+      src: "https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/alps.png",
+      alt: "Snowy peaks mirrored in a still lake",
+    },
+    {
+      src: "https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/desert.png",
+      alt: "A camel caravan crossing the dunes at sundown",
+    },
+    {
+      src: "https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/terraces.png",
+      alt: "Rice terraces stepping down a misty valley",
+    },
+    {
+      src: "https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/santorini.png",
+      alt: "White houses and blue domes above the sea",
+    },
+    {
+      src: "https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/balloons.png",
+      alt: "Hot-air balloons over a valley of rock chimneys",
+    },
   ];
 
   for (let i = 0; i < lines; i++) {
