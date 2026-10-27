@@ -53,6 +53,7 @@ src/demos/react/<id>/
 ├── App.jsx                     # entry, default export
 ├── index.css                   # if given
 ├── components/Whatever.jsx     # subfolders work
+├── images/                     # its own pictures, loaded by full URL
 └── config.json
 ```
 

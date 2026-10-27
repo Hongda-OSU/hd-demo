@@ -47,6 +47,7 @@ src/demos/html/<id>/
 ├── index.html      # complete document
 ├── styles.css      # omit if skipped
 ├── script.js       # omit if skipped
+├── images/         # its own pictures, loaded by full URL
 └── config.json
 ```
 
