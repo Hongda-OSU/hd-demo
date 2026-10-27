@@ -44,6 +44,7 @@ npm run dev
 ```
 
 Open <http://localhost:5173/hd-demo/> — note the `/hd-demo/` base path.
+Demo images show here before they are deployed: the dev server inlines them.
 
 Before pushing, and again in CI:
 

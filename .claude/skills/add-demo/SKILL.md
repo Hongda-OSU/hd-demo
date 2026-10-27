@@ -61,9 +61,15 @@ Pictures the user gives go in the demo's own folder; the build publishes them
 at `https://hongdalin.blog/hd-demo/demos/<version>/<id>/<path>`, and the code
 loads them by that URL — see
 [docs/writing-a-demo.md](../../../docs/writing-a-demo.md#images-of-its-own).
+Write each URL whole, as one literal: `npm run dev` inlines those as data URIs,
+so the pictures show before the user pushes, but leaves alone a URL assembled
+from a base and a name.
+
 If the demo needs pictures and the user gave none, use the sample images
 listed there, by full URL. Don't hotlink stock photos or anime and game art:
-the repo is public, and that art belongs to someone else.
+the repo is public, and that art belongs to someone else. When the user's own
+pictures are such art, draw a replacement, with its script in `design/<id>/`,
+and show it before writing the demo.
 
 ## Verify
 

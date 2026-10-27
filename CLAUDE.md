@@ -5,8 +5,7 @@ pane renders one with Sandpack, read-only, source beside live result.
 Below 768px the sidebar becomes a drawer and the panes stack. Deployed to
 GitHub Pages; `base` is `/hd-demo/`.
 
-Served at `hongdalin.blog/hd-demo/`; the `hongda-osu.github.io` address now
-redirects there for good.
+Served at `hongdalin.blog/hd-demo/`; `hongda-osu.github.io` redirects there.
 
 ## Layout
 
@@ -22,7 +21,8 @@ redirects there for good.
 A folder under `src/demos/<html|react>/<id>/` with a `config.json` — `title`,
 `description`, `entry`, optional `dependencies` and `externalResources`. No
 registry: `loadDemos` finds it by glob. Both versions of one `<id>` may exist,
-and the version icons appear only then.
+and the version icons appear only then. Images go in the folder, loaded by
+published URL; `npm run dev` inlines them.
 
 Pin dependency versions exactly. Sandpack resolves them from a CDN at view
 time, so a range lets a working demo break later with nothing in the diff to
@@ -47,8 +47,8 @@ This file stays within 120 lines and 600 words, counted after `@import`.
 
 ## Things that bite
 
-Sandpack fails silently in these ways. Each looks like a bug in your own code,
-while the sandbox keeps logging as though all is well.
+Sandpack fails silently in these ways, each looking like a bug in your own
+code.
 
 - **One preset, both views.** `DemoView` and `EmbedView` must go through the
   same `<Sandpack>`. `EmbedView` once composed the parts by hand, and that
