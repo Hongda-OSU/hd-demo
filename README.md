@@ -12,6 +12,7 @@ embeddable in another page as an iframe.
 - Source and live result side by side, bundled in the visitor's browser
 - Every demo embeddable at `/embed/<id>`, with a button that copies the iframe
 - The same demo in both HTML and React, switchable from the header
+- Variants of one topic filed under a single sidebar heading
 - Adding a demo is adding a folder — there is no registry to update
 - Works on a phone as well as a desktop
 
