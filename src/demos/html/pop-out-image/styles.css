@@ -38,22 +38,22 @@ div::after {
 
 @keyframes zoom {
   0% {
-    transform: rotateX(-10deg) scale(0.5);
+    transform: rotateX(-10deg) scale(0.6);
     filter: drop-shadow(-5px 5px 5px rgba(0, 0, 0, 0));
   }
 
   40% {
-    transform: rotateZ(-10deg) rotateX(-10deg) scale(0.7);
+    transform: rotateZ(-10deg) rotateX(-10deg) scale(0.8);
     filter: drop-shadow(-10px 10px 10px rgba(0, 0, 0, 0.5));
   }
 
   60% {
-    transform: rotateZ(-10deg) rotateX(-10deg) scale(0.7);
+    transform: rotateZ(-10deg) rotateX(-10deg) scale(0.8);
     filter: drop-shadow(-10px 10px 10px rgba(0, 0, 0, 0.5));
   }
 
   100% {
-    transform: rotateX(-10deg) scale(0.5);
+    transform: rotateX(-10deg) scale(0.6);
     filter: drop-shadow(-5px 5px 5px rgba(0, 0, 0, 0));
   }
 }
