@@ -8,6 +8,12 @@ touched.
 The same demo may exist in both `html/` and `react/` under one `<id>`. The
 version icons in the header appear only then.
 
+A variant of a topic, such as another take on the holo card, is a demo of its
+own: a new `<id>` like `holo-card-rainbow`, with its own URL. Give every
+variant the same `group` and the sidebar lists them under one heading, which
+opens by itself when it holds the demo on screen. A group of one shows as a
+plain demo.
+
 ## `config.json`
 
 | Field               | Type     | Required | Meaning                                                             |
@@ -17,6 +23,7 @@ version icons in the header appear only then.
 | `entry`             | string   | yes      | `App.jsx` for React, `index.html` for HTML                          |
 | `dependencies`      | object   | no       | npm package → **exact** version, never a range                      |
 | `externalResources` | string[] | no       | CDN URLs injected into the preview page — fonts, global stylesheets |
+| `group`             | string   | no       | Sidebar heading shared with the topic's other variants              |
 
 ```json
 {
@@ -102,4 +109,4 @@ They are drawn in code, so there is no licence to track. To change one, edit
 the scene in `design/samples/` and run `python3 design/samples/build.py`.
 
 The `/add-demo`, `/html` and `/react` Claude Code skills walk through the
-whole thing one prompt at a time.
+whole thing one prompt at a time; `/add-variant` does the same for a variant.

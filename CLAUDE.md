@@ -19,18 +19,18 @@ Served at `hongdalin.blog/hd-demo/`; `hongda-osu.github.io` redirects there.
 ## Adding a demo
 
 A folder under `src/demos/<html|react>/<id>/` with a `config.json` — `title`,
-`description`, `entry`, optional `dependencies` and `externalResources`. No
-registry: `loadDemos` finds it by glob. Both versions of one `<id>` may exist,
-and the version icons appear only then. Images go in the folder, loaded by
-published URL; `npm run dev` inlines them.
+`description`, `entry`, optional `dependencies`, `externalResources` and
+`group`. No registry: `loadDemos` finds it by glob. Both versions of one `<id>`
+may exist, and the version icons appear only then. Images go in the folder,
+loaded by published URL; `npm run dev` inlines them.
 
 Pin dependency versions exactly. Sandpack resolves them from a CDN at view
 time, so a range lets a working demo break later with nothing in the diff to
 show why.
 
-The `/add-demo`, `/html` and `/react` skills walk through it, ending with a
-react-review pass over `src/demos/**` — visitors read that code. The shell is
-not reviewed.
+The `/add-demo`, `/add-variant`, `/html` and `/react` skills walk through it,
+ending with a react-review pass over `src/demos/**` — visitors read that code.
+The shell is not reviewed.
 
 ## Working here
 
