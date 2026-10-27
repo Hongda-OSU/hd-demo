@@ -129,3 +129,14 @@ def character(path, scale=6):
             for c in row:
                 f.write(bytes([0, 0, 0, 0]) if c is None else bytes(int(c[i:i + 2], 16) for i in (1, 3, 5)) + b'\xff')
     subprocess.run(['magick', path + '.pam', '-filter', 'point', '-resize', f'{scale * 100}%', path + '.png'], check=True)
+
+if __name__ == '__main__':
+    # Run from anywhere: python3 design/pop-out-image/character.py  (needs ImageMagick 7)
+    import os, tempfile
+    here = os.path.dirname(os.path.abspath(__file__))
+    out = os.path.normpath(os.path.join(here, '..', '..', 'src', 'demos', 'html', 'pop-out-image', 'images'))
+    os.makedirs(out, exist_ok=True)
+    os.chdir(tempfile.mkdtemp())
+    character('character')
+    subprocess.run(['magick', 'character.png', '-strip', f'PNG8:{os.path.join(out, "character.png")}'], check=True)
+    print('character.png')

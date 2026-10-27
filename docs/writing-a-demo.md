@@ -67,11 +67,12 @@ https://hongdalin.blog/hd-demo/demos/react/infinite-photo-wall/images/photo-1.jp
 
 Load them by that full URL, for the same cross-origin reason as below. They
 appear only once deployed. When both versions use the same pictures, keep one
-copy and point both at it. The repo is public: only pictures you may publish.
+copy and point both at it. Pictures drawn in code keep their script in
+`design/<id>/`. The repo is public: only pictures you may publish.
 
 ## Sample images
 
-Pixel-art scenes ship with the site for demos that need a picture and
+Nine pixel-art scenes ship with the site for demos that need a picture and
 have none of their own. Use the full URL: the sandbox runs on another origin,
 so a relative path won't resolve. Pages serves them with
 `Access-Control-Allow-Origin: *`, so they load as WebGL textures too.
@@ -91,16 +92,6 @@ https://hongdalin.blog/hd-demo/samples/<name>.png
 | `square-1`    | 1200×1200 | Ringed planet in a nebula                       |
 | `square-2`    | 1200×1200 | Lighthouse on a cliff, beam over the sea        |
 | `square-3`    | 1200×1200 | Jellyfish drifting through light rays           |
-
-For card effects there is a trading card, and a sparkle texture to lay over
-it with `mix-blend-mode: color-dodge` — black, so only the sparkles show. For
-anything that pops out of a frame there is a cut-out character:
-
-| Name            | Size    | What                                          |
-| --------------- | ------- | --------------------------------------------- |
-| `card.png`      | 630×880 | Fire-fox monster card, in a real card's 63:88 |
-| `sparkles.gif`  | 256×256 | Tileable twinkling sparkles on black          |
-| `character.png` | 384×576 | Swordsman, transparent, for pop-outs          |
 
 They are drawn in code, so there is no licence to track. To change one, edit
 the scene in `design/samples/` and run `python3 design/samples/build.py`.

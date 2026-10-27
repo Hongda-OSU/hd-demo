@@ -18,7 +18,7 @@ div {
 div::after {
   content: " ";
   position: absolute;
-  background: url("https://hongdalin.blog/hd-demo/samples/character.png") no-repeat center/contain;
+  background: url("https://hongdalin.blog/hd-demo/demos/html/pop-out-image/images/character.png") no-repeat center/contain;
 
   width: 100%;
   height: 150%;
