@@ -57,20 +57,23 @@ Three consequences worth knowing before writing one:
 ## Images of its own
 
 Put a demo's own pictures in its folder, in a subfolder if you like. Sandpack
-only takes text, so the build publishes them beside the site instead, at the
-same path under `demos/`:
+only takes text, so the build publishes them beside the site, at the same path
+under `demos/`:
 
 ```
-src/demos/react/infinite-photo-wall/images/photo-1.jpg
-https://hongdalin.blog/hd-demo/demos/react/infinite-photo-wall/images/photo-1.jpg
+src/demos/html/parallax-card/images/mage.png
+https://hongdalin.blog/hd-demo/demos/html/parallax-card/images/mage.png
 ```
 
-Load them by that full URL, for the same cross-origin reason as below. Under
-`npm run dev` the server inlines each such URL as a data URI, so a new picture
-shows before it is deployed; a URL assembled in code, from a base plus a name,
-is left alone. When both versions use the same pictures, keep one
-copy and point both at it. Pictures drawn in code keep their script in
-`design/<id>/`. The repo is public: only pictures you may publish.
+- **Load them by that full URL.** The sandbox runs on another origin, so a
+  relative path won't resolve.
+- **Write each URL out whole.** `npm run dev` replaces it with the picture
+  itself, as a data URI, so a new picture shows before it is deployed. A URL
+  assembled in code, from a base plus a name, is not replaced.
+- **One copy for both versions.** When the HTML and React versions share
+  pictures, keep them in one folder and point both at it.
+- **Only pictures you may publish.** The repo is public. A picture drawn in
+  code keeps its script in `design/<id>/`.
 
 ## Sample images
 
