@@ -34,3 +34,8 @@ for i, im in enumerate(sparkles.frames()):
     paths.append(f'sparkle-{i}.png')
 subprocess.run(['magick', '-delay', '14', '-loop', '0', *paths, '-strip', os.path.join(OUT, 'sparkles.gif')], check=True)
 print('sparkles.gif')
+
+import character
+character.character('character')
+subprocess.run(['magick', 'character.png', '-strip', f'PNG8:{os.path.join(OUT, "character.png")}'], check=True)
+print('character')
