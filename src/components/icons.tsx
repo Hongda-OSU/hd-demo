@@ -82,3 +82,12 @@ export function CheckIcon() {
     </svg>
   )
 }
+
+// Points right when closed; the caller turns it down when open.
+export function ChevronIcon() {
+  return (
+    <svg {...base}>
+      <path d="M6 3.5 10.5 8 6 12.5" />
+    </svg>
+  )
+}

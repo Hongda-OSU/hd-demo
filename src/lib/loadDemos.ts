@@ -6,6 +6,7 @@ export interface DemoConfig {
   entry?: string
   dependencies?: Record<string, string>
   externalResources?: string[]
+  group?: string
 }
 
 export interface DemoVariant {
@@ -56,6 +57,44 @@ export function loadDemos(): Project[] {
 
 export function projectTitle(project: Project): string {
   return (project.html?.config || project.react?.config)?.title || project.id
+}
+
+export type SidebarEntry =
+  { kind: 'demo'; project: Project } | { kind: 'group'; name: string; projects: Project[] }
+
+function projectGroup(project: Project): string | undefined {
+  return (project.html?.config || project.react?.config)?.group
+}
+
+/**
+ * The sidebar's order. Demos sharing a `group` sit under one heading, placed
+ * among the rest by the group's name, so variants of one topic don't run the
+ * list on. A group of one is just its demo.
+ */
+export function sidebarEntries(projects: Project[]): SidebarEntry[] {
+  const entries: SidebarEntry[] = []
+  const groups = new Map<string, Project[]>()
+
+  for (const project of projects) {
+    const name = projectGroup(project)
+    if (!name) entries.push({ kind: 'demo', project })
+    else groups.set(name, [...(groups.get(name) ?? []), project])
+  }
+  for (const [name, members] of groups) {
+    entries.push(
+      members.length > 1
+        ? { kind: 'group', name, projects: members }
+        : { kind: 'demo', project: members[0] },
+    )
+  }
+
+  const label = (e: SidebarEntry) => (e.kind === 'group' ? e.name : projectTitle(e.project))
+  return entries.sort((a, b) => label(a).localeCompare(label(b)))
+}
+
+export function firstProject(entries: SidebarEntry[]): Project | undefined {
+  const first = entries[0]
+  return first?.kind === 'group' ? first.projects[0] : first?.project
 }
 
 export function availableVersions(project: Project): Version[] {

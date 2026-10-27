@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { loadDemos, projectTitle, VERSIONS, type Version } from './lib/loadDemos'
+import { firstProject, loadDemos, sidebarEntries, VERSIONS, type Version } from './lib/loadDemos'
 import { useRoute } from './lib/router'
 import { isNarrow, useNarrow } from './lib/narrow'
 import DemoView from './components/DemoView'
 import EmbedView from './components/EmbedView'
+import Sidebar from './components/Sidebar'
 
 const SIDEBAR_WIDTH = 240
 const COLLAPSED_KEY = 'hd-demo:sidebar-collapsed'
@@ -28,6 +29,7 @@ function useSidebarCollapsed() {
 
 export default function App() {
   const projects = useMemo(() => loadDemos(), [])
+  const entries = useMemo(() => sidebarEntries(projects), [projects])
   const { route, navigate, replace } = useRoute()
   const [collapsed, setCollapsed] = useSidebarCollapsed()
   const narrow = useNarrow()
@@ -41,8 +43,9 @@ export default function App() {
 
   // Bare "/" has no project in the URL — put the first one there so every view is linkable.
   useEffect(() => {
-    if (!isEmbed && !slug && projects[0]) replace(projects[0].id)
-  }, [isEmbed, slug, projects, replace])
+    const first = firstProject(entries)
+    if (!isEmbed && !slug && first) replace(first.id)
+  }, [isEmbed, slug, entries, replace])
 
   if (isEmbed) return <EmbedView project={project} version={version} />
 
@@ -74,28 +77,16 @@ export default function App() {
             : null),
         }}
       >
-        <nav style={{ width: SIDEBAR_WIDTH }}>
-          {projects.map((p) => (
-            <a
-              key={p.id}
-              href={import.meta.env.BASE_URL + p.id}
-              onClick={(e) => {
-                e.preventDefault()
-                navigate(p.id)
-                if (narrow) setCollapsed(true)
-              }}
-              style={{
-                display: 'block',
-                padding: '12px 16px',
-                background: p.id === slug ? 'var(--bg-active)' : 'transparent',
-                color: 'var(--text)',
-                textDecoration: 'none',
-              }}
-            >
-              {projectTitle(p)}
-            </a>
-          ))}
-        </nav>
+        <div style={{ width: SIDEBAR_WIDTH }}>
+          <Sidebar
+            entries={entries}
+            activeId={project?.id}
+            onSelect={(id) => {
+              navigate(id)
+              if (narrow) setCollapsed(true)
+            }}
+          />
+        </div>
       </aside>
 
       {drawerOpen && (
