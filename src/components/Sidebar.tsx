@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { projectTitle, type Project, type SidebarEntry } from '../lib/loadDemos'
-import { ChevronIcon } from './icons'
 
 interface Props {
   entries: SidebarEntry[]
@@ -27,7 +26,7 @@ export default function Sidebar({ entries, activeId, onSelect }: Props) {
       }}
       style={{
         display: 'block',
-        padding: indent ? '10px 16px 10px 40px' : '12px 16px',
+        padding: indent ? '10px 16px 10px 28px' : '12px 16px',
         background: project.id === activeId ? 'var(--bg-active)' : 'transparent',
         color: 'var(--text)',
         textDecoration: 'none',
@@ -51,9 +50,7 @@ export default function Sidebar({ entries, activeId, onSelect }: Props) {
               aria-expanded={open}
               onClick={() => setToggled((t) => ({ ...t, [entry.name]: !open }))}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
+                display: 'block',
                 width: '100%',
                 padding: '12px 16px',
                 border: 'none',
@@ -64,17 +61,7 @@ export default function Sidebar({ entries, activeId, onSelect }: Props) {
                 cursor: 'pointer',
               }}
             >
-              <span
-                style={{
-                  display: 'flex',
-                  transform: open ? 'rotate(90deg)' : 'none',
-                  transition: 'transform 0.15s ease',
-                }}
-              >
-                <ChevronIcon />
-              </span>
               {entry.name}
-              <span style={{ marginLeft: 'auto', fontSize: 12 }}>{entry.projects.length}</span>
             </button>
             {open && entry.projects.map((p) => link(p, true))}
           </div>
