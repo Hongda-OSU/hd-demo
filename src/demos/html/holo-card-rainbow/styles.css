@@ -40,6 +40,7 @@ body {
     border-radius: 10px;
     background: url("https://hongdalin.blog/hd-demo/demos/html/holo-card/images/sparkles.gif");
     mix-blend-mode: color-dodge;
+    opacity: var(--sparkles, 1);
   }
 
   &::before {
@@ -51,15 +52,17 @@ body {
     background:
       linear-gradient(115deg,
         transparent 0%,
-        #06e8ff var(--per),
-        #ffab2e calc(var(--per) + 25%),
-        #ff2212 calc(var(--per) + 50%),
+        var(--rainbow-start, #06e8ff) var(--per),
+        var(--rainbow-middle, #ffab2e) calc(var(--per) + 25%),
+        var(--rainbow-end, #ff2212) calc(var(--per) + 50%),
         transparent 100%);
-    mix-blend-mode: overlay;
+    mix-blend-mode: var(--blend, overlay);
   }
 
   &:hover::after,
-  &:hover::before {
+  &:hover::before,
+  .always-shine &::after,
+  .always-shine &::before {
     display: block;
   }
 }
