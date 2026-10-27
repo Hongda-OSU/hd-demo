@@ -44,7 +44,9 @@ its title as the group name, and add the same `group` to the topic's
 so the heading appears only once both carry it.
 
 Propose a title naming what differs (`Rainbow Holo Card`), since the group
-heading already names the topic. Then write.
+heading already names the topic. When the group is new, retitle the topic the
+same way (`Classic Holo Card`), or the heading and its first entry read alike;
+its id stays, for the URLs and embeds already shared. Then write.
 
 ## Step 5 — verify, review and commit
 
