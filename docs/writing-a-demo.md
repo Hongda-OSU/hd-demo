@@ -65,8 +65,10 @@ src/demos/react/infinite-photo-wall/images/photo-1.jpg
 https://hongdalin.blog/hd-demo/demos/react/infinite-photo-wall/images/photo-1.jpg
 ```
 
-Load them by that full URL, for the same cross-origin reason as below. They
-appear only once deployed. When both versions use the same pictures, keep one
+Load them by that full URL, for the same cross-origin reason as below. Under
+`npm run dev` the server inlines each such URL as a data URI, so a new picture
+shows before it is deployed; a URL assembled in code, from a base plus a name,
+is left alone. When both versions use the same pictures, keep one
 copy and point both at it. Pictures drawn in code keep their script in
 `design/<id>/`. The repo is public: only pictures you may publish.
 

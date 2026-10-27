@@ -1,4 +1,4 @@
-import { copyFileSync, mkdirSync, readdirSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -23,19 +23,37 @@ function spaFallback() {
 // /hd-demo/demos/<version>/<id>/x.png, for the demo to load by full URL.
 const IMAGE = /\.(png|jpe?g|gif|webp|avif|svg)$/i
 
+const MIME = { jpg: 'jpeg', svg: 'svg+xml' }
+const PUBLISHED = /https:\/\/hongdalin\.blog\/hd-demo\/([\w./-]+\.(png|jpe?g|gif|webp|avif|svg))/gi
+
 function demoImages() {
-  let root, outDir
+  let root, outDir, serving
   return {
     name: 'demo-images',
     configResolved(config) {
-      root = resolve(config.root, 'src/demos')
+      root = config.root
       outDir = resolve(config.root, config.build.outDir, 'demos')
+      serving = config.command === 'serve'
+    },
+    // Under `npm run dev` those URLs are not live yet, and the sandbox, being a
+    // public origin, may not fetch from localhost. So the dev server inlines each
+    // picture it has on disk into the demo source as a data URI.
+    transform(code, id) {
+      if (!serving || !id.endsWith('?raw') || !id.includes('/src/demos/')) return
+      return code.replace(PUBLISHED, (url, path, ext) => {
+        const file = resolve(root, path.startsWith('demos/') ? 'src' : 'public', path)
+        if (!existsSync(file)) return url
+        this.addWatchFile(file)
+        const type = MIME[ext.toLowerCase()] ?? ext.toLowerCase()
+        return `data:image/${type};base64,${readFileSync(file).toString('base64')}`
+      })
     },
     closeBundle() {
-      for (const file of readdirSync(root, { recursive: true })) {
+      const demos = resolve(root, 'src/demos')
+      for (const file of readdirSync(demos, { recursive: true })) {
         if (!IMAGE.test(file)) continue
         mkdirSync(dirname(resolve(outDir, file)), { recursive: true })
-        copyFileSync(resolve(root, file), resolve(outDir, file))
+        copyFileSync(resolve(demos, file), resolve(outDir, file))
       }
     },
   }
