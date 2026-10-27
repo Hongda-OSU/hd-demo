@@ -54,6 +54,21 @@ Three consequences worth knowing before writing one:
   highlighted markup instead of mounting CodeMirror, and line numbers are a
   CodeMirror extension.
 
+## Images of its own
+
+Put a demo's own pictures in its folder, in a subfolder if you like. Sandpack
+only takes text, so the build publishes them beside the site instead, at the
+same path under `demos/`:
+
+```
+src/demos/react/infinite-photo-wall/images/photo-1.jpg
+https://hongdalin.blog/hd-demo/demos/react/infinite-photo-wall/images/photo-1.jpg
+```
+
+Load them by that full URL, for the same cross-origin reason as below. They
+appear only once deployed. When both versions use the same pictures, keep one
+copy and point both at it. The repo is public: only pictures you may publish.
+
 ## Sample images
 
 Pixel-art scenes ship with the site for demos that need a picture and

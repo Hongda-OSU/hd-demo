@@ -57,10 +57,13 @@ Sandpack forces, and say what you changed and why.
 
 ## Images
 
+Pictures the user gives go in the demo's own folder; the build publishes them
+at `https://hongdalin.blog/hd-demo/demos/<version>/<id>/<path>`, and the code
+loads them by that URL — see
+[docs/writing-a-demo.md](../../../docs/writing-a-demo.md#images-of-its-own).
 If the demo needs pictures and the user gave none, use the sample images
-listed in [docs/writing-a-demo.md](../../../docs/writing-a-demo.md#sample-images),
-by full URL. Don't hotlink stock photos or anime and game art: the repo is
-public, and that art belongs to someone else.
+listed there, by full URL. Don't hotlink stock photos or anime and game art:
+the repo is public, and that art belongs to someone else.
 
 ## Verify
 
