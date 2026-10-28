@@ -12,6 +12,11 @@ body {
 #card {
   width: 250px;
   height: 350px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.2);
+  border: 3px solid #fff;
+  /* Rounds the sparkle layer's corners along with the card's. */
+  overflow: hidden;
   background: url("https://hongdalin.blog/hd-demo/demos/html/holo-card-grayscale/images/card.png");
   background-position: center;
   background-size: cover;
