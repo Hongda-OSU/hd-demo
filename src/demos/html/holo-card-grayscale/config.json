@@ -1,0 +1,6 @@
+{
+  "title": "Grayscale Holo Card",
+  "description": "平时黑白的闪卡,悬停时恢复彩色并泛起闪光",
+  "entry": "index.html",
+  "group": "Holo Card"
+}
