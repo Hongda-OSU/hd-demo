@@ -1,0 +1,43 @@
+body {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  background: #000;
+}
+
+.morph {
+  animation: morph 8s ease-in-out infinite;
+  background: url("https://hongdalin.blog/hd-demo/icon-192.png");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 3px solid #fff;
+  border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+  height: 128px;
+  position: relative;
+  width: 128px;
+  margin: auto;
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+  }
+
+  50% {
+    border-radius: 30% 60% 70% 40%/50% 60% 30% 60%;
+  }
+
+  100% {
+    border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+  }
+}
+
+/* Hold the shape still for those who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .morph {
+    animation: none;
+  }
+}
