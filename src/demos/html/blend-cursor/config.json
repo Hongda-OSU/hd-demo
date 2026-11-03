@@ -1,0 +1,6 @@
+{
+  "title": "Blend Cursor",
+  "description": "小点紧跟鼠标,大圆慢半拍跟上,经过文字时混合模式让颜色反转",
+  "entry": "index.html",
+  "group": "Cursor Effect"
+}
