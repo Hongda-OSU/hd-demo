@@ -55,7 +55,7 @@ export default function Sidebar({ entries, activeId, onSelect }: Props) {
                 padding: '12px 16px',
                 border: 'none',
                 background: 'transparent',
-                color: holdsActive && !open ? 'var(--text)' : 'var(--text-muted)',
+                color: 'var(--text)',
                 font: 'inherit',
                 textAlign: 'left',
                 cursor: 'pointer',
