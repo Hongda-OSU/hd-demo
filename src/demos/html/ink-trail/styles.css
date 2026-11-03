@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  cursor: none;
+}
+
+/* Inline by default, the canvas would add a line gap and make the page scroll. */
+canvas {
+  display: block;
+}
