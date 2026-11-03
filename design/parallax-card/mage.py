@@ -1,8 +1,7 @@
 # mage.png: a hooded fire mage, head and shoulders, on a transparent background.
 # Original character, 64x96 grid (the card's 2:3), scaled x6 to 384x576.
-# Same method as design/pop-out-image/character.py: shapes filled back to front,
-# shaded from the top left, outlined dark at the silhouette and in each part's
-# own line colour where it overlaps another.
+# Shapes are filled back to front, shaded from the top left, outlined dark at
+# the silhouette and in each part's own line colour where it overlaps another.
 import math
 
 W, H = 64, 96
