@@ -1,0 +1,58 @@
+@font-face {
+  font-family: "NeueMontreal-Bold";
+  src: url("https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgNeueMontreal-Bold.otf");
+  font-weight: 700;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #000;
+}
+
+body {
+  min-height: 100vh;
+  background: #fff;
+  font-family: "NeueMontreal-Bold", sans-serif;
+  overflow: hidden;
+  cursor: none;
+  /* Lets a finger drag the ring instead of panning the page. */
+  touch-action: none;
+}
+
+.text {
+  position: absolute;
+  font-size: 1.5em;
+  color: var(--primary-color);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.text::before {
+  content: "";
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+}
+
+.text span {
+  position: absolute;
+  top: -100px;
+  text-transform: uppercase;
+  transform-origin: 0 100px;
+}
+
+/* Shown on the first move, so touch screens see it too. */
+.text.is-visible {
+  opacity: 1;
+}

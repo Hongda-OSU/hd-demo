@@ -1,0 +1,6 @@
+{
+  "title": "Orbit Text",
+  "description": "名字围成一圈绕着光标,鼠标移动时整圈文字跟着旋转",
+  "entry": "index.html",
+  "group": "Cursor Effect"
+}
