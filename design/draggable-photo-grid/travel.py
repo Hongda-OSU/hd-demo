@@ -1,7 +1,7 @@
-# Seven pixel-art travel snapshots for the infinite-photo-wall demo.
+# Seven pixel-art travel snapshots for the draggable-photo-grid demo.
 # 117x171 grids -- the 234:342 shape of a photo cell -- scaled x4 to 468x684,
 # written as PNG8 into the demo's images folder. Run from anywhere:
-#   python3 design/infinite-photo-wall/travel.py   (needs ImageMagick 7)
+#   python3 design/draggable-photo-grid/travel.py   (needs ImageMagick 7)
 import math, os, random, subprocess, sys, tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.join(HERE, '..', 'samples'))
 from px import Img, ramp, dither, vgrad, stars, ridge, fill_below, disc, rect, glow, hx
 
 W, H = 117, 171
-OUT = os.path.normpath(os.path.join(HERE, '..', '..', 'src', 'demos', 'html', 'infinite-photo-wall', 'images'))
+OUT = os.path.normpath(os.path.join(HERE, '..', '..', 'src', 'demos', 'html', 'draggable-photo-grid', 'images'))
 
 def tri(im, cx, top, base, half, c):
     for y in range(int(top), int(base) + 1):

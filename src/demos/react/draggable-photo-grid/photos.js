@@ -3,31 +3,31 @@
 // whole so that `npm run dev` can inline it before it is deployed.
 export const PHOTOS = [
   {
-    src: 'https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/fuji.png',
+    src: 'https://hongdalin.blog/hd-demo/demos/html/draggable-photo-grid/images/fuji.png',
     alt: 'Mount Fuji at sunrise behind a pagoda and cherry blossom',
   },
   {
-    src: 'https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/beach.png',
+    src: 'https://hongdalin.blog/hd-demo/demos/html/draggable-photo-grid/images/beach.png',
     alt: 'Sunset over the sea beside a palm tree',
   },
   {
-    src: 'https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/alps.png',
+    src: 'https://hongdalin.blog/hd-demo/demos/html/draggable-photo-grid/images/alps.png',
     alt: 'Snowy peaks mirrored in a still lake',
   },
   {
-    src: 'https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/desert.png',
+    src: 'https://hongdalin.blog/hd-demo/demos/html/draggable-photo-grid/images/desert.png',
     alt: 'A camel caravan crossing the dunes at sundown',
   },
   {
-    src: 'https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/terraces.png',
+    src: 'https://hongdalin.blog/hd-demo/demos/html/draggable-photo-grid/images/terraces.png',
     alt: 'Rice terraces stepping down a misty valley',
   },
   {
-    src: 'https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/santorini.png',
+    src: 'https://hongdalin.blog/hd-demo/demos/html/draggable-photo-grid/images/santorini.png',
     alt: 'White houses and blue domes above the sea',
   },
   {
-    src: 'https://hongdalin.blog/hd-demo/demos/html/infinite-photo-wall/images/balloons.png',
+    src: 'https://hongdalin.blog/hd-demo/demos/html/draggable-photo-grid/images/balloons.png',
     alt: 'Hot-air balloons over a valley of rock chimneys',
   },
 ];

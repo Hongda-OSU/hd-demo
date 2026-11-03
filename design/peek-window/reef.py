@@ -4,7 +4,7 @@
 # 125x115 grid, scaled x4 to 500x460. Only 40px taller than the frame on
 # purpose: the demo pans between 15% and 45% down, so a taller picture would
 # keep its sea floor out of view.
-# Run from anywhere: python3 design/moving-background/reef.py  (needs ImageMagick 7)
+# Run from anywhere: python3 design/peek-window/reef.py  (needs ImageMagick 7)
 import math, random, sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'samples'))
 from px import Img, ramp, dither, bayer, vgrad, ridge, fill_below, disc
@@ -101,7 +101,7 @@ def reef():
 if __name__ == '__main__':
     import subprocess, tempfile
     out = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'src', 'demos',
-                                        'html', 'moving-background', 'images'))
+                                        'html', 'peek-window', 'images'))
     if len(sys.argv) > 1: out = os.path.abspath(sys.argv[1])
     os.makedirs(out, exist_ok=True)
     os.chdir(tempfile.mkdtemp())
