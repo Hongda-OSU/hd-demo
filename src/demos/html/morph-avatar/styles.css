@@ -4,7 +4,7 @@ body {
   height: 100vh;
   overflow: hidden;
   margin: 0;
-  background: #000;
+  background: #fff;
 }
 
 .morph {
@@ -13,7 +13,7 @@ body {
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
-  border: 3px solid #fff;
+  border: 3px solid #000;
   border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
   height: 128px;
   position: relative;
