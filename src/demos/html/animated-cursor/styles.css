@@ -1,0 +1,51 @@
+/* cursor is inherited, so animating it on html changes it everywhere. */
+html {
+  /* 4 4 puts the click point on the ghost's tail tip. */
+  cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame1.png) 4 4, auto;
+  animation: cursor-body 3s infinite;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #080808;
+}
+
+p {
+  color: #555;
+  font-family: system-ui, sans-serif;
+}
+
+@keyframes cursor-body {
+  0% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame1.png) 4 4, auto;}
+  5% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame2.png) 4 4, auto;}
+  10% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame3.png) 4 4, auto;}
+  15% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame4.png) 4 4, auto;}
+  20% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame5.png) 4 4, auto;}
+  25% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame6.png) 4 4, auto;}
+  30% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame7.png) 4 4, auto;}
+  35% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame8.png) 4 4, auto;}
+  40% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame9.png) 4 4, auto;}
+  45% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame10.png) 4 4, auto;}
+  50% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame11.png) 4 4, auto;}
+  55% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame12.png) 4 4, auto;}
+  60% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame13.png) 4 4, auto;}
+  65% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame14.png) 4 4, auto;}
+  70% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame15.png) 4 4, auto;}
+  75% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame16.png) 4 4, auto;}
+  80% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame17.png) 4 4, auto;}
+  85% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame18.png) 4 4, auto;}
+  90% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame19.png) 4 4, auto;}
+  95% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame20.png) 4 4, auto;}
+  100% {cursor: url(https://hongdalin.blog/hd-demo/demos/html/animated-cursor/images/frame1.png) 4 4, auto;}
+}
+
+/* Hold the first frame for those who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    animation: none;
+  }
+}
