@@ -1,0 +1,6 @@
+{
+  "title": "Shuffle Photo Stack",
+  "description": "一叠歪斜的照片像洗牌一样,最上面那张滑出去再插回最底下,纯 CSS 循环",
+  "entry": "index.html",
+  "group": "Photo Stack"
+}
