@@ -1,5 +1,5 @@
 {
-  "title": "Ink Trail",
+  "title": "Ink Cursor",
   "description": "一条渐细的线跟着鼠标走,鼠标不动时自己画开场动画",
   "entry": "index.html",
   "group": "Cursor Effect"
