@@ -20,8 +20,8 @@ Served at `hongdalin.blog/hd-demo/`; `hongda-osu.github.io` redirects there.
 ## Adding a demo
 
 A folder under `src/demos/<html|react>/<id>/` with a `config.json` — `title`,
-`description`, `entry`, optional `dependencies`, `externalResources` and
-`group`. No registry: `loadDemos` finds it by glob. Both versions of one `<id>`
+`description`, `category`, `entry`, optional `dependencies`,
+`externalResources` and `group`. No registry: `loadDemos` finds it by glob. Both versions of one `<id>`
 may exist, and the version icons appear only then. Images go in the folder,
 loaded by published URL; `npm run dev` inlines them.
 
@@ -39,7 +39,7 @@ Run `npm run lint`, `npx tsc --noEmit`, `npm run build` and
 `npm run check:docs`; CI runs all four. Prettier skips `src/demos`, since demo
 code is shown verbatim and keeps its author's style.
 
-Commits are Conventional, atomic, subject and body lines all within 72
+Commits are Conventional, atomic, subject and body lines within 72
 characters. Write a body only for the why a diff cannot show, never for
 what it already says. A global `commit-msg` hook rejects the mechanical
 breaches. After cloning, `git config core.hooksPath .githooks`.

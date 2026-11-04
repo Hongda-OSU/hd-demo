@@ -33,13 +33,15 @@ step 5.
 
 > 贴 JS,没有就说 skip。
 
-## Step 5 — title and description
+## Step 5 — title, description and category
 
-> 标题和一句话描述?(显示在左侧列表和顶部)
+> 标题、一句话描述和分类?(显示在左侧列表和顶部)
 
 Propose a sensible default from the id and what the code does, so the user can
 just confirm. The sidebar search matches the description, so name the effect
-in the words a visitor would type (光标, 光晕, 滚动). Then write the files.
+in the words a visitor would type (光标, 光晕, 滚动). The category is one of
+`CATEGORIES` in `src/lib/loadDemos.ts`; pick it by what the effect is, not
+by what triggers it. Then write the files.
 
 ## What to write
 
@@ -68,6 +70,7 @@ Fonts import in `typing-text` shows. Only link the files that exist.
 {
   "title": "Typing Text",
   "description": "一句话说明效果",
+  "category": "Text",
   "entry": "index.html"
 }
 ```

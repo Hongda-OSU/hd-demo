@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
-  filterEntries,
+  filterSections,
   firstProject,
   projectTitle,
   type Project,
   type SidebarEntry,
+  type SidebarSection,
 } from '../lib/loadDemos'
 import { ChevronIcon, SearchIcon } from './icons'
 
 interface Props {
-  entries: SidebarEntry[]
+  sections: SidebarSection[]
   activeId: string | undefined
   onSelect: (id: string) => void
   /** Whether "/" focuses the search; off while the list is hidden or on a phone. */
@@ -24,18 +25,23 @@ const hidden = {
   clip: 'rect(0 0 0 0)',
 } as const
 
+function demoCount(section: SidebarSection) {
+  return section.entries.reduce((n, e) => n + (e.kind === 'group' ? e.projects.length : 1), 0)
+}
+
 /**
- * The demo list, with a search over titles and descriptions. A group opens on its own when it holds the demo being shown,
+ * The demo list, in category sections, with a search over titles and
+ * descriptions. A group opens on its own when it holds the demo being shown,
  * so a deep link never lands on a hidden entry; a click on its heading then
  * overrides that either way. While searching, every group with a hit is open.
  */
-export default function Sidebar({ entries, activeId, onSelect, shortcut }: Props) {
+export default function Sidebar({ sections, activeId, onSelect, shortcut }: Props) {
   const [toggled, setToggled] = useState<Record<string, boolean>>({})
   const [query, setQuery] = useState('')
   const searchRef = useRef<HTMLInputElement>(null)
 
   const searching = query.trim() !== ''
-  const shown = useMemo(() => filterEntries(entries, query), [entries, query])
+  const shown = useMemo(() => filterSections(sections, query), [sections, query])
 
   // "/" jumps to the search, as on GitHub and MDN, unless already typing.
   useEffect(() => {
@@ -64,12 +70,12 @@ export default function Sidebar({ entries, activeId, onSelect, shortcut }: Props
       }}
       style={{
         display: 'block',
-        padding: indent ? '9px 16px 9px 14px' : '12px 16px',
+        padding: indent ? '8px 16px 8px 14px' : '9px 16px',
         marginLeft: indent ? 22 : 0,
         borderLeft: indent ? '1px solid var(--handle)' : 'none',
         background: project.id === activeId ? 'var(--bg-active)' : 'transparent',
         color: 'var(--text)',
-        fontSize: indent ? 15 : 16,
+        fontSize: indent ? 14 : 15,
         textDecoration: 'none',
       }}
     >
@@ -91,11 +97,12 @@ export default function Sidebar({ entries, activeId, onSelect, shortcut }: Props
             alignItems: 'center',
             gap: 6,
             width: '100%',
-            padding: '12px 16px 12px 10px',
+            padding: '9px 16px 9px 10px',
             border: 'none',
             background: 'transparent',
             color: 'var(--text)',
             font: 'inherit',
+            fontSize: 15,
             textAlign: 'left',
             cursor: 'pointer',
           }}
@@ -136,7 +143,7 @@ export default function Sidebar({ entries, activeId, onSelect, shortcut }: Props
           position: 'sticky',
           top: 0,
           zIndex: 1,
-          padding: '12px 12px 8px',
+          padding: '12px 12px 4px',
           background: 'var(--bg-raised)',
         }}
       >
@@ -172,7 +179,7 @@ export default function Sidebar({ entries, activeId, onSelect, shortcut }: Props
           style={{
             width: '100%',
             height: 36,
-            padding: '0 30px 0 32px',
+            padding: '0 10px 0 32px',
             border: '1px solid var(--border)',
             borderRadius: 6,
             background: 'var(--bg)',
@@ -181,29 +188,31 @@ export default function Sidebar({ entries, activeId, onSelect, shortcut }: Props
             fontSize: 14,
           }}
         />
-        {shortcut && !query && (
-          <kbd
-            aria-hidden
-            style={{
-              position: 'absolute',
-              right: 22,
-              top: 21,
-              padding: '0 6px',
-              border: '1px solid var(--handle)',
-              borderRadius: 4,
-              color: 'var(--text-muted)',
-              font: 'inherit',
-              fontSize: 12,
-              lineHeight: '18px',
-              pointerEvents: 'none',
-            }}
-          >
-            /
-          </kbd>
-        )}
       </div>
 
-      {shown.map((entry) => (entry.kind === 'demo' ? link(entry.project, false) : group(entry)))}
+      {shown.map((section) => (
+        <section key={section.name}>
+          <h2
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              margin: 0,
+              padding: '16px 16px 6px',
+              color: 'var(--text-muted)',
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+            }}
+          >
+            <span>{section.name}</span>
+            <span>{demoCount(section)}</span>
+          </h2>
+          {section.entries.map((entry) =>
+            entry.kind === 'demo' ? link(entry.project, false) : group(entry),
+          )}
+        </section>
+      ))}
 
       {searching && shown.length === 0 && (
         <p style={{ margin: 0, padding: '12px 16px', color: 'var(--text-muted)', fontSize: 14 }}>

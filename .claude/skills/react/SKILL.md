@@ -44,9 +44,11 @@ resolve exact versions with `npm view <pkg> version` — never write `latest`.
 Check `peerDependencies` and add them explicitly: `kokomi.js` declares
 `three: >=0.160` but does not install it.
 
-Also ask for title and description here, proposing defaults. The sidebar
-search matches the description, so name the effect in the words a visitor
-would type. Then write.
+Also ask for title, description and category here, proposing defaults. The
+sidebar search matches the description, so name the effect in the words a
+visitor would type. The category is one of `CATEGORIES` in
+`src/lib/loadDemos.ts`, picked by what the effect is, not by what triggers
+it. Then write.
 
 ## What to write
 
@@ -76,6 +78,7 @@ Three fixes to apply, all forced by Sandpack. Tell the user you made them:
 {
   "title": "Ripple Image Effect",
   "description": "一句话说明效果",
+  "category": "Image",
   "entry": "App.jsx",
   "dependencies": { "three": "0.185.1", "gsap": "3.15.0" }
 }

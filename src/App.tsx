@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { firstProject, loadDemos, sidebarEntries, VERSIONS, type Version } from './lib/loadDemos'
+import { firstProject, loadDemos, sidebarSections, VERSIONS, type Version } from './lib/loadDemos'
 import { useRoute } from './lib/router'
 import { isNarrow, useNarrow } from './lib/narrow'
 import DemoView from './components/DemoView'
@@ -29,7 +29,7 @@ function useSidebarCollapsed() {
 
 export default function App() {
   const projects = useMemo(() => loadDemos(), [])
-  const entries = useMemo(() => sidebarEntries(projects), [projects])
+  const sections = useMemo(() => sidebarSections(projects), [projects])
   const { route, navigate, replace } = useRoute()
   const [collapsed, setCollapsed] = useSidebarCollapsed()
   const narrow = useNarrow()
@@ -43,9 +43,9 @@ export default function App() {
 
   // Bare "/" has no project in the URL — put the first one there so every view is linkable.
   useEffect(() => {
-    const first = firstProject(entries)
+    const first = firstProject(sections)
     if (!isEmbed && !slug && first) replace(first.id)
-  }, [isEmbed, slug, entries, replace])
+  }, [isEmbed, slug, sections, replace])
 
   if (isEmbed) return <EmbedView project={project} version={version} />
 
@@ -79,7 +79,7 @@ export default function App() {
       >
         <div style={{ width: SIDEBAR_WIDTH }}>
           <Sidebar
-            entries={entries}
+            sections={sections}
             activeId={project?.id}
             onSelect={(id) => {
               navigate(id)

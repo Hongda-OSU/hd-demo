@@ -1,5 +1,6 @@
 {
   "title": "Reflection Card",
   "description": "一张发着白光的卡片,下方用 -webkit-box-reflect 映出渐隐的倒影",
+  "category": "Card",
   "entry": "index.html"
 }

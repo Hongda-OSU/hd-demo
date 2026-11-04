@@ -1,5 +1,6 @@
 {
   "title": "TV Static",
   "description": "只用两层重复渐变叠加 difference 混合,来回抖动出老电视的雪花噪点",
+  "category": "Background",
   "entry": "index.html"
 }

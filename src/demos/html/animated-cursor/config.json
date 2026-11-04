@@ -1,6 +1,6 @@
 {
   "title": "Animated Cursor",
   "description": "20 帧轮播的动画光标,一只尾巴飘动、会眨眼的小幽灵",
-  "entry": "index.html",
-  "group": "Cursor Effect"
+  "category": "Cursor",
+  "entry": "index.html"
 }

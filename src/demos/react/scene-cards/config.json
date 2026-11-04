@@ -1,6 +1,7 @@
 {
   "title": "Scene Cards",
   "description": "三张卡片随鼠标 3D 倾斜,前景的浮岛、灯笼和火车浮在卡面之上,背景反向平移,形成视差纵深",
+  "category": "Card",
   "entry": "ParallaxEffect.jsx",
   "group": "Parallax Card"
 }

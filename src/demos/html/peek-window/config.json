@@ -1,5 +1,6 @@
 {
   "title": "Peek Window",
   "description": "鼠标在框里移动时,背景图跟着平移,像透过窗口看一幅更大的画",
+  "category": "Image",
   "entry": "index.html"
 }

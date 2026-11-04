@@ -36,9 +36,11 @@ skill's intake — [html](../html/SKILL.md) or [react](../react/SKILL.md) — fr
 its step 2, since the id is settled. Its fixes, file layout and image rules
 apply unchanged.
 
-## Step 4 — group, title and description
+## Step 4 — group, category, title and description
 
-The group is the topic's existing `group`. If the topic has none yet, propose
+The group is the topic's existing `group`, and the category its `category`.
+A group holds variants of one effect only; never use one for a kind of
+effect, which is what the category is for. If the topic has none yet, propose
 its title as the group name, and add the same `group` to the topic's
 `config.json` in every version it has — a group of one shows as a plain demo,
 so the heading appears only once both carry it.

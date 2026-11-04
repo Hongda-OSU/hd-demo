@@ -29,9 +29,10 @@ add a restrictive `frame-ancestors` policy or it breaks.
 
 ## Sidebar
 
-The search box at the top filters the list by title, description and group
-name, so a Chinese description finds a demo as well as its English title.
-Groups holding a match open while searching.
+Demos sit in category sections (Cursor, Text, Image, …), each heading with a
+count. The search box at the top filters them by title, description, category
+and group name, so a Chinese description finds a demo as well as its English
+title. Sections with no match drop out, and groups holding one open.
 
 | Key      | Does                                       |
 | -------- | ------------------------------------------ |

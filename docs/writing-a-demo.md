@@ -14,12 +14,20 @@ variant the same `group` and the sidebar lists them under one heading, which
 opens by itself when it holds the demo on screen. A group of one shows as a
 plain demo.
 
+Every demo also has a `category`, the sidebar section it sits in: Cursor,
+Text, Image, Card, Background, Scroll or UI, in the order `CATEGORIES` in
+`src/lib/loadDemos.ts` gives. A name not on that list starts a section of
+its own after them; a demo with none lands under Other. A group is for
+variants of one effect, not for a kind of effect: that is the category.
+Variants share their topic's category.
+
 ## `config.json`
 
 | Field               | Type     | Required | Meaning                                                             |
 | ------------------- | -------- | -------- | ------------------------------------------------------------------- |
 | `title`             | string   | yes      | Shown in the sidebar and the header                                 |
 | `description`       | string   | yes      | One line, beside the title on wide screens; the search matches it   |
+| `category`          | string   | yes      | Sidebar section, one of `CATEGORIES` above                          |
 | `entry`             | string   | yes      | `App.jsx` for React, `index.html` for HTML                          |
 | `dependencies`      | object   | no       | npm package → **exact** version, never a range                      |
 | `externalResources` | string[] | no       | CDN URLs injected into the preview page — fonts, global stylesheets |
@@ -29,6 +37,7 @@ plain demo.
 {
   "title": "Ripple Image Effect",
   "description": "WebGL gallery; the image follows the cursor on hover",
+  "category": "Image",
   "entry": "App.jsx",
   "dependencies": { "three": "0.185.1", "kokomi.js": "1.11.0", "gsap": "3.15.0" }
 }

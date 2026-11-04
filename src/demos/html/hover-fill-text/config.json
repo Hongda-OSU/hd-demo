@@ -1,6 +1,6 @@
 {
   "title": "Hover Fill Text",
   "description": "描边大字,鼠标悬停时向前浮起,黄色渐变从一侧扫过把字填满,移开再反向褪去",
-  "entry": "index.html",
-  "group": "Text Effect"
+  "category": "Text",
+  "entry": "index.html"
 }

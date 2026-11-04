@@ -1,6 +1,7 @@
 {
   "title": "Ripple Image Effect",
   "description": "WebGL 画廊:悬停时图片跟随鼠标,带波纹遮罩与形变着色器",
+  "category": "Image",
   "entry": "App.jsx",
   "dependencies": {
     "kokomi.js": "1.11.0",
