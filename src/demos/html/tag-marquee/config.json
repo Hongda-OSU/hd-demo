@@ -1,0 +1,5 @@
+{
+  "title": "Tag Marquee",
+  "description": "技能标签分两行无限滚动,一行向左一行向右,两侧边缘渐隐,跑马灯效果",
+  "entry": "index.html"
+}
