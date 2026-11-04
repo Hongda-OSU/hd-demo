@@ -1,0 +1,5 @@
+{
+  "title": "Pixel Dissolve",
+  "description": "鼠标悬停时图片碎成 20×30 个小格,按随机顺序一格格淡出,移开再拼回来",
+  "entry": "index.html"
+}

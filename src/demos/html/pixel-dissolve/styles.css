@@ -1,0 +1,26 @@
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: wheat;
+}
+
+/* The mask and transition, one layer per tile, are built in script.js. */
+div {
+  width: 400px;
+  height: 600px;
+  /* Never squeeze: whole-pixel tiles leave no seams between them. */
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: url("https://hongdalin.blog/hd-demo/demos/html/pixel-dissolve/images/treehouse.jpg") no-repeat center/cover;
+  transform: scale(0.5);
+}
+
+/* Full size when the screen is tall enough. */
+@media (min-height: 700px) {
+  div {
+    transform: none;
+  }
+}
