@@ -122,3 +122,13 @@
     flex-direction: column;
   }
 }
+
+/*
+ * Sandpack rings the file tab in its accent colour whenever the tab button
+ * has focus, which a plain click gives it. The active tab is already marked
+ * by its colour, so the ring only adds noise. `.sp-tabs` lifts this over the
+ * runtime-injected rule.
+ */
+.sp-tabs .sp-tab-container:has(button:focus) {
+  outline: none;
+}
