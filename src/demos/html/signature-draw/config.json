@@ -1,0 +1,6 @@
+{
+  "title": "Signature Draw",
+  "description": "stroke-dashoffset 动画把手写签名一笔笔写出来,停留几秒再收回,12 秒一轮",
+  "category": "Text",
+  "entry": "index.html"
+}
