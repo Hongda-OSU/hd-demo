@@ -1,0 +1,7 @@
+{
+  "title": "Wave Distort",
+  "description": "低频 SVG 噪声让整幅油画像水波一样大幅缓慢晃动,10 秒一轮来回扭曲",
+  "category": "Image",
+  "entry": "index.html",
+  "group": "Noise Distort"
+}

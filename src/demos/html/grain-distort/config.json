@@ -2,5 +2,6 @@
   "title": "Grain Distort",
   "description": "SVG 噪声滤镜把一幅油画搅碎成噪点,8 秒一轮慢慢复原再散开,同时色相不停旋转",
   "category": "Image",
-  "entry": "index.html"
+  "entry": "index.html",
+  "group": "Noise Distort"
 }
