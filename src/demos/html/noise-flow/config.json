@@ -1,0 +1,6 @@
+{
+  "title": "Noise Flow",
+  "description": "Three.js 片元着色器把三角噪声层层扭曲,画出缓慢流动的彩色纹理",
+  "entry": "index.html",
+  "group": "Shader Effect"
+}
