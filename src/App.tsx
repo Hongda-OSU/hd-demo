@@ -85,6 +85,7 @@ export default function App() {
               navigate(id)
               if (narrow) setCollapsed(true)
             }}
+            shortcut={!collapsed && !narrow}
           />
         </div>
       </aside>

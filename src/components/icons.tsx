@@ -1,8 +1,8 @@
 /**
  * Inline 16px icons, stroked with currentColor so they follow button state.
  *
- * Drawn rather than pulled from a library: four icons is not worth a dependency
- * that ships hundreds, and these are all a handful of paths.
+ * Drawn rather than pulled from a library: a few icons are not worth a
+ * dependency that ships hundreds, and these are all a handful of paths.
  */
 
 const base = {
@@ -83,3 +83,20 @@ export function CheckIcon() {
   )
 }
 
+export function SearchIcon() {
+  return (
+    <svg {...base}>
+      <circle cx="7" cy="7" r="4.5" />
+      <path d="M10.5 10.5 14 14" />
+    </svg>
+  )
+}
+
+// Points right; turned a quarter down when its group is open.
+export function ChevronIcon() {
+  return (
+    <svg {...base}>
+      <path d="M6 3.5 10.5 8 6 12.5" />
+    </svg>
+  )
+}

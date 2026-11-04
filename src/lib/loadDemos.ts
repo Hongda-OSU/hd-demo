@@ -55,16 +55,16 @@ export function loadDemos(): Project[] {
   return Object.values(projects).sort((a, b) => a.id.localeCompare(b.id))
 }
 
+function projectConfig(project: Project): DemoConfig | undefined {
+  return project.html?.config || project.react?.config
+}
+
 export function projectTitle(project: Project): string {
-  return (project.html?.config || project.react?.config)?.title || project.id
+  return projectConfig(project)?.title || project.id
 }
 
 export type SidebarEntry =
   { kind: 'demo'; project: Project } | { kind: 'group'; name: string; projects: Project[] }
-
-function projectGroup(project: Project): string | undefined {
-  return (project.html?.config || project.react?.config)?.group
-}
 
 /**
  * The sidebar's order. Demos sharing a `group` sit under one heading, placed
@@ -76,7 +76,7 @@ export function sidebarEntries(projects: Project[]): SidebarEntry[] {
   const groups = new Map<string, Project[]>()
 
   for (const project of projects) {
-    const name = projectGroup(project)
+    const name = projectConfig(project)?.group
     if (!name) entries.push({ kind: 'demo', project })
     else groups.set(name, [...(groups.get(name) ?? []), project])
   }
@@ -90,6 +90,26 @@ export function sidebarEntries(projects: Project[]): SidebarEntry[] {
 
   const label = (e: SidebarEntry) => (e.kind === 'group' ? e.name : projectTitle(e.project))
   return entries.sort((a, b) => label(a).localeCompare(label(b)))
+}
+
+/** A sidebar search hit: the query in the title, description or group. */
+export function matchesQuery(project: Project, query: string): boolean {
+  const q = query.trim().toLowerCase()
+  if (!q) return true
+  const config = projectConfig(project)
+  return [projectTitle(project), config?.description, config?.group].some((text) =>
+    text?.toLowerCase().includes(q),
+  )
+}
+
+/** The entries cut down to the demos matching `query`; emptied groups drop out. */
+export function filterEntries(entries: SidebarEntry[], query: string): SidebarEntry[] {
+  if (!query.trim()) return entries
+  return entries.flatMap((entry): SidebarEntry[] => {
+    if (entry.kind === 'demo') return matchesQuery(entry.project, query) ? [entry] : []
+    const projects = entry.projects.filter((p) => matchesQuery(p, query))
+    return projects.length ? [{ ...entry, projects }] : []
+  })
 }
 
 export function firstProject(entries: SidebarEntry[]): Project | undefined {

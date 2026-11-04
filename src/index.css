@@ -33,3 +33,13 @@ body {
     'Segoe UI',
     sans-serif;
 }
+
+/* An inline style can't reach a pseudo-element or :focus. */
+#demo-search::placeholder {
+  color: var(--text-muted);
+}
+
+/* The caret already shows where typing goes. */
+#demo-search:focus {
+  outline: none;
+}
