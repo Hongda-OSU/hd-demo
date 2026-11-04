@@ -1,0 +1,6 @@
+{
+  "title": "Split Text",
+  "description": "斜线把背景切成黑白两半,文字用 difference 混合,压在黑上是白字,压在白上是黑字",
+  "category": "Text",
+  "entry": "index.html"
+}
