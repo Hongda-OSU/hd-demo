@@ -1,0 +1,164 @@
+/* ParallaxEffect.css */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.page-x {
+  width: 100%;
+  height: 100vh;
+  /* 触摸拖动时倾斜卡片，而不是滚动页面 */
+  touch-action: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  perspective: 1800px;
+  background: linear-gradient(to bottom, #c6426e, #642b73);
+}
+
+h1 {
+  margin-bottom: 30px;
+  transform: translateZ(35px);
+  letter-spacing: -1px;
+  font-size: 32px;
+  font-weight: 800;
+  color: #3e3e42;
+}
+
+h3 {
+  margin-bottom: 6px;
+  transform: translateZ(25px);
+  font-size: 16px;
+  color: #eb285d;
+}
+
+.cards {
+  display: inline-block;
+  min-width: 595px;
+  padding: 30px 35px;
+  perspective: 1800px;
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+  border-radius: 15px;
+  text-align: left;
+  background: #fff;
+  box-shadow: 0px 10px 20px 20px rgba(0, 0, 0, 0.17);
+}
+
+/* 指针离开后回正时才缓动；跟手转时不加过渡，免得拖慢 */
+.page-x.is-resetting .cards,
+.page-x.is-resetting .card-img {
+  transition: transform 0.5s ease-out;
+}
+
+.page-x.is-resetting .card-bg {
+  transition: background-position 0.5s ease-out;
+}
+
+/* 窄屏按比例缩小整组卡片；scale 和 JS 写的 transform 互不覆盖 */
+@media (max-width: 700px) {
+  .cards {
+    scale: 0.8;
+  }
+}
+
+@media (max-width: 560px) {
+  .cards {
+    scale: 0.65;
+  }
+}
+
+@media (max-width: 440px) {
+  .cards {
+    scale: 0.55;
+  }
+}
+
+.card {
+  display: inline-block;
+  width: 175px;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  transform: translatez(35px);
+  transition: transform 200ms ease-out;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 5px 5px 20px -5px rgba(0, 0, 0, 0.6);
+}
+
+.card:not(:last-child) {
+  margin-right: 30px;
+}
+
+.card-img {
+  position: relative;
+  height: 100%;
+}
+
+.card-bg {
+  bottom: -50px;
+  left: -50px;
+  position: absolute;
+  right: -50px;
+  top: -50px;
+  transform-origin: 50% 50%;
+  transform: translateZ(-50px);
+  z-index: 0;
+}
+
+.floating-isle .card-img {
+  top: 14px;
+  right: -10px;
+  height: 110%;
+}
+
+.floating-isle .card-bg {
+  background: url("https://hongdalin.blog/hd-demo/demos/react/scene-cards/images/isle-bg.jpg") center/cover no-repeat;
+}
+
+.lantern-night .card-img {
+  top: 25px;
+}
+
+.lantern-night .card-bg {
+  background: url("https://hongdalin.blog/hd-demo/demos/react/scene-cards/images/lantern-bg.jpg") center/cover no-repeat;
+}
+
+.night-train .card-img {
+  top: 5px;
+  left: -4px;
+  height: 110%;
+}
+
+.night-train .card-bg {
+  background: url("https://hongdalin.blog/hd-demo/demos/react/scene-cards/images/train-bg.jpg") center/cover no-repeat;
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+.card-title {
+  margin-bottom: 3px;
+  padding: 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
