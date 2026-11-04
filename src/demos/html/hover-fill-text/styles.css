@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap");
+
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+}
+
+.container {
+  margin: auto;
+  font-weight: bold;
+  font-size: max(1.5rem, 10vw);
+  line-height: 1.5;
+  text-align: center;
+  z-index: 2;
+}
+
+.container .text {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  /* The fill is clipped to the box; leave room for the glyphs' overhang. */
+  padding: 0 0.1em;
+  font-family: "Luckiest Guy";
+  background: linear-gradient(135deg, #0000 0, yellow 25%, yellow 75%, #0000) no-repeat 0/400%;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px black;
+  -webkit-background-clip: text;
+  cursor: pointer;
+  animation: perspective-reverse .5s ease-out forwards, bg-reverse .7s ease-out forwards;
+}
+
+.container .text:hover,
+.container .text:focus-visible {
+  animation: perspective-hover .5s ease-in forwards, bg-hover .7s ease-in forwards;
+}
+
+@keyframes perspective-hover {
+  0% {
+    transform: perspective(1600px) rotateX(0) rotateY(0) translateZ(0);
+    background-position: 200% 100%;
+  }
+
+  50% {
+    transform: perspective(1600px) rotateX(5deg) rotateY(5deg) translateZ(50px);
+  }
+
+  100% {
+    transform: perspective(1600px) rotateX(0) rotateY(0) translateZ(100px);
+    background-position: 50% 100%;
+  }
+}
+
+@keyframes bg-hover {
+  0% {
+    background-position: 200% 100%;
+  }
+
+  100% {
+    background-position: 50% 100%;
+  }
+}
+
+@keyframes perspective-reverse {
+  0% {
+    transform: perspective(1600px) rotateX(0) rotateY(0) translateZ(100px);
+    background-position: 50% 100%;
+  }
+
+  50% {
+    transform: perspective(1600px) rotateX(-5deg) rotateY(-5deg) translateZ(50px);
+  }
+
+  100% {
+    transform: perspective(1600px) rotateX(0) rotateY(0) translateZ(0);
+    background-position: -100% 100%;
+  }
+}
+
+@keyframes bg-reverse {
+  0% {
+    background-position: 50% 100%;
+  }
+
+  100% {
+    background-position: -100% 100%;
+  }
+}
+
+/* Keep the colour sweep, drop the tilt and lift. */
+@media (prefers-reduced-motion: reduce) {
+  .container .text {
+    animation: bg-reverse .7s ease-out forwards;
+  }
+
+  .container .text:hover,
+  .container .text:focus-visible {
+    animation: bg-hover .7s ease-in forwards;
+  }
+}
