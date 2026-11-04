@@ -13,9 +13,9 @@ until step 5.
 
 ## Step 1 — id
 
-> 这个 demo 叫什么?(kebab-case,会变成 URL,例如 `typing-text-effect`)
+> 这个 demo 叫什么?(kebab-case,会变成 URL,例如 `typing-text`)
 
-Skip if given as an argument (`/html typing-text-effect`). Check
+Skip if given as an argument (`/html typing-text`). Check
 `src/demos/html/<id>/` doesn't already exist.
 
 ## Step 2 — HTML
@@ -61,11 +61,11 @@ is injected, so the document must be complete and link its own assets:
 
 If the user gave only body markup, wrap it in a document. If they gave a full
 one, keep their `<head>` as-is — CDN `<link>` tags work normally, as the Google
-Fonts import in `typing-text-effect` shows. Only link the files that exist.
+Fonts import in `typing-text` shows. Only link the files that exist.
 
 ```json
 {
-  "title": "Typing Text Effect",
+  "title": "Typing Text",
   "description": "一句话说明效果",
   "entry": "index.html"
 }
