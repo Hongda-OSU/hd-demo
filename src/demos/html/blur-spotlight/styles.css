@@ -52,7 +52,7 @@ h1 {
   bottom: 0;
   left: 0;
   margin: calc(var(--blur) * -1);
-  background: url(https://hongdalin.blog/hd-demo/demos/html/spotlight-cursor/images/greenhouse.jpg) no-repeat center/cover;
+  background: url(https://hongdalin.blog/hd-demo/demos/html/blur-spotlight/images/greenhouse.jpg) no-repeat center/cover;
 }
 
 #bg {

@@ -1,6 +1,6 @@
 {
-  "title": "Spotlight Cursor",
+  "title": "Blur Spotlight",
   "description": "整张图被模糊,光标处像打了一束聚光灯,露出一圈清晰的画面,跟着鼠标移动",
-  "entry": "index.html",
-  "group": "Cursor Effect"
+  "category": "Image",
+  "entry": "index.html"
 }
