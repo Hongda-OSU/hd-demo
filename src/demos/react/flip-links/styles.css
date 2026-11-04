@@ -1,0 +1,46 @@
+/* What Tailwind's preflight used to provide */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+/* h-screen grid place-content-center gap-2 px-8 py-24 text-black */
+.reveal-links {
+  height: 100vh;
+  display: grid;
+  place-content: center;
+  gap: 0.5rem;
+  padding: 6rem 2rem;
+  color: #000;
+}
+
+/* relative block overflow-hidden whitespace-nowrap font-black uppercase;
+   the size grows with the width instead of jumping at breakpoints */
+.flip-link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: clamp(48px, 14vw, 128px);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+/* inline-block */
+.flip-letter {
+  display: inline-block;
+}
+
+/* absolute inset-0 */
+.flip-under {
+  position: absolute;
+  inset: 0;
+}

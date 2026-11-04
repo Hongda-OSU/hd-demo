@@ -1,0 +1,7 @@
+{
+  "title": "Flip Links",
+  "description": "framer-motion 翻字链接:悬停时字母依次向上翻走,下面一份同样的字从底部翻上来",
+  "entry": "App.jsx",
+  "dependencies": { "framer-motion": "14.9.0" },
+  "group": "Text Effect"
+}
