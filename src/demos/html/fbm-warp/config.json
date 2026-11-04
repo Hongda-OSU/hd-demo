@@ -1,0 +1,6 @@
+{
+  "title": "FBM Warp",
+  "description": "Shadertoy 风格着色器:多层 fbm 噪声层层扭曲,画出蓝橙交织、缓慢翻涌的流体纹理",
+  "entry": "index.html",
+  "group": "Shader Effect"
+}
