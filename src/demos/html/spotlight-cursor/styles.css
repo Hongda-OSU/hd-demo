@@ -1,0 +1,66 @@
+:root {
+  --x: 50%;
+  --y: 50%;
+  --blur: 0.7vmax;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+  overflow: hidden;
+  user-select: none;
+  /* A finger drag moves the spotlight instead of starting a pan */
+  touch-action: none;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  z-index: 1;
+}
+
+h1 {
+  font-size: max(10vw, 60px);
+  font-family: system-ui, sans-serif;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+#bg,
+#bg_mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: calc(var(--blur) * -1);
+  background: url(https://hongdalin.blog/hd-demo/demos/html/spotlight-cursor/images/greenhouse.jpg) no-repeat center/cover;
+}
+
+#bg {
+  filter: blur(var(--blur));
+}
+
+#bg_mask {
+  mask-image: radial-gradient(circle 50vmin at var(--x) var(--y),
+      black 20vmin,
+      transparent);
+}

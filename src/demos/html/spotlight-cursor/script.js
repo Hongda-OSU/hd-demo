@@ -1,0 +1,9 @@
+"use strict";
+
+const root = document.querySelector(":root");
+const spotlight = (e) => {
+  root.style.setProperty("--x", e.pageX + "px");
+  root.style.setProperty("--y", e.pageY + "px");
+};
+window.addEventListener("pointermove", spotlight);
+window.addEventListener("pointerdown", spotlight);
