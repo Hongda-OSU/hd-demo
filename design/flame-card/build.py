@@ -1,10 +1,10 @@
-# Regenerates the parallax-card demo's images from the scripts beside this file.
-# Run from anywhere: python3 design/parallax-card/build.py [out-dir]  (needs ImageMagick 7)
+# Regenerates the flame-card demo's images from the scripts beside this file.
+# Run from anywhere: python3 design/flame-card/build.py [out-dir]  (needs ImageMagick 7)
 import os, subprocess, sys, tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.normpath(
-    os.path.join(HERE, '..', '..', 'src', 'demos', 'html', 'parallax-card', 'images'))
+    os.path.join(HERE, '..', '..', 'src', 'demos', 'html', 'flame-card', 'images'))
 sys.path[:0] = [HERE]
 import fire, mage
 

@@ -1,5 +1,6 @@
 {
-  "title": "Parallax Card",
+  "title": "Flame Card",
   "description": "卡片和前景火焰跟随鼠标以不同幅度移动,形成视差纵深",
-  "entry": "index.html"
+  "entry": "index.html",
+  "group": "Parallax Card"
 }

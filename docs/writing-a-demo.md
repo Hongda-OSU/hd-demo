@@ -68,8 +68,8 @@ only takes text, so the build publishes them beside the site, at the same path
 under `demos/`:
 
 ```
-src/demos/html/parallax-card/images/mage.png
-https://hongdalin.blog/hd-demo/demos/html/parallax-card/images/mage.png
+src/demos/html/flame-card/images/mage.png
+https://hongdalin.blog/hd-demo/demos/html/flame-card/images/mage.png
 ```
 
 - **Load them by that full URL.** The sandbox runs on another origin, so a
