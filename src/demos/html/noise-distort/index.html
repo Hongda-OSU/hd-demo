@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noise Distort</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+<div id="bg"></div>
+
+<main>
+  <section>
+    <div>
+      <h1>SVG Noise filter</h1>
+      <h2>#4 fractalNoise</h2>
+    </div>
+  </section>
+</main>
+
+<svg aria-hidden="true">
+  <filter id='noise'>
+    <feTurbulence type='fractalNoise' baseFrequency='0.3' numOctaves='1' seed='10'>
+      <!--
+<animate attributeName="seed" dur="0.5s" values="1;5" repeatCount="indefinite" />
+
+      <animate attributeName="baseFrequency" dur="5s" values="-0.01;0.01;-0.01" repeatCount="indefinite" />
+-->
+    </feTurbulence>
+    <feDisplacementMap xChannelSelector="B" yChannelSelector="G" scale="50" in="SourceGraphic">
+      <animate attributeName="scale" dur="8s" values="50;1;1;50" repeatCount="indefinite" />
+    </feDisplacementMap>
+  </filter>
+</svg>
+  </body>
+</html>

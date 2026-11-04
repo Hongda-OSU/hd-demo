@@ -1,0 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  font-size: 3rem;
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  text-align: center;
+  overflow-x: hidden;
+  background: black;
+  color: #e2e2e2;
+}
+
+:root {
+  --angle: 0deg;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(https://hongdalin.blog/hd-demo/demos/html/noise-distort/images/lavender-field.jpg);
+  background-size: cover;
+  --origin: bottom center;
+  background-position: var(--origin);
+  transform-origin: center;
+  transform: scale3d(1.3, 1.3, 1);
+  filter: hue-rotate(var(--angle)) url(#noise);
+  animation: anim 30s linear infinite;
+}
+
+@keyframes anim {
+  0% {
+    --angle: 0deg;
+  }
+
+  100% {
+    --angle: 360deg;
+  }
+}
+
+svg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: -1;
+}
+
+main {
+  position: relative;
+  mix-blend-mode: color-dodge;
+}
+
+section {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sizes follow the width smoothly instead of dropping at one breakpoint */
+h1 {
+  font-size: clamp(36px, 9vw, 96px);
+}
+
+h2 {
+  font-size: clamp(14px, 3vw, 32px);
+}
+
+/* With reduced motion, show the painting still: no hue cycle, no warping.
+   The SVG <animate> keeps running, so the filter itself is dropped. */
+@media (prefers-reduced-motion: reduce) {
+  #bg {
+    animation: none;
+    filter: none;
+  }
+}
