@@ -1,0 +1,5 @@
+{
+  "title": "Vertical Loop Gallery",
+  "description": "三列黑白图片上下交错无限滚动,滚动页面时加速,悬停的图片恢复彩色",
+  "entry": "index.html"
+}
