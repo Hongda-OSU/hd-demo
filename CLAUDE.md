@@ -13,8 +13,9 @@ Served at `hongdalin.blog/hd-demo/`; `hongda-osu.github.io` redirects there.
   drifted out of `lib/` twice; put them back rather than let a third settle in.
 - `DemoView` measures its box and renders Sandpack. `DemoToolbar` owns the
   header controls. `EmbedView` is the bare preview behind `/embed/<id>`.
-- `lib/` holds `loadDemos` (glob), `sandpack` (assembly), `embed` (URLs),
-  `router`, and `narrow` (the single 768px breakpoint).
+- `lib/` holds `loadDemos` (glob, sidebar order, search), `sandpack`
+  (assembly), `embed` (URLs), `router`, and `narrow` (the single 768px
+  breakpoint).
 
 ## Adding a demo
 
@@ -47,8 +48,7 @@ This file stays within 120 lines and 600 words, counted after `@import`.
 
 ## Things that bite
 
-Sandpack fails silently in these ways, each looking like a bug in your own
-code.
+Sandpack fails silently in these ways, each looking like a bug in your code.
 
 - **One preset, both views.** `DemoView` and `EmbedView` must go through the
   same `<Sandpack>`. `EmbedView` once composed the parts by hand, and that
@@ -63,7 +63,7 @@ code.
   `sandpackSetup` restates it.
 - **`readOnly` rules out line numbers.** It makes Sandpack skip CodeMirror and
   render static highlighted markup; line numbers are a CodeMirror extension,
-  so `showLineNumbers` does nothing at all.
+  so `showLineNumbers` does nothing.
 - **Pane height is a Stitches token.** `$layout$height` is injected at runtime
   and outranks any stylesheet rule. `DemoView` measures and passes pixels.
 - **Below 768px the panes stack but aren't halved.** Sandpack's halving rule

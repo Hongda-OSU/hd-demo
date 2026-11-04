@@ -38,7 +38,8 @@ step 5.
 > 标题和一句话描述?(显示在左侧列表和顶部)
 
 Propose a sensible default from the id and what the code does, so the user can
-just confirm. Then write the files.
+just confirm. The sidebar search matches the description, so name the effect
+in the words a visitor would type (光标, 光晕, 滚动). Then write the files.
 
 ## What to write
 

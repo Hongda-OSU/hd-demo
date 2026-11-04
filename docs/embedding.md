@@ -27,6 +27,21 @@ doesn't get stuck on the old one once a second version appears.
 GitHub Pages sends no `X-Frame-Options`, so embedding works untouched — don't
 add a restrictive `frame-ancestors` policy or it breaks.
 
+## Sidebar
+
+The search box at the top filters the list by title, description and group
+name, so a Chinese description finds a demo as well as its English title.
+Groups holding a match open while searching.
+
+| Key      | Does                                       |
+| -------- | ------------------------------------------ |
+| `/`      | Jumps to the search, from anywhere on page |
+| `Enter`  | Opens the first match                      |
+| `Escape` | Clears the search                          |
+
+A group heading carries an arrow and a count of its demos. It opens by itself
+when it holds the demo on screen; a click overrides that either way.
+
 ## Header controls
 
 Icon buttons, top right. Hover any of them for a label.

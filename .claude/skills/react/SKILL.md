@@ -44,7 +44,9 @@ resolve exact versions with `npm view <pkg> version` — never write `latest`.
 Check `peerDependencies` and add them explicitly: `kokomi.js` declares
 `three: >=0.160` but does not install it.
 
-Also ask for title and description here, proposing defaults. Then write.
+Also ask for title and description here, proposing defaults. The sidebar
+search matches the description, so name the effect in the words a visitor
+would type. Then write.
 
 ## What to write
 

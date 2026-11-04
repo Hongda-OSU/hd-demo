@@ -19,7 +19,7 @@ plain demo.
 | Field               | Type     | Required | Meaning                                                             |
 | ------------------- | -------- | -------- | ------------------------------------------------------------------- |
 | `title`             | string   | yes      | Shown in the sidebar and the header                                 |
-| `description`       | string   | yes      | One line, shown beside the title on wide screens                    |
+| `description`       | string   | yes      | One line, beside the title on wide screens; the search matches it   |
 | `entry`             | string   | yes      | `App.jsx` for React, `index.html` for HTML                          |
 | `dependencies`      | object   | no       | npm package → **exact** version, never a range                      |
 | `externalResources` | string[] | no       | CDN URLs injected into the preview page — fonts, global stylesheets |
