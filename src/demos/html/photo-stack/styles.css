@@ -1,0 +1,54 @@
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: wheat;
+}
+
+#stack {
+  border: 6px solid #fff;
+  float: left;
+  /* Fill more of the screen, but keep the tilted corners inside it. */
+  height: min(450px, 70vh);
+  aspect-ratio: 2 / 3;
+
+  margin: 50px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#stack:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: #768590 url("https://hongdalin.blog/hd-demo/demos/html/photo-stack/images/harbor.jpg") center / cover no-repeat;
+  position: absolute;
+  z-index: -1;
+  top: 0px;
+  left: -15%;
+  transform: rotate(-14deg);
+  border: 6px solid #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#stack:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: #768590 url("https://hongdalin.blog/hd-demo/demos/html/photo-stack/images/window.jpg") center / cover no-repeat;
+  position: absolute;
+  z-index: -1;
+  top: 5px;
+  left: 12%;
+  transform: rotate(10deg);
+  border: 6px solid #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}

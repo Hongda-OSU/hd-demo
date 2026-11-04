@@ -1,0 +1,5 @@
+{
+  "title": "Photo Stack",
+  "description": "一张照片叠在两张歪斜的照片上,后两张由 ::before 和 ::after 画出,像随手放的一叠相片",
+  "entry": "index.html"
+}
