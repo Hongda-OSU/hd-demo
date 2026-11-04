@@ -1,0 +1,5 @@
+{
+  "title": "Plus Grid",
+  "description": "满屏加号网格,光标经过时附近的加号被吸过去并放大,移开后弹回原位",
+  "entry": "index.html"
+}
