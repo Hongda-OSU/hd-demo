@@ -1,0 +1,5 @@
+{
+  "title": "Glow Border",
+  "description": "渐变边框绕着方框旋转,外圈带模糊光晕,控制面板可切换彩虹和黑白配色、调转速和光晕",
+  "entry": "index.html"
+}

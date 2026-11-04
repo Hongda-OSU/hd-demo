@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set by the control panel */
+:root {
+  --colors: #0f0, #ff0, #0ff, #f0f, #0ff;
+  --speed: 4s;
+  --border: 4px;
+  --blur: 40px;
+  --glow: 0.75;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #fff;
+}
+
+@property --a {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.box {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  /* On the box, not the body, so the control panel keeps its size */
+  scale: 0.75;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(from var(--a), var(--colors));
+  border-radius: 20px;
+  animation: rotating var(--speed) linear infinite;
+}
+
+.box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(from var(--a), var(--colors));
+  border-radius: 20px;
+  animation: rotating var(--speed) linear infinite;
+  filter: blur(var(--blur));
+  opacity: var(--glow);
+}
+
+.box span{
+  position: absolute;
+  inset: var(--border);
+  background: #222;
+  border-radius: calc(20px - var(--border));
+  z-index: 1;
+}
+
+/* With reduced motion, the border holds still; the glow stays. */
+@media (prefers-reduced-motion: reduce) {
+  .box::before,
+  .box::after {
+    animation: none;
+  }
+}
+
+@keyframes rotating {
+  0% {
+    --a: 0deg;
+  }
+  100% {
+    --a: 360deg;
+  }
+}
