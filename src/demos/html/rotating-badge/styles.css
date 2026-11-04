@@ -1,0 +1,100 @@
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  scale: 1.6;
+}
+
+.logo {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background-image: url("https://hongdalin.blog/hd-demo/demos/html/rotating-badge/images/paper-plane.png");
+  background-color: white;
+  transform: rotate(15deg);
+  background-size: cover;
+  border-radius: 50%;
+  filter: brightness(1.5) contrast(1.5);
+  transition: scale 0.4s ease;
+}
+
+.text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation:
+    rotateText 10s linear infinite,
+    spinFaster 2.5s linear infinite paused;
+}
+
+.text p {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: consolas, ui-monospace, monospace;
+}
+
+.text span {
+  position: absolute;
+  left: 50%;
+  font-size: 1.2em;
+  transform-origin: 0 100px;
+}
+
+/* Hover adds a faster spin on top of the slow one. It runs on the separate
+   rotate property, so the ring speeds up and slows down without jumping. */
+.circle:hover .text,
+.circle:focus-visible .text {
+  animation-play-state: running;
+}
+
+.circle:hover .logo,
+.circle:focus-visible .logo {
+  scale: 1.1;
+}
+
+/* With reduced motion, the ring holds still; hover only grows the logo. */
+@media (prefers-reduced-motion: reduce) {
+  .text {
+    animation: none;
+  }
+}
+
+@keyframes rotateText {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes spinFaster {
+  from {
+    rotate: 360deg;
+  }
+
+  to {
+    rotate: 0deg;
+  }
+}

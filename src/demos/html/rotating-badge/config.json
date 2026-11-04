@@ -1,0 +1,6 @@
+{
+  "title": "Rotating Badge",
+  "description": "一圈文字绕着圆形 logo 慢慢旋转,鼠标移上去转得更快,logo 微微放大",
+  "category": "Text",
+  "entry": "index.html"
+}
