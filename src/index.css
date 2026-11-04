@@ -43,3 +43,20 @@ body {
 #demo-search:focus {
   outline: none;
 }
+
+/* Hide the sidebar's scrollbar but keep it scrolling; the inline
+   scrollbar-width covers browsers without this pseudo-element. */
+.sidebar-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-resizer {
+  transition: background 0.15s ease;
+}
+
+.sidebar-resizer:hover,
+.sidebar-resizer:focus-visible,
+.sidebar-resizer[data-dragging] {
+  outline: none;
+  background: var(--handle-hover);
+}

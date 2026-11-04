@@ -7,7 +7,10 @@ import EmbedView from './components/EmbedView'
 import Sidebar from './components/Sidebar'
 
 const SIDEBAR_WIDTH = 240
+const MIN_WIDTH = 200
+const MAX_WIDTH = 480
 const COLLAPSED_KEY = 'hd-demo:sidebar-collapsed'
+const WIDTH_KEY = 'hd-demo:sidebar-width'
 
 /**
  * Sidebar state, remembered — but collapsed by default on a phone, where 240px
@@ -27,11 +30,28 @@ function useSidebarCollapsed() {
   return [collapsed, setCollapsed] as const
 }
 
+/** Sidebar width on a wide screen, set by dragging its edge, and remembered. */
+function useSidebarWidth() {
+  const clamp = (w: number) => Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, Math.round(w)))
+  const [width, setWidth] = useState(() => {
+    const stored = Number(localStorage.getItem(WIDTH_KEY))
+    return stored ? clamp(stored) : SIDEBAR_WIDTH
+  })
+
+  useEffect(() => {
+    localStorage.setItem(WIDTH_KEY, String(width))
+  }, [width])
+
+  return [width, (w: number) => setWidth(clamp(w))] as const
+}
+
 export default function App() {
   const projects = useMemo(() => loadDemos(), [])
   const sections = useMemo(() => sidebarSections(projects), [projects])
   const { route, navigate, replace } = useRoute()
   const [collapsed, setCollapsed] = useSidebarCollapsed()
+  const [width, setWidth] = useSidebarWidth()
+  const [dragging, setDragging] = useState(false)
   const narrow = useNarrow()
 
   const isEmbed = route.segments[0] === 'embed'
@@ -50,22 +70,33 @@ export default function App() {
   if (isEmbed) return <EmbedView project={project} version={version} />
 
   const drawerOpen = narrow && !collapsed
+  // The drawer keeps its fixed width; only the docked sidebar resizes.
+  const sidebarWidth = narrow ? SIDEBAR_WIDTH : width
 
   return (
     <div
-      style={{ display: 'flex', height: '100dvh', background: 'var(--bg)', color: 'var(--text)' }}
+      style={{
+        display: 'flex',
+        height: '100dvh',
+        background: 'var(--bg)',
+        color: 'var(--text)',
+        ...(dragging ? ({ cursor: 'col-resize', userSelect: 'none' } as const) : null),
+      }}
     >
       {/* Narrow: the sidebar floats over the content as a drawer rather than
           taking 240 of 390px from the demo itself. */}
       <aside
+        className="sidebar-scroll"
         style={{
-          width: collapsed ? 0 : SIDEBAR_WIDTH,
+          width: collapsed ? 0 : sidebarWidth,
           flexShrink: 0,
           background: 'var(--bg-raised)',
           borderRight: collapsed ? 'none' : '1px solid var(--border)',
           overflowX: 'hidden',
           overflowY: 'auto',
-          transition: 'width 0.2s ease',
+          scrollbarWidth: 'none',
+          // Follow the pointer directly while dragging.
+          transition: dragging ? 'none' : 'width 0.2s ease',
           ...(drawerOpen
             ? ({
                 position: 'fixed',
@@ -77,7 +108,7 @@ export default function App() {
             : null),
         }}
       >
-        <div style={{ width: SIDEBAR_WIDTH }}>
+        <div style={{ width: sidebarWidth }}>
           <Sidebar
             sections={sections}
             activeId={project?.id}
@@ -89,6 +120,42 @@ export default function App() {
           />
         </div>
       </aside>
+
+      {/* The window-splitter pattern: drag it, or focus it and use the arrows. */}
+      {!narrow && !collapsed && (
+        <div
+          role="separator"
+          aria-orientation="vertical"
+          aria-label="Resize demo list"
+          aria-valuenow={width}
+          aria-valuemin={MIN_WIDTH}
+          aria-valuemax={MAX_WIDTH}
+          tabIndex={0}
+          className="sidebar-resizer"
+          data-dragging={dragging || undefined}
+          onPointerDown={(e) => {
+            e.currentTarget.setPointerCapture(e.pointerId)
+            setDragging(true)
+          }}
+          onPointerMove={(e) => {
+            if (dragging) setWidth(e.clientX)
+          }}
+          onPointerUp={() => setDragging(false)}
+          onPointerCancel={() => setDragging(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowLeft') setWidth(width - 16)
+            if (e.key === 'ArrowRight') setWidth(width + 16)
+          }}
+          style={{
+            width: 7,
+            margin: '0 -3px',
+            flexShrink: 0,
+            zIndex: 10,
+            cursor: 'col-resize',
+            touchAction: 'none',
+          }}
+        />
+      )}
 
       {drawerOpen && (
         <div
@@ -113,6 +180,8 @@ export default function App() {
           flexDirection: 'column',
           overflow: 'hidden',
           padding: narrow ? 0 : 12,
+          // The preview iframe would swallow the drag once the pointer crosses it.
+          pointerEvents: dragging ? 'none' : undefined,
         }}
       >
         {project ? (

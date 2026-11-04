@@ -43,6 +43,10 @@ title. Sections with no match drop out, and groups holding one open.
 A group heading carries an arrow and a count of its demos. It opens by itself
 when it holds the demo on screen; a click overrides that either way.
 
+On a wide screen the sidebar's right edge resizes it, from 200 to 480px: drag
+it, or focus it and use the arrow keys. The width is remembered. Its
+scrollbar is hidden; the list still scrolls.
+
 ## Header controls
 
 Icon buttons, top right. Hover any of them for a label.
