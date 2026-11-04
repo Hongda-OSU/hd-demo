@@ -1,0 +1,5 @@
+{
+  "title": "Halftone Photo",
+  "description": "只用 CSS 滤镜和混合模式,把照片变成旋转网点印出来的黑白插画",
+  "entry": "index.html"
+}
