@@ -1,0 +1,21 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  transform: scale(0.7);
+}
+
+#card {
+  /* Fill more of the screen, but leave room below for the reflection. */
+  height: min(450px, 60vh);
+  aspect-ratio: 2 / 3;
+  background: url("https://hongdalin.blog/hd-demo/demos/html/reflection-card/images/moon-castle.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 0 8px white;
+  -webkit-box-reflect: below 15px linear-gradient(transparent, transparent, #0005);
+}
