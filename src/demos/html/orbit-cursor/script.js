@@ -4,7 +4,7 @@ textEle.innerHTML = textEle.textContent.replace(/\S/g, '<span>$&</span>');
 
 const spanEle = document.querySelectorAll('span');
 spanEle.forEach((ele, index) => {
-  // Spread the letters evenly, so any name closes the circle.
+  // Spread the letters evenly, so any text closes the circle.
   ele.style.transform = `rotate(${index * (360 / spanEle.length)}deg)`
 });
 
