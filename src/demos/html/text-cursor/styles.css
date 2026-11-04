@@ -1,0 +1,26 @@
+body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.cursor {
+  visibility: hidden;
+}
+
+.cursor.is-visible {
+  visibility: visible;
+}
+
+.text {
+  position: absolute;
+  pointer-events: none;
+  color: #fff;
+  font-size: 10em;
+  -webkit-text-stroke: 2px #000;
+  font-weight: 800;
+  text-transform: uppercase;
+  transform: translate(-50%, -50%);
+}

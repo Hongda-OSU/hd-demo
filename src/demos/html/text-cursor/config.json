@@ -1,0 +1,6 @@
+{
+  "title": "Text Cursor",
+  "description": "大字叠成 8 层跟着光标走,每层晚一点到,拖出一串描边残影",
+  "entry": "index.html",
+  "group": "Cursor Effect"
+}
