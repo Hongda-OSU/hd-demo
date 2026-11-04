@@ -1,0 +1,33 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: #000;
+  font:
+    clamp(3em, 18vw, 14em) Arial Black,
+    sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.text {
+  white-space: nowrap;
+  filter: url(#filter);
+  outline: none;
+
+  &::selection {
+    background: rgba(0, 0, 0, 0.15);
+  }
+}
+
+svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+}

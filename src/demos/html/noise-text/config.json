@@ -1,0 +1,6 @@
+{
+  "title": "Noise Text",
+  "description": "两层 SVG 分形噪声叠加饱和成彩色,每秒换好几次种子,填满可直接编辑的文字",
+  "category": "Text",
+  "entry": "index.html"
+}
