@@ -1,0 +1,6 @@
+{
+  "title": "Text Marquee",
+  "description": "深色页面上一条白底黑字的大标语横幅,无限横向滚动,跑马灯效果",
+  "entry": "App.jsx",
+  "group": "Marquee"
+}
