@@ -1,0 +1,75 @@
+@layer animation {
+  :root {
+    --easing: cubic-bezier(0.31, 1.28, 0.32, 1.275);
+    --timing: 1s;
+  }
+
+  @keyframes slideOutUp {
+    100% {
+      opacity: 0;
+      translate: 0 -100% 0;
+    }
+  }
+
+  @keyframes slideInUp {
+    0% {
+      opacity: 0;
+      translate: 0 100% 0;
+    }
+  }
+
+  .word {
+    view-transition-name: word-swap;
+  }
+
+  ::view-transition-new(word-swap),
+  ::view-transition-old(word-swap) {
+    animation-timing-function: var(--easing);
+    animation-duration: var(--timing);
+  }
+
+  /* Leaving */
+  ::view-transition-old(word-swap) {
+    animation-name: slideOutUp;
+  }
+
+  /* Entering */
+  ::view-transition-new(word-swap) {
+    animation-name: slideInUp;
+  }
+
+  /* With reduced motion, the words still change, just without the slide */
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(word-swap),
+    ::view-transition-new(word-swap) {
+      animation: none;
+    }
+  }
+}
+
+@layer base {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #fff;
+    color: #000;
+    font-family: Arial, sans-serif;
+  }
+
+  .word {
+    font-size: clamp(24px, 7vw, 64px);
+    font-weight: bold;
+    margin: 0 20px;
+  }
+}
+
+@layer reset {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}

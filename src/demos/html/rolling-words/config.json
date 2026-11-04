@@ -1,0 +1,6 @@
+{
+  "title": "Rolling Words",
+  "description": "View Transitions API 轮播英文搜索提示词:每 1.5 秒换一个,旧词向上滑出,新词从下方弹入",
+  "entry": "index.html",
+  "group": "Text Effect"
+}
