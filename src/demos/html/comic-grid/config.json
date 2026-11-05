@@ -1,0 +1,6 @@
+{
+  "title": "Comic Grid",
+  "description": "九张图拼成一页漫画分镜,网格被 clip-path 切成不规则的斜边碎片,悬停时图片在碎片里放大",
+  "category": "Image",
+  "entry": "index.html"
+}
