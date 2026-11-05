@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* A finger dragging across the page steers the eyes instead of scrolling. */
+  touch-action: none;
+}
+
+/* Every measurement is a share of --size (the face was 300px), so the whole
+   face scales together. */
+.face {
+  --size: clamp(240px, 45vmin, 420px);
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: #ffcd00;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 10px 10px 100px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    &::before {
+      top: calc(var(--size) * 0.7);
+      width: calc(var(--size) * 0.5);
+      height: calc(var(--size) * 0.0667);
+      background: #b57700;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      transition: 0.5s;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--size) * 0.6);
+    width: calc(var(--size) * 0.5);
+    height: calc(var(--size) * 0.2333);
+    background: #b57700;
+    border-bottom-left-radius: calc(var(--size) * 0.2333);
+    border-bottom-right-radius: calc(var(--size) * 0.2333);
+    transition: 0.5s;
+  }
+
+  .eyes {
+    position: relative;
+    top: calc(var(--size) * -0.1333);
+    display: flex;
+
+    .eye {
+      position: relative;
+      width: calc(var(--size) * 0.2667);
+      height: calc(var(--size) * 0.2667);
+      background: #fff;
+      margin: 0 calc(var(--size) * 0.05);
+      border-radius: 50%;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: calc(var(--size) * 0.0833);
+        transform: translate(-50%, -50%);
+        width: calc(var(--size) * 0.1333);
+        height: calc(var(--size) * 0.1333);
+        background: #333;
+        border-radius: 50%;
+      }
+    }
+  }
+}
