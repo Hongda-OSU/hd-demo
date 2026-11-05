@@ -1,0 +1,6 @@
+{
+  "title": "Profile Cards",
+  "description": "三张并排的个人卡片,悬停的那张展开变宽,工作台图淡出露出作品图,引语从下方滑上来",
+  "category": "Card",
+  "entry": "index.html"
+}
