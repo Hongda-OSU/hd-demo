@@ -1,0 +1,6 @@
+{
+  "title": "Glitch Text",
+  "description": "点一下文字,1 秒内爆发故障风闪烁:四层文字随机错位裁切,红蓝重影偏移,然后复原",
+  "category": "Text",
+  "entry": "index.html"
+}
