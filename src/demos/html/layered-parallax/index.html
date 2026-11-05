@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layered Parallax</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js"></script>
+<div id="hero">
+  <div id="sun" class="rellax" data-rellax-speed="-7">
+    <img src="https://hongdalin.blog/hd-demo/demos/html/layered-parallax/images/sun.png" alt="" />
+  </div>
+  <div id="skyline" class="rellax" data-rellax-speed="-5"></div>
+  <div id="title" class="rellax" data-rellax-speed="-3">
+    <h1>Neon City <span>ネオンシティ</span></h1>
+  </div>
+  <div id="hoverbike" class="rellax" data-rellax-speed="-1">
+    <img src="https://hongdalin.blog/hd-demo/demos/html/layered-parallax/images/hoverbike.png" alt="A hover motorcycle with no rider" />
+  </div>
+  <div id="drones" class="rellax" data-rellax-speed="1">
+    <img src="https://hongdalin.blog/hd-demo/demos/html/layered-parallax/images/drones.png" alt="Delivery drones" />
+  </div>
+</div>
+<div id="content">
+  <div class="container">
+    <h2>Neon City <span>ネオンシティ</span></h2>
+    <hr class="redline" />
+    <p>
+      Neon City never quite goes dark. When the sun sinks into the bay, its
+      towers light up floor by floor, and the billboards along the old freight
+      line flicker on in pink and cyan. By midnight the whole skyline hums like
+      a single, enormous sign.
+    </p>
+    <p>
+      Down at street level, the city runs on hover traffic. Riderless bikes
+      ferry parcels between districts on fixed routes, gliding a metre above
+      the wet asphalt, while swarms of delivery drones weave through the gaps
+      between rooftops overhead.
+    </p>
+    <p>
+      This page is built from five flat layers: a sun, a skyline, a title, a
+      bike and a cluster of drones. Each one scrolls at its own speed, the far
+      ones slower and the near ones faster, so a stack of flat pictures reads
+      as a scene with real depth.
+    </p>
+    <p>
+      Scroll back up to watch the layers slide apart again. Nothing here is a
+      3D model; the illusion comes entirely from the difference in speed.
+    </p>
+  </div>
+</div>
+<script src="script.js"></script>
+  </body>
+</html>
