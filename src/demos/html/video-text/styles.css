@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height rather than height, so a wall taller than the screen
+     scrolls instead of losing its top lines to the centring. */
+  min-height: 100vh;
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+p {
+  font-size: clamp(15px, 2vw, 24px);
+  text-align: justify;
+  font-weight: bold;
+  font-family: sans-serif;
+  max-width: 1200px;
+  margin: 0;
+  color: transparent;
+  background: url(https://hongdalin.blog/hd-demo/demos/html/video-text/images/plasma.webp) center/cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  word-spacing: 0px;
+  letter-spacing: -1px;
+}
+
+/* With reduced motion, the text holds one still frame of the plasma. */
+@media (prefers-reduced-motion: reduce) {
+  p {
+    background-image: url(https://hongdalin.blog/hd-demo/demos/html/video-text/images/plasma-still.webp);
+  }
+}

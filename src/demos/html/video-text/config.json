@@ -1,0 +1,6 @@
+{
+  "title": "Video Text",
+  "description": "background-clip: text 把一段流动的彩色等离子动画裁进整面文字里,文字像一扇扇窗户",
+  "category": "Text",
+  "entry": "index.html"
+}
