@@ -1,0 +1,230 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+}
+
+:root {
+  font-size: 16px;
+  --color-text: #fff;
+  --color-bg: #000;
+  --color-link: #fff;
+  --color-link-hover: #ef5d36;
+  --color-title: #fff;
+  --perspective: 0px;
+  --grid-width: 100%;
+  --grid-max-width: 300px;
+  --grid-item-ratio: 1.2;
+  --grid-item-radius: 4px;
+  --grid-gap: 2rem;
+  --grid-columns: 2;
+  --grid-columns-full: 7;
+  --grid-rows-full: 5;
+  --grid-item-translate: 0px;
+  --grid-item-height: auto;
+}
+
+body {
+  margin: 0;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-family: system-ui, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  /* clip, not hidden: hidden still lets the page be scrolled sideways to
+     reach the cards that fly out past the edges. */
+  overflow-x: clip;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80vh 0 100vh 0;
+  position: relative;
+}
+
+body::after {
+  content: "";
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    var(--color-bg),
+    transparent,
+    var(--color-bg)
+  );
+  background-repeat: no-repeat;
+  background-size: 100%;
+  z-index: 99999;
+}
+
+.grid {
+  /*padding: 0 100vh 0 0;*/
+  width: var(--grid-width);
+  max-width: var(--grid-max-width);
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  position: relative;
+  display: grid;
+  gap: var(--grid-gap);
+  margin-bottom: 10vh;
+}
+
+.grid-item {
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  perspective: 800px;
+  will-change: transform, opacity;
+}
+
+.grid-item > .grid-item-img,
+.grid-item-imgwrap {
+  width: 100%;
+  aspect-ratio: var(--grid-item-ratio);
+  height: var(--grid-item-height);
+  border-radius: var(--grid-item-radius);
+  transform-style: preserve-3d;
+}
+
+.grid-item-imgwrap {
+  position: relative;
+  overflow: hidden;
+  will-change: filter;
+}
+
+
+.mark {
+  position: fixed;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100vw;
+  left: 0;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.mark-inner {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  position: relative;
+  /*transform: translateX(100vw);*/
+  will-change: transform;
+}
+
+.mark-inner span {
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+@keyframes scroll-hor {
+  0% {
+    transform: translateX(100vw);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes appear-even {
+  0% {
+    /*opacity: 1;*/
+    transform: translate(40%, 100%) translate3d(0px, 0px, 300px) rotate(-5deg)
+      rotateX(70deg) skew(20deg, 0deg);
+    filter: blur(7px) brightness(0%) contrast(400%);
+  }
+
+  30% {
+    filter: blur(0px) brightness(100%) contrast(100%);
+  }
+
+  50% {
+    filter: blur(0px) brightness(100%) contrast(100%);
+    transform: translate(0%, 100%) translate3d(0px, 0px, 0px) rotate(0deg)
+      rotateX(0deg) skew(0deg, 0deg);
+  }
+
+  100% {
+    /*opacity: 0;*/
+    filter: blur(4px) brightness(0%) contrast(500%);
+    transform: translate(20%, 0%) translate3d(0px, 0px, 300px) rotate(1deg)
+      rotateX(-50deg) skew(-10deg, 0deg);
+  }
+}
+
+@keyframes appear {
+  0% {
+    transform: translate(-40%, 100%) translate3d(0px, 0px, 300px) rotate(5deg)
+      rotateX(70deg) skew(-20deg, 0deg);
+    filter: blur(7px) brightness(0%) contrast(400%);
+  }
+
+  30% {
+    filter: blur(0px) brightness(100%) contrast(100%);
+  }
+
+  50% {
+    filter: blur(0px) brightness(100%) contrast(100%);
+    transform: translate(0%, 100%) translate3d(0px, 0px, 0px) rotate(0deg)
+      rotateX(0deg) skew(0deg, 0deg);
+  }
+
+  100% {
+    filter: blur(4px) brightness(0%) contrast(500%);
+    transform: translate(-20%, 0%) translate3d(0px, 0px, 300px) rotate(-1deg)
+      rotateX(-50deg) skew(10deg, 0deg);
+  }
+}
+
+.grid-item-img {
+  background-size: cover;
+  background-position: 50% 20%;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.grid-item-imgwrap > .grid-item-img {
+  position: absolute;
+  top: calc(-1 * var(--grid-item-translate));
+  left: calc(-1 * var(--grid-item-translate));
+  height: calc(100% + var(--grid-item-translate) * 2);
+  width: calc(100% + var(--grid-item-translate) * 2);
+}
+
+/* Only where scroll-driven animations exist. Elsewhere the keyframes would
+   play once on load and stop on their last frame, leaving every card black.
+   With reduced motion the grid and the names stay still. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .grid-item:nth-child(odd) .grid-item-imgwrap {
+      animation: appear 1s linear both;
+      view-timeline: --subjectReveal block;
+      animation-timeline: --subjectReveal;
+      view-timeline-inset: -60% 0;
+    }
+
+    .grid-item:nth-child(even) .grid-item-imgwrap {
+      animation: appear-even 1s linear both;
+      view-timeline: --subjectReveal block;
+      animation-timeline: --subjectReveal;
+      view-timeline-inset: -60% 0;
+    }
+
+    .mark-inner {
+      animation: scroll-hor auto linear;
+      animation-timeline: scroll(root);
+    }
+  }
+}
