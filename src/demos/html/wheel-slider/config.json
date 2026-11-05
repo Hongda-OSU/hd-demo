@@ -1,0 +1,6 @@
+{
+  "title": "Wheel Slider",
+  "description": "滚轮一格换一张全屏图,下一张从底部或顶部擦入盖住当前这张,两张图错开视差,首尾循环",
+  "category": "Scroll",
+  "entry": "index.html"
+}

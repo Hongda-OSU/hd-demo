@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow: hidden;
+  /* No rubber-band bounce, and no scroll handed on to a page around it. */
+  overscroll-behavior: none;
+}
+
+.scroll-container {
+  height: 100vh;
+  position: relative;
+  /* Swipes turn the page here, so the browser must not scroll or zoom. */
+  touch-action: none;
+}
+
+.item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: 1s ease-in-out;
+}
+
+.item img {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  transition: 1s;
+  /* The scenes are pixel art; keep their pixels square when scaled up. */
+  image-rendering: pixelated;
+}
+
+.item.prev,
+.item.next {
+  z-index: 1;
+  height: 0;
+}
+
+.item.next {
+  bottom: 0;
+}
+
+.item.next img {
+  bottom: 0;
+  transform: translateY(10%);
+}
+
+.item.prev img {
+  transform: translateY(-10%);
+}
+
+.scroll-up .item.prev {
+  height: 100%;
+}
+
+.scroll-down .item.next {
+  height: 100%;
+}
+
+.scroll-up .item.cur img {
+  transform: translateY(10%);
+}
+
+.scroll-up .item.prev img {
+  transform: translateY(0);
+}
+
+.scroll-down .item.cur img {
+  transform: translateY(-10%);
+}
+
+.scroll-down .item.next img {
+  transform: translateY(0);
+}
