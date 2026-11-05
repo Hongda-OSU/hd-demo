@@ -26,6 +26,13 @@ body,
   background: var(--bg);
 }
 
+/* The shell never scrolls as a page. A demo that leaves a wheel uncancelled
+   hands the scroll up here, and macOS would rubber-band the whole site. */
+html,
+body {
+  overscroll-behavior: none;
+}
+
 body {
   font-family:
     system-ui,
