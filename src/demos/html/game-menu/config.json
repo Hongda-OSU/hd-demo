@@ -1,0 +1,6 @@
+{
+  "title": "Game Menu",
+  "description": "游戏风格的 3D 霓虹菜单,待机轻轻摇摆,跟随指针倾斜,选中项弹出分层,方向键上下切换",
+  "category": "UI",
+  "entry": "index.html"
+}

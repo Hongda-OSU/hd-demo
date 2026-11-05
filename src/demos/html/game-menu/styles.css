@@ -1,0 +1,205 @@
+.three-d-button-set {
+  --distance: 1px;
+  --theme: hsl(180 100% 50%);
+  --theme-bg: hsl(180 100% 71% / 25%);
+  --theme-bg-hover: hsl(180 100% 50% / 40%);
+  --theme-text: white;
+  --theme-shadow: hsl(180 100% 10% / 25%);
+
+  --_btn-bg: var(--theme-bg);
+  --_btn-bg-hover: var(--theme-bg-hover);
+  --_btn-text: var(--theme-text);
+  --_btn-text-shadow: var(--theme-shadow);
+  --_bounce-ease: cubic-bezier(0.5, 1.75, 0.75, 1.25);
+
+  @media (dynamic-range: high) {
+    @supports (color: color(display-p3 0 0 0)) {
+      --theme: color(display-p3 0 1 1);
+    }
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 40vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, #111, #000);
+}
+
+/* A neon grid floor running toward the viewer. The grid slides one cell
+   and loops on transform alone, so it never repaints. */
+.floor {
+  position: fixed;
+  left: -50%;
+  right: -50%;
+  bottom: -20vh;
+  height: 80vh;
+  overflow: hidden;
+  transform: rotateX(72deg);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, black 10%, transparent 75%);
+}
+
+.floor-grid {
+  position: absolute;
+  inset: -60px 0 0;
+  background-image:
+    linear-gradient(hsl(180 100% 50% / 35%) 2px, transparent 2px),
+    linear-gradient(90deg, hsl(180 100% 50% / 35%) 2px, transparent 2px);
+  background-size: 60px 60px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .floor-grid {
+    animation: floor-scroll 1.5s linear infinite;
+  }
+}
+
+@keyframes floor-scroll {
+  to {
+    transform: translateY(60px);
+  }
+}
+
+.three-d-button-set {
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2.5vh;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform: rotateX(var(--x, 0deg)) rotateY(var(--y, 0deg));
+}
+
+.three-d-button-set>li {
+  display: flex;
+  position: relative;
+  transform-style: preserve-3d;
+
+  /* The game-menu cursor, beside whichever button is selected. */
+  &::before {
+    content: "▸";
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    translate: -0.4em -50%;
+    color: var(--theme);
+    font-size: clamp(1.2rem, 5vmin, 2.25rem);
+    text-shadow: 0 0 12px var(--theme);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:has(.is-selected)::before {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .three-d-button-set>li:has(.is-selected)::before {
+    animation: nudge 0.8s ease-in-out infinite;
+  }
+}
+
+@keyframes nudge {
+  50% {
+    translate: -0.15em -50%;
+  }
+}
+
+.three-d-button-set button {
+  appearance: none;
+  outline: none;
+  border: none;
+  width: 100%;
+  background-color: var(--_btn-bg);
+  color: var(--_btn-text);
+  text-shadow: 0 1px 1px var(--_btn-text-shadow);
+  font-size: clamp(1.2rem, 5vmin, 2.25rem);
+  font-family: system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: pointer;
+  padding-block: 0.75ch;
+  padding-inline: 2ch;
+  border-radius: 5px 20px;
+  transition: transform 0.3s ease, background-color 0.5s ease;
+  transform: translateZ(var(--distance));
+  transform-style: preserve-3d;
+
+  &::after,
+  &::before {
+    content: "";
+    opacity: 0.8;
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--theme);
+    border-radius: 5px 20px;
+  }
+
+  &::before {
+    border-width: 3px;
+    box-shadow: 0 0 25px var(--theme), inset 0 0 25px var(--theme);
+  }
+
+  &::after {
+    transform: translateZ(calc(var(--distance) / 3));
+  }
+
+  &::before {
+    transform: translateZ(calc(var(--distance) / 3 * -1));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 0.2s ease, background-color 0.5s ease;
+
+    &::before,
+    &::after {
+      transition: transform 0.1s ease-out;
+    }
+
+    &::after {
+      transition-duration: 0.5s;
+    }
+
+    &::before {
+      transition-duration: 0.3s;
+    }
+  }
+
+  /* outline stays off: the selected button lifts, lights up and gets the
+     ▸ cursor, which marks focus more plainly than a ring would. */
+  &:is(.is-selected, :focus-visible):not(:active) {
+    --distance: 15px;
+    background-color: var(--_btn-bg-hover);
+    text-shadow: 0 0 12px var(--theme);
+
+    @media (prefers-reduced-motion: no-preference) {
+      --distance: 3vmax;
+      transition-timing-function: var(--_bounce-ease);
+      transition-duration: 0.4s;
+
+      &::after {
+        transition-duration: 0.5s;
+      }
+
+      &::before {
+        transition-duration: 0.3s;
+      }
+    }
+  }
+}
