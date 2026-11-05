@@ -1,0 +1,6 @@
+{
+  "title": "Wave Gallery",
+  "description": "Three.js 把画廊图片换成 WebGL 平面,顶点着色器让它们像水面一样持续起伏,配合 Lenis 平滑滚动",
+  "category": "Image",
+  "entry": "index.html"
+}

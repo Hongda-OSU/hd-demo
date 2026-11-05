@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  background: #0d1120;
+  color: #e9ecf5;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Drawn over the page but see-through, so it must not swallow clicks or
+   text selection meant for what lies beneath. */
+#sketch {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.gallery-container {
+  margin: 6vw;
+}
+
+.gallery-header {
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+}
+
+.gallery-header h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.gallery-header p {
+  margin: 1rem 0 0;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  color: #8f98b3;
+}
+
+.gallery {
+  display: grid;
+  /* min() lets a single column shrink below 20rem on the narrowest phones. */
+  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+  gap: 5rem 2.5rem;
+}
+
+.gallery .gallery-item .gallery-item-img {
+  width: 100%;
+  display: block;
+  opacity: 0;
+}
+
+.gallery .gallery-item .gallery-item-text {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8f98b3;
+}
