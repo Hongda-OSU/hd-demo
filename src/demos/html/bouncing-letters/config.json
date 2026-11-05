@@ -1,0 +1,6 @@
+{
+  "title": "Bouncing Letters",
+  "description": "字母一个接一个跳起再落下,连成一道波浪,下方用 -webkit-box-reflect 映出倒影",
+  "category": "Text",
+  "entry": "index.html"
+}

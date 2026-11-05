@@ -1,0 +1,57 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  background: #000;
+}
+
+.wavy {
+  /* The number of letters, spaces included. */
+  --n: 18;
+  position: relative;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  font-size: clamp(1.25rem, 5.5vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  /* One line, or the reflection would only mirror the last one. */
+  white-space: nowrap;
+  -webkit-box-reflect: below 10px
+    linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+}
+
+.wavy span {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  /* A letter starts every 0.1s, so the cycle lasts as long as it takes the
+     wave to cross every letter; any shorter and a second wave starts before
+     the first has finished. */
+  animation: animate calc(var(--n) * 0.1s) ease-in-out infinite;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+/* Each letter rises for 0.2s and lands 0.2s later, as in the original 1s
+   cycle, here written as shares of the 1.8s one: 0.2s is 11%, 0.4s is 22%.
+   The rise is in em so it scales with the text. */
+@keyframes animate {
+  0% {
+    transform: translateY(0);
+  }
+  11% {
+    transform: translateY(-0.75em);
+  }
+  22%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* With reduced motion, the letters stay put. */
+@media (prefers-reduced-motion: reduce) {
+  .wavy span {
+    animation: none;
+  }
+}
