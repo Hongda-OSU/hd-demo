@@ -36,7 +36,7 @@ section .glass {
   top: 0;
   left: 0;
   pointer-events: none;
-  width: clamp(200px, 32vw, 380px);
+  width: clamp(260px, 50vw, 640px);
   aspect-ratio: 3 / 2;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.35);
