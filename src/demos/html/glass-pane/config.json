@@ -1,0 +1,7 @@
+{
+  "title": "Glass Pane",
+  "description": "一块磨砂玻璃跟着光标缓缓滑动,玻璃下的画面被模糊,其余部分保持清晰,和 Blur Spotlight 正好相反",
+  "category": "Image",
+  "entry": "index.html",
+  "group": "Blur Lens"
+}

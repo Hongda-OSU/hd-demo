@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url(https://hongdalin.blog/hd-demo/demos/html/glass-pane/images/arcade-street.jpg);
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  /* The picture is pixel art; keep its pixels square when scaled. */
+  image-rendering: pixelated;
+  overflow: hidden;
+  /* A finger dragging across the picture moves the glass, not the page. */
+  touch-action: none;
+}
+
+section h2 {
+  font-family: system-ui, sans-serif;
+  font-size: clamp(2.5rem, 9vw, 5em);
+  text-align: center;
+  color: #fff;
+  pointer-events: none;
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Moved with transform from the top-left corner by script.js. */
+section .glass {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  width: clamp(200px, 32vw, 380px);
+  aspect-ratio: 3 / 2;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  /* A faint sheen across the frosted glass, brighter at the top-left. */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04));
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4) brightness(1.08);
+  backdrop-filter: blur(10px) saturate(1.4) brightness(1.08);
+  will-change: transform;
+}

@@ -2,5 +2,6 @@
   "title": "Blur Spotlight",
   "description": "整张图被模糊,光标处像打了一束聚光灯,露出一圈清晰的画面,跟着鼠标移动",
   "category": "Image",
-  "entry": "index.html"
+  "entry": "index.html",
+  "group": "Blur Lens"
 }
