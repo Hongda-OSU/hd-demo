@@ -1,0 +1,6 @@
+{
+  "title": "Star Tunnel",
+  "description": "两个内壁铺满星点的 CSS 3D 立方体交替向前推进,像在星空隧道里高速穿行,整体缓慢变换色相",
+  "category": "Background",
+  "entry": "index.html"
+}
