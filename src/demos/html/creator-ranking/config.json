@@ -1,0 +1,6 @@
+{
+  "title": "Creator Ranking",
+  "description": "创作者排行榜,鼠标移到某一行时其它行模糊变淡,这一行放大浮起,右侧滑入排名数字",
+  "category": "UI",
+  "entry": "index.html"
+}
