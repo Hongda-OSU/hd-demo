@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fluted Glass</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+<figure role="img" aria-label="A red and white lighthouse at sunset, seen through fluted glass">
+  <div></div>
+</figure>
+
+<svg
+  aria-hidden="true"
+  version="1.1"
+  width="400"
+  height="600"
+  xmlns="http://www.w3.org/2000/svg"
+  color-interpolation-filters="sRGB"
+>
+  <filter
+    id="fluted2"
+    primitiveUnits="objectBoundingBox"
+    x="0"
+    y="0"
+    width="100%"
+    height="100%"
+  >
+    <feImage
+      x="0"
+      y="0"
+      result="image_0"
+      crossorigin="anonymous"
+      href="https://hongdalin.blog/hd-demo/demos/html/fluted-glass/images/lighthouse.jpg"
+      preserveAspectRatio="none"
+      width="1"
+      height="1"
+    />
+
+    <feDisplacementMap
+      scale=".08"
+      xChannelSelector="R"
+      yChannelSelector="G"
+      in="image_0"
+      in2="SourceGraphic"
+      result="displacement_0"
+    />
+  </filter>
+</svg>
+  </body>
+</html>

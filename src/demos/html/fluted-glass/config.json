@@ -1,0 +1,6 @@
+{
+  "title": "Fluted Glass",
+  "description": "一条重复的彩色渐变条纹做 feDisplacementMap 的置换图,把画面扭曲成隔着竖纹玻璃看的样子,条纹缓慢横移泛起光泽",
+  "category": "Image",
+  "entry": "index.html"
+}
