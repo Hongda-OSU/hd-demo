@@ -33,12 +33,13 @@ body {
   height: 100vh;
   color: #ffc861;
   font-family: system-ui, sans-serif;
-  font-size: clamp(1.75rem, 7vw, 6rem);
+  font-size: clamp(1.25rem, 5vw, 4.5rem);
   font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 150%;
   perspective: 400px;
   text-align: justify;
+  hyphens: auto;
 }
 
 /* The crawl tilts about its top edge, which sits on the bottom of the
@@ -48,7 +49,7 @@ body {
 .crawl {
   position: absolute;
   top: 100%;
-  width: min(92vw, 14em);
+  width: min(92vw, 18em);
   transform-origin: 50% 0;
   animation: crawl 50s linear infinite;
 }
