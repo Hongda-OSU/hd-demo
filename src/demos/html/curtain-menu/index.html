@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Curtain Menu</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  </head>
+  <body>
+<div class="wrapper">
+  <header class="topbar">
+    <span class="brand">Studio Kiln</span>
+  </header>
+  <button id="toggle" class="hamburger" type="button" aria-label="Open menu" aria-controls="nav" aria-expanded="false">
+    <span class="hamburger-line"></span>
+  </button>
+  <nav id="nav" class="nav" aria-hidden="true">
+    <ul id="menu" class="menu">
+      <li><a href="#"><span class="num">01</span>Work</a></li>
+      <li><a href="#"><span class="num">02</span>Studio</a></li>
+      <li><a href="#"><span class="num">03</span>Journal</a></li>
+      <li><a href="#"><span class="num">04</span>Contact</a></li>
+    </ul>
+  </nav>
+  <main id="main" class="main">
+    <p class="eyebrow">Ceramics studio · Since 2014</p>
+    <h1>Slow objects for everyday tables.</h1>
+    <p class="lede">
+      We throw, trim and glaze every piece by hand in a small workshop by the
+      river: cups that fit the palm, bowls that stack, plates that age well.
+    </p>
+    <p class="hint">Open the menu, top right.</p>
+  </main>
+  <footer id="footer" class="footer">
+    <span>Studio Kiln</span>
+    <span>Open Thursday to Sunday</span>
+  </footer>
+  <svg class="overlay" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <path id="overlayPath" class="overlay-path" vector-effect="non-scaling-stroke" d="M 0 100 V 100 Q 50 100 100 100 V 100 z" />
+  </svg>
+</div>
+<script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "title": "Curtain Menu",
+  "description": "点汉堡按钮,一层带弧形边缘的 SVG 幕布从上往下盖住页面再揭开,露出全屏菜单,关闭时反向收回,基于 GSAP",
+  "category": "UI",
+  "entry": "index.html"
+}
