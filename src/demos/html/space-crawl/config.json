@@ -1,0 +1,6 @@
+{
+  "title": "Space Crawl",
+  "description": "文字沿透视斜面向星空深处滚动,越远越小并淡出,循环播放的片头字幕",
+  "category": "Text",
+  "entry": "index.html"
+}
